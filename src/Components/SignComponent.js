@@ -2,9 +2,8 @@ import React, { Component }  from 'react';
 import {connect} from 'react-redux';
 import logo from '../logo.svg';
 
+import ButtonWhite from "./ButtonWhite";
 import InComponent from "./InComponent";
-import UpComponent from "./UpComponent";
-import EmailVerificationComponent from "./EmailVerificationComponent";
 
 const SignComponent = ({}) => {
     return(
@@ -17,12 +16,7 @@ const SignComponent = ({}) => {
                     </div>
                 </div>
                 <hr/>
-                <div className={'button'}>
-                    <img src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>
-                    <div >
-                        Sign in
-                    </div>
-                </div>
+                <ButtonWhite/>
                 <div className={'button'}>
                     <img src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>
                     <div >

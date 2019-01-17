@@ -12,7 +12,7 @@
   background-color: deepskyblue;
   background-image: url(./images/gandex.ru-18509_6e37e56a65bafc94570830cc553a664f.jpg);
   border: 1px solid deepskyblue;
-  /*display: flex;*/
+  /*opacity: 0.5;*/
 }
 
 .Header{
@@ -48,13 +48,12 @@ hr{
 
 .Component{
   width: 80%;
+  background: beige;
 }
 
 .inComponent{
-  /*outline: 1px solid red;*/
-  height: 100vh;
-  /*padding: 5%;*/
-  background: beige;
+  height: 90vh;
+  margin: 5%;
 }
 
 .firstLine{
@@ -62,4 +61,54 @@ hr{
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.signWindow{
+  width: 80%;
+  height: 27vh;
+  margin-top: 10%;
+  padding-top: 15%;
+  background-color: #ffffff;
+  border-radius: 1vh;
+  position: relative;
+}
+
+.signHeader{
+  background-color: #CD00CD;
+  border-radius: 0.3vh;
+  width: 86%;
+  position: absolute;
+  top: -2vh;
+  left: 7%;
+  color: #ffffff;
+  height: 10vh;
+  line-height: 0.7;
+}
+
+.signBody{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 10%;
+}
+
+.signUpLink{
+  color: #CD00CD;
+}
+
+.footerIn{
+  position: absolute;
+  left: 25%;
+  bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 75%;
+}
+
+.footerInlinks{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 200px;
 }
