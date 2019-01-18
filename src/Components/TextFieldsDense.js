@@ -14,7 +14,7 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 400,
+        width: 300,
     },
     dense: {
         marginTop: 19,
@@ -28,15 +28,20 @@ class TextFieldsDense extends React.Component {
         });
     };
 
+    ReadEmail = (event) => {
+        this.props.ReadEmail(event.target.value);
+    };
+
     render() {
         const { classes } = this.props;
 
         return (
             <TextField
                 id="standard-dense"
-                label="Dense"
+                label="Email address"
                 className={classNames(classes.textField, classes.dense)}
                 margin="dense"
+                onChange={(event)=>this.ReadEmail(event)}
             />
         );
     }

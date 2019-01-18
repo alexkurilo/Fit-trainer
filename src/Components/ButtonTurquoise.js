@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-// We can inject some CSS into the DOM.
 const styles = {
     root: {
         background: '#00C5CD',
@@ -17,22 +16,27 @@ const styles = {
     },
 };
 
-function ButtonWhite(props) {
+function ButtonTurquoise(props) {
     const { classes, children, className, ...other } = props;
 
+    const HandleClick = () => {
+        console.log("click");
+    };
+
     return (
-        <Button className={classNames(classes.root, className)} {...other}>
+        <Button className={classNames(classes.root, className)} {...other}
+                onClick = {(event)=>HandleClick(event)}>
             <img src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>
-            {"Sign in"}
+            {props.label}
         </Button>
     );
 }
 
-ButtonWhite.propTypes = {
+ButtonTurquoise.propTypes = {
     children: PropTypes.node,
     classes: PropTypes.object.isRequired,
     className: PropTypes.string,
 };
 
-export default withStyles(styles)(ButtonWhite);
+export default withStyles(styles)(ButtonTurquoise);
 

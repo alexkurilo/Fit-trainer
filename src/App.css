@@ -12,7 +12,8 @@
   background-color: deepskyblue;
   background-image: url(./images/gandex.ru-18509_6e37e56a65bafc94570830cc553a664f.jpg);
   border: 1px solid deepskyblue;
-  /*opacity: 0.5;*/
+  display: flex;
+  flex-direction: column;
 }
 
 .Header{
@@ -111,4 +112,8 @@ hr{
   flex-direction: row;
   justify-content: space-between;
   width: 200px;
+}
+
+.link{
+  text-decoration: none;
 }

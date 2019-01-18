@@ -1,11 +1,24 @@
 import React, { Component }  from 'react';
 import {connect} from 'react-redux';
 import logo from '../logo.svg';
+import { Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import ButtonWhite from "./ButtonWhite";
+import ButtonTurquoise from "./ButtonTurquoise";
 import InComponent from "./InComponent";
+import UpComponent from "./UpComponent";
 
 const SignComponent = ({}) => {
+    const handleSignIn = (event) => {
+        console.log("sign in ");
+        console.log(event);
+    };
+
+    const handleSignUp = (event) => {
+        console.log("sign up ");
+        console.log(event);
+    };
+
     return(
         <div className={'myPage'}>
             <div className={'SideBar'}>
@@ -16,19 +29,22 @@ const SignComponent = ({}) => {
                     </div>
                 </div>
                 <hr/>
-                <ButtonWhite/>
-                <div className={'button'}>
-                    <img src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>
-                    <div >
-                        Sign up
-                    </div>
-                </div>
+                <Link   to="/sign in"
+                        className={"link"}>
+                    <ButtonTurquoise label = {"Sign in"}/>
+                </Link>
+                <Link   to="/sign up"
+                        className={"link"}>
+                    <ButtonTurquoise label = {"Sign up"}/>
+                </Link>
+                
             </div>
             <div className={"Component"}>
-                <InComponent/>
-                {/*<InComponent/>
-                <UpComponent/>
-                <EmailVerificationComponent/>*/}
+                {/* <InComponent/> */}
+                <Switch>
+                    <Route path="/sign in" component = {InComponent} />
+                    <Route path="/sign up" component = {UpComponent} />
+                </Switch>
             </div>
         </div>
     );

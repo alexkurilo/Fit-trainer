@@ -5,7 +5,23 @@ import TextFieldsDense from './TextFieldsDense';
 import TextFieldsPassword from './TextFieldsPassword';
 import PinkButton from './ButtonPink';
 
-const InComponent = ({}) => {
+const InComponent = ({currntUserSignInData, onEntryRequest}) => {
+    let signInRequestData = {};
+
+    const ReadEmail = (value) => {
+        signInRequestData.email = value;
+    };
+
+    const ReadPass = (value) => {
+        signInRequestData.pass = value;
+    };
+
+    const HandleSignInButton = () => {
+        console.log(signInRequestData);
+        onEntryRequest(signInRequestData);
+        if (signInRequestData.email == undefined || signInRequestData.pass == undefined || signInRequestData.repeatPass == undefined) alert("Please fill all the fields");
+        else onEntryRequest(signInRequestData);
+    };
 
     return(
         <div className={'inComponent'}>
@@ -21,9 +37,13 @@ const InComponent = ({}) => {
                     <section>Please, enteryour email and password</section>
                 </div>
                 <div className={"signBody"}>
-                    <TextFieldsDense/>
-                    <TextFieldsPassword/>
-                    <PinkButton/>
+                    <TextFieldsDense ReadEmail={ReadEmail}/>
+                    <TextFieldsPassword ReadInput={ReadPass}
+                                        plaseholder ={"Password"}
+                    />
+                    <PinkButton  HandleSignInButton={HandleSignInButton}
+                                label={"SIGN IN"}
+                    />
                     <div className={"signUpLink"}>first time user? sign-up</div>
                 </div>
             </div>
@@ -47,10 +67,13 @@ const InComponent = ({}) => {
 
 export default connect(
     (state) => ({
-
+        currntUserSignInData: state.currntUserSignInData,
     }),
 
     dispatch => ({
-
+        onEntryRequest: (data) => {
+            const payload = data;
+            dispatch ({type: 'ENTRY_REQUEST', payload})
+        },
     })
 )(InComponent);
