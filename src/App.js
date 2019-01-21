@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import SignComponent from "./Components/SignComponent";
 import InComponent from "./Components/InComponent";
+import UsersWorcoutComponent from "./Components/UsersWorcoutComponent";
 import './App.css';
 
 class App extends Component {
@@ -12,9 +13,8 @@ class App extends Component {
         return (
             <div className="App">
                 <Switch>
-                    <Route path = '/' component = {SignComponent} >
-                        {/* <Route path="/sign in" component = {InComponent} /> */}
-                    </Route>
+                    {/* <Route exact path = '/' component = {SignComponent} /> */}
+                    <Route path = '/' component = {UsersWorcoutComponent} />
                 </Switch>
             </div>
         );

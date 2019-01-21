@@ -18,8 +18,8 @@ const InComponent = ({currntUserSignInData, onEntryRequest}) => {
 
     const HandleSignInButton = () => {
         console.log(signInRequestData);
-        onEntryRequest(signInRequestData);
-        if (signInRequestData.email == undefined || signInRequestData.pass == undefined || signInRequestData.repeatPass == undefined) alert("Please fill all the fields");
+        //onEntryRequest(signInRequestData);
+        if (signInRequestData.email === undefined || signInRequestData.pass === undefined || signInRequestData.repeatPass === undefined) alert("Please fill all the fields");
         else onEntryRequest(signInRequestData);
     };
 
@@ -57,7 +57,7 @@ const InComponent = ({currntUserSignInData, onEntryRequest}) => {
                     </div>
                 </div>
                 <div>
-                    2019 Alex Kurilo, made with love for a better web
+                    &#169; 2019 Alex Kurilo, made with love for a better web
                 </div>
             </div>
         </div>

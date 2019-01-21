@@ -14,47 +14,42 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 300,
+        width: 200,
     },
     dense: {
         marginTop: 19,
     }
 });
 
-class TextFieldsPassword extends React.Component {
+class TextFieldsStandart extends React.Component {
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
         });
     };
 
-    ReadPass = (event) => {
-        this.props.ReadInput(event.target.value);
+    ReadField = (event) => {
+        this.props.ReadField(event.target.value);
     };
-
-    // ReadRepeatPass = (event) => {
-    //     this.props.ReadRepeatPass(event.target.value);
-    // };
 
     render() {
         const { classes } = this.props;
 
         return (
-            <TextField 
-                id="standard-password-input"
-                label= {this.props.placeholder}
-                className={classes.textField}
-                type="password"
-                autoComplete="current-password"
-                margin="normal"
-                onChange={(event)=>this.ReadPass(event)}
+            <TextField
+                id="standard-name"
+                label={this.props.placeholder}
+                className={classNames(classes.textField)}
+                margin="dense"
+                onChange={(event)=>this.ReadField(event)}
+                value = {this.props.value}
             />
         );
     }
 }
 
-TextFieldsPassword.propTypes = {
+TextFieldsStandart.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TextFieldsPassword);
+export default withStyles(styles)(TextFieldsStandart);

@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 
 const styles = {
     root: {
-        background: '#00C5CD',
+        background: '#FFD700',
         borderRadius: 3,
         border: 0,
         color: 'white',
@@ -16,7 +16,7 @@ const styles = {
     },
 };
 
-function ButtonTurquoise(props) {
+function ButtonYellow(props) {
     const { classes, children, className, ...other } = props;
 
     const HandleClick = () => {
@@ -32,11 +32,10 @@ function ButtonTurquoise(props) {
     );
 }
 
-ButtonTurquoise.propTypes = {
+ButtonYellow.propTypes = {
     children: PropTypes.node,
     classes: PropTypes.object.isRequired,
     className: PropTypes.string,
 };
 
-export default withStyles(styles)(ButtonTurquoise);
-
+export default withStyles(styles)(ButtonYellow);

@@ -24,7 +24,7 @@ const UpComponent = ({onEntryRequestUp}) => {
         console.log(signInRequestData.email);
         console.log(signInRequestData.pass);
         console.log(signInRequestData.repeatPass);
-        if (signInRequestData.email == undefined || signInRequestData.pass == undefined || signInRequestData.repeatPass == undefined) alert("Please fill all the fields");
+        if (signInRequestData.email === undefined || signInRequestData.pass === undefined || signInRequestData.repeatPass === undefined) alert("Please fill all the fields");
         else if (signInRequestData.repeatPass !== signInRequestData.pass) alert("Passwords do not match");
         else onEntryRequestUp(signInRequestData);
     };
@@ -66,7 +66,7 @@ const UpComponent = ({onEntryRequestUp}) => {
                     </div>
                 </div>
                 <div>
-                    2019 Alex Kurilo, made with love for a better web
+                    &#169; 2019 Alex Kurilo, made with love for a better web
                 </div>
             </div>
         </div>

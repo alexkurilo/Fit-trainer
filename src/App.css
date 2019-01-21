@@ -117,3 +117,8 @@ hr{
 .link{
   text-decoration: none;
 }
+
+.stringData{
+  display: flex;
+  flex-direction: row;
+}
