@@ -39,7 +39,7 @@ const currencies = [
   }
 ];
 
-class TextFieldsSelectNative extends React.Component {
+class TextFieldsSelectExercisesNative extends React.Component {
   state = {
       name: 'Cat in the Hat',
       age: '',
@@ -57,17 +57,20 @@ class TextFieldsSelectNative extends React.Component {
     this.props.onReadField(event.target.value);
   };
 
+  ReadIndex = (index) => {
+      this.props.readIndex(index);
+  }
 
   render() {
     const { classes } = this.props;
-
+    //console.log(this.props.data);
+    this.ReadIndex(this.props.value);
     return (
         <TextField
             id="filled-select-currency-native"
             select
             label={this.props.placeholder}
             className={classes.textField}
-            //autoComplete = {"on"}
             defaultValue={this.props.value}
             value={this.props.value}
             onChange={(event)=>this.ReadField(event)}
@@ -80,9 +83,10 @@ class TextFieldsSelectNative extends React.Component {
             margin="normal"
             variant="filled"
         >
-            {currencies.map(option => (
-              <option key={option.value} value={option.value}>
-                  { option.value }
+            {this.props.data.map((item, index) => (
+              <option key={index} value={item.exercisesName}>
+                  { item.exercisesName }
+                  {}
               </option>
             ))}
         </TextField>
@@ -90,8 +94,8 @@ class TextFieldsSelectNative extends React.Component {
   }
 }
 
-TextFieldsSelectNative.propTypes = {
+TextFieldsSelectExercisesNative.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TextFieldsSelectNative);
+export default withStyles(styles)(TextFieldsSelectExercisesNative);

@@ -55,7 +55,7 @@ const EditExerciseComponent = ({props, onEditExercisesRequestTop, onEditExercise
                 <div className={"signBody"}>
                     {
                         currentEditExercisesRequest.map((item, index) => {
-                            console.log({...{["item"+index]:item}})
+                            //console.log({...{["item"+index]:item}})
                             return <div key={index}
                                     className={"stringData"}>
                                 <TextFieldsStandart     onReadField={(event) => ReadEditExerciseName(event, index)}
