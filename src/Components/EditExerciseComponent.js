@@ -7,25 +7,39 @@ import PinkButton from './ButtonPink';
 import ButtonTurquoise from "./ButtonTurquoise";
 import ButtonYellow from "./ButtonYellow";
 
-const EditExerciseComponent = ({onEditExercisesRequestTop, onEditExercisesRequestBottom, onEditExercisesRequestDelete,
-    currentEditExercisesRequest}) => {
+const EditExerciseComponent = ({props, onEditExercisesRequestTop, onEditExercisesRequestBottom, onEditExercisesRequestDelete,
+    onChangeEditExerciseName, onChangeEditMeasurementType, currentEditExercisesRequest }) => {
+        
     const HandleCreateExerciseButton = () => {
+        console.log(currentEditExercisesRequest);
+        
+    };
+
+    const ReadEditExerciseName = (value, index) => {
+        let data =[value, index];
+        onChangeEditExerciseName(data);
+    };
+    
+    const ReadEditMeasurementType = (value, index) => {
+        let data =[value, index];
+        onChangeEditMeasurementType(data);
+    };
+
+    const onClickTop = (index) => {
+        onEditExercisesRequestTop(index);
         console.log(currentEditExercisesRequest);
     };
 
-    const onClickTop = (event, index) => {
-        onEditExercisesRequestTop(index);
-    };
-
-    const onClickBottom = (event, index) => {
+    const onClickBottom = (index) => {
         onEditExercisesRequestBottom(index);
+        console.log(currentEditExercisesRequest);
     };
 
-    const onClickDelete = (event, index) => {
+    const onClickDelete = (index) => {
         onEditExercisesRequestDelete(index);
-        console.log("click");
+        //console.log(index);
     };
-
+ console.log({...{currentEditExercisesRequest}});
     return(
         <div className={'inComponent'}>
             <div className={'firstLine'}>
@@ -40,26 +54,31 @@ const EditExerciseComponent = ({onEditExercisesRequestTop, onEditExercisesReques
                 </div>
                 <div className={"signBody"}>
                     {
-                        currentEditExercisesRequest.map((item, index) => 
-                            <div    key={index} 
+                        currentEditExercisesRequest.map((item, index) => {
+                            console.log({...{["item"+index]:item}})
+                            return <div key={index}
                                     className={"stringData"}>
-                                <TextFieldsStandart     value = {item.exercisesName}
+                                <TextFieldsStandart     onReadField={(event) => ReadEditExerciseName(event, index)}
+                                                        value = {item.exercisesName}
                                                         placeholder={"Exercise Name"}
                                 /> 
-                                <TextFieldsSelectNative value = {item.measurementType}
+                                <TextFieldsSelectNative onReadField={(event) => ReadEditMeasurementType(event, index)}
+                                                        value = {item.measurementType}
                                                         placeholder = {"Measurement Type"}
                                 />
-                                <ButtonTurquoise    onClick = {(event) => onClickTop(event, index)}
+                                <ButtonTurquoise    index = {index}
+                                                    onHandleClick = {onClickTop}
                                                     imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
                                 />
-                                
-                                <ButtonTurquoise    onClick = {(event) => onClickBottom(event, index)}
+                                <ButtonTurquoise    index = {index}
+                                                    onHandleClick = {onClickBottom}
                                                     imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
                                 />
-                                <ButtonYellow   onClick={(event) => onClickDelete(event, index)}
+                                <ButtonYellow   index = {index}
+                                                onHandleClick={onClickDelete}
                                                 imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
                                 />
-                            </div>
+                            </div>}
                         )
                     }
                     <PinkButton  HandleSignInButton={HandleCreateExerciseButton}
@@ -100,6 +119,14 @@ export default connect(
     }),
 
     dispatch => ({
+        onChangeEditExerciseName: (data) => {
+            const payload = data;
+            dispatch ({type: 'CHANGE_EDIT_EXERCISE_NAME', payload})
+        },
+        onChangeEditMeasurementType: (data) => {
+            const payload = data;
+            dispatch ({type: 'CHANGE_EDIT_MEASUREMENT_TYPE', payload})
+        },
         onEditExercisesRequestTop: (data) => {
             const payload = data;
             dispatch ({type: 'EDIT_EXERCISES_REQUEST_TOP', payload})

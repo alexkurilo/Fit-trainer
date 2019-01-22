@@ -12,7 +12,7 @@ const styles = {
         color: 'white',
         height: 30,
         padding: '0 30px',
-        margin: '30px 0'
+        margin: '30px 5px'
     },
 };
 
@@ -20,12 +20,12 @@ function ButtonYellow(props) {
     const { classes, children, className, ...other } = props;
 
     const HandleClick = () => {
-        console.log("click");
+        if (props.index !== undefined)props.onHandleClick(props.index);
     };
 
     return (
         <Button className={classNames(classes.root, className)} {...other}
-                onClick = {(event)=>HandleClick(event)}>
+                onClick = {()=>HandleClick()}>
             <img src={props.imgSrc}/>
             {props.label}
         </Button>

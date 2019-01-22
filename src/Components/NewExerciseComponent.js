@@ -9,17 +9,14 @@ const NewExerciseComponent = ({onNewExerciseRequest, currentNewExerciseRequest})
     let newExerciseRequestData = {};
 
     const ReadExerciseName = (value) => {
-        console.log(value);
         newExerciseRequestData.ExerciseName = value;
     };
 
     const ReadMeasurementType = (value) => {
-        console.log(value);
         newExerciseRequestData.MeasurementType = value;
     };
 
     const HandleCreateExerciseButton = () => {
-        console.log("click");
         onNewExerciseRequest(newExerciseRequestData);
     };
 
@@ -37,10 +34,10 @@ const NewExerciseComponent = ({onNewExerciseRequest, currentNewExerciseRequest})
                     <section>Please, add a new exercise name and measurement measurement type</section>
                 </div>
                 <div className={"signBody"}>
-                    <TextFieldsStandart ReadField={ReadExerciseName}
+                    <TextFieldsStandart onReadField={ReadExerciseName}
                                         placeholder={"Exercise Name"}
                     />
-                    <TextFieldsSelectNative ReadField={ReadMeasurementType}
+                    <TextFieldsSelectNative onReadField={ReadMeasurementType}
                                             placeholder ={"Measurement Type"}
                     />
                     <PinkButton  HandleSignInButton={HandleCreateExerciseButton}

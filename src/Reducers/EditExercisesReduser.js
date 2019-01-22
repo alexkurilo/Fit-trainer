@@ -1,33 +1,37 @@
 const initialState = [
     {
         exercisesName: "Exersise #1",
-        measurementType: "kg"
+        measurementType: "kilogramms"
     },
     {
         exercisesName: "Exersise #2",
-        measurementType: "m"
+        measurementType: "meters"
     },
     {
         exercisesName: "Exersise #3",
-        measurementType: "min"
+        measurementType: "minutes"
     },
     {
         exercisesName: "Exersise #4",
-        measurementType: "kg"
+        measurementType: "kilogramms"
     },
     {
         exercisesName: "Exersise #5",
-        measurementType: "m"
-    },
-    {
-        exercisesName: "Exersise #6",
-        measurementType: "min"
+        measurementType: "meters"
     }
 ];
 
 export default function currentEditExercisesRequest (state = initialState, action){
     let target;
     switch (action.type) {
+        case "CHANGE_EDIT_EXERCISE_NAME":
+            state[action.payload[1]].exercisesName = action.payload[0];
+            return [...state];
+
+        case 'CHANGE_EDIT_MEASUREMENT_TYPE':
+            state[action.payload[1]].measurementType = action.payload[0];
+            return [...state];
+
         case "EDIT_EXERCISES_REQUEST_TOP":
             if (action.payload > 0){
                 target = state[action.payload];
@@ -37,11 +41,13 @@ export default function currentEditExercisesRequest (state = initialState, actio
             return  [...state];
 
         case "EDIT_EXERCISES_REQUEST_BOTTOM":
+            //console.log(action.payload);
             if (action.payload < state.length-1){
                 target = state[action.payload];
                 state[action.payload]=state[action.payload+1];
                 state[action.payload+1]=target;
             }
+            console.log(state);
             return  [...state];
 
         case "EDIT_EXERCISES_REQUEST_DELETE":
@@ -50,6 +56,6 @@ export default function currentEditExercisesRequest (state = initialState, actio
             return  [...state];
 
         default:
-            return state;
+            return [...state];
     }
 }

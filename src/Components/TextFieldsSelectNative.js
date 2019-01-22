@@ -40,19 +40,23 @@ const currencies = [
 ];
 
 class TextFieldsSelectNative extends React.Component {
-    state = {
-        name: 'Cat in the Hat',
-        age: '',
-        multiline: 'Controlled',
-        currency: 'EUR',
-    };
+  state = {
+      name: 'Cat in the Hat',
+      age: '',
+      multiline: 'Controlled',
+      currency: 'EUR',
+  };
 
-    handleChange = name => event => {
-        this.props.ReadField(event.target.value);
-        this.setState({
-            [name]: event.target.value,
-        });
-    };
+  handleChange = name => event => {
+      this.setState({
+          [name]: event.target.value,
+      });
+  };
+
+  ReadField = (event) => {
+    this.props.onReadField(event.target.value);
+  };
+
 
   render() {
     const { classes } = this.props;
@@ -63,8 +67,10 @@ class TextFieldsSelectNative extends React.Component {
             select
             label={this.props.placeholder}
             className={classes.textField}
-            //value={this.props.value !== undefined ? this.props.value : option.value }
-            onChange={this.handleChange('currency')}
+            //autoComplete = {"on"}
+            defaultValue={this.props.value}
+            value={this.props.value}
+            onChange={(event)=>this.ReadField(event)}
             SelectProps={{
                 native: true,
                 MenuProps: {
@@ -75,9 +81,11 @@ class TextFieldsSelectNative extends React.Component {
             variant="filled"
         >
             {currencies.map(option => (
-            <option key={option.value} value={option.value}>
-                {/* {this.props.value !== undefined ? this.props.value : option.value} */option.value}
-            </option>
+              <option key={option.value} value={option.value}>
+                  {/* {this.props.value !== undefined ? this.props.value : option.value}  */}
+                  {/* { this.props.value } */}
+                  { option.value }
+              </option>
             ))}
         </TextField>
     );
