@@ -6,54 +6,63 @@ import TextFieldsSelectExercisesNative from './TextFieldSelectExercisesNative';
 import PinkButton from './ButtonPink';
 import ButtonTurquoise from "./ButtonTurquoise";
 import ButtonYellow from "./ButtonYellow";
+//import SimpleSelect from "./Select";
 
 const EditWorkautComponent = ({currentExercises, currentWorkoutWithDate }) => {
     let namePage = "Edit workout";
     let selectedDate = [20190101, 20190102, 20190103];
+    let target = currentWorkoutWithDate[2].exercises;
     
-    const HandleCreateWorkoutButton = () => {
-        console.log(currentNewWorkoutRequest);
-        
+    const HandleApdateWorkoutButton = () => {
+        console.log(currentWorkoutWithDate);
     };
 
-    
+    console.log(target);
+
     const mapComponent = () => {
-        if (currentNewWorkoutRequest.length !== 0){
+        
+        if (target.length !== 0){
+            console.log([...target]);
             return (
-                currentNewWorkoutRequest.map((item, index) => {
+                target.map((item, index) => {
                     //console.log({...{["item"+index]:item}})
                     return (
                         <div key={index}
-                                    className={"stringData"}>
+                            className={"stringData"}>
                             <TextFieldsSelectExercisesNative 
-                                                    onReadField={(event) => ReadNewExerciseName(event, index)}
+                                                    //onReadField={(event) => ReadNewExerciseName(event, index)}
                                                     value = {item.exercisesName}
                                                     placeholder={"Exercise Name"}
-                                                    data = {currentEditExercisesRequest}
+                                                    data = {currentExercises}
                             /> 
+                            {/* <SimpleSelect
+                                            value = {item.exercisesName}
+                                            placeholder={"Exercise Name"}
+                                            data = {currentExercises}
+                            /> */}
                             <TextFieldsStandartNumber     
-                                                    onReadField={(event) => ReadRepeatsField(event, index)}
+                                                    //onReadField={(event) => ReadRepeatsField(event, index)}
                                                     value = {item.repeats}
                                                     placeholder={"Repeats"}
                             /> 
                             <TextFieldsStandartNumber     
-                                                    onReadField={(event) => ReadMeasurementField(event, index)}
+                                                    //onReadField={(event) => ReadMeasurementField(event, index)}
                                                     value = {item.measurements}
                                                     placeholder={"Measurement"}
                             />
-                            {
-                                showMeasurementType(item.length > 1 ? currentEditExercisesRequest[item.number].measurementType : item)
-                            }
+                            <div className={"measurementType"}>
+                                {item.measurementType}
+                            </div>
                             <ButtonTurquoise    index = {index}
-                                                onHandleClick = {onClickTop}
+                                                //onHandleClick = {onClickTop}
                                                 imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
                             />
                             <ButtonTurquoise    index = {index}
-                                                onHandleClick = {onClickBottom}
+                                                //onHandleClick = {onClickBottom}
                                                 imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
                             />
                             <ButtonYellow   index = {index}
-                                            onHandleClick={onClickDelete}
+                                            //onHandleClick={onClickDelete}
                                             imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
                             />
                         </div>
@@ -65,9 +74,9 @@ const EditWorkautComponent = ({currentExercises, currentWorkoutWithDate }) => {
     };
 
     const visibleButtonCreateWorkout = () => {
-        if (currentNewWorkoutRequest.length !== 0){
+        if (target.length !== 0){
             return (
-                <PinkButton  HandleSignInButton={HandleCreateWorkoutButton}
+                <PinkButton  HandleSignInButton={HandleApdateWorkoutButton}
                             label={"UPDATE WORKOUT"}
                 />
             )
@@ -90,7 +99,8 @@ const EditWorkautComponent = ({currentExercises, currentWorkoutWithDate }) => {
                     <h3>{namePage}</h3>
                 </div>
                 <div className={"signBody"}>
-                    <PinkButton  HandleSignInButton={addNewStringWorkout}
+                    <PinkButton  
+                                //HandleSignInButton={addNewStringWorkout}
                                 label={"ADD EXERCISE"}
                     />
                     {mapComponent()}

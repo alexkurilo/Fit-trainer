@@ -126,3 +126,7 @@ hr{
 .measurementType{
   width: 100px;
 }
+
+select{
+  size: 3;
+}

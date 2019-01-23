@@ -7,21 +7,21 @@ const initialState = [
                 exercisesName: "Exercise #1",
                 numberInList: 0,
                 measurementType: "kilogramms",
-                measurement: 1,
+                measurements: 1,
                 repeats: 1
             },
             {
                 exercisesName: "Exercise #2",
                 numberInList: 1,
                 measurementType: "meters",
-                measurement: 2,
+                measurements: 2,
                 repeats: 2
             },
             {
                 exercisesName: "Exercise #3",
                 numberInList: 2,
                 measurementType: "minutes",
-                measurement: 3,
+                measurements: 3,
                 repeats: 3
             }
         ]
@@ -34,14 +34,14 @@ const initialState = [
                 exercisesName: "Exercise #4",
                 numberInList: 3,
                 measurementType: "kilogramms",
-                measurement: 4,
+                measurements: 4,
                 repeats: 4
             },
             {
                 exercisesName: "Exercise #5",
                 numberInList: 4,
                 measurementType: "meters",
-                measurement: 5,
+                measurements: 5,
                 repeats: 5
             }
         ]
@@ -54,28 +54,28 @@ const initialState = [
                 exercisesName: "Exercise #6",
                 numberInList: 5,
                 measurementType: "minutes",
-                measurement: 6,
+                measurements: 6,
                 repeats: 6
             },
             {
                 exercisesName: "Exercise #7",
                 numberInList: 6,
                 measurementType: "kilogramms",
-                measurement: 7,
+                measurements: 7,
                 repeats: 7
             },
             {
                 exercisesName: "Exercise #8",
                 numberInList: 7,
                 measurementType: "meters",
-                measurement: 8,
+                measurements: 8,
                 repeats: 8
             },
             {
                 exercisesName: "Exercise #9",
                 numberInList: 8,
                 measurementType: "minutes",
-                measurement: 9,
+                measurements: 9,
                 repeats: 9
             }
         ]

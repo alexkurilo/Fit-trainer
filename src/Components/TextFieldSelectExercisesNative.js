@@ -13,7 +13,7 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200,
+    width: 300,
     // opacity: 0.1,
   },
   dense: {
@@ -49,14 +49,19 @@ class TextFieldsSelectExercisesNative extends React.Component {
     return (
         <TextField
             id="filled-select-currency-native"
-            select
+            select = {true}
+            //rows = "3"
+            //required = {false}
             label={this.props.placeholder}
             className={classes.textField}
-            defaultValue={this.props.value}
+            //defaultValue={this.props.value}
+            //selectedValue = {this.props.data[0].exercisesname}
             value={this.props.value}
             onChange={(event)=>this.ReadField(event)}
             SelectProps={{
                 native: true,
+                size: "3",
+                //multiple:"multiple",
                 MenuProps: {
                     className: classes.menu,
                 },
@@ -64,12 +69,20 @@ class TextFieldsSelectExercisesNative extends React.Component {
             margin="normal"
             variant="filled"
         >
+            <option 
+                    //selected="selected"
+                    //value={this.props.data[3].exercisesName}
+            >
+                  {"Entered some exercise, pleace"}
+            </option>
             {this.props.data.map((item, index) => (
-              <option key={index} value={item.exercisesName}>
+              <option key={index} 
+                      value={item.exercisesName}
+              >
                   { item.exercisesName }
-                  {}
               </option>
             ))}
+            
         </TextField>
     );
   }

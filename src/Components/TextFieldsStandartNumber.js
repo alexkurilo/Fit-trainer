@@ -42,7 +42,7 @@ class TextFieldsStandartNumber extends React.Component {
                 className={classNames(classes.textField)}
                 margin="dense"
                 onChange={(event)=>this.ReadField(event)}
-                value = {this.props.value <= 0 ? "0" : this.props.value}
+                value = {this.props.value <= 1 ? "1" : this.props.value}
                 defaultValue={"0"}
             />
         );
