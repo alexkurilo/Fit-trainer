@@ -1,42 +1,58 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import TextFieldsStandart from './TextFieldsStandart';
+import TextFieldsStandartNumber from './TextFieldsStandartNumber';
 import TextFieldsSelectExercisesNative from './TextFieldSelectExercisesNative';
 import PinkButton from './ButtonPink';
 import ButtonTurquoise from "./ButtonTurquoise";
 import ButtonYellow from "./ButtonYellow";
 
-const NewWorkoutComponent = ({currentEditExercisesRequest, currentNewWorkoutRequest, onAddNewStringWorkout, onFillNewStringWorkout}) => {
+const NewWorkoutComponent = ({currentEditExercisesRequest, currentNewWorkoutRequest, onAddNewStringWorkout, onFillNewStringWorkout, onFillQuantityRepeats, onFillQuantityMeasurements, onNewWorkoutRequestTop, onNewWorkoutRequestBottom, onNewWorkoutRequestDelete }) => {
     let namePage = "New workout";
-    let target;
     
-    const ReadNewExerciseName = (value) => {
-        //newExerciseRequestData.ExerciseName = value;
-        onFillNewStringWorkout(value);
-        console.log(value);
-        target = value;
-        console.log(target);
+    const HandleCreateWorkoutButton = () => {
+        console.log(currentNewWorkoutRequest);
+        
     };
 
-    const showMeasurementType = (target) => {
-        console.log(target);
+    const ReadNewExerciseName = (value, index) => {
         for (let i=0; i < currentEditExercisesRequest.length; i++){
-            if (currentEditExercisesRequest[i].exercisesName === target){
-                console.log(target);
-                console.log(currentEditExercisesRequest[i].measurementType);
-                return<div>{currentEditExercisesRequest[i].measurementType}</div>
-            }
+            if (currentEditExercisesRequest[i].exercisesName === value) onFillNewStringWorkout([value, i, index, currentEditExercisesRequest[i].measurementType]);
         }
     };
 
+    const ReadRepeatsField = (value, index) => {
+        //console.log([value, index]);
+        onFillQuantityRepeats([value, index]);
+    };
+
+    const ReadMeasurementField = (value, index) => {
+        //console.log([value, index]);
+        onFillQuantityMeasurements([value, index]);
+    };
+
+    const showMeasurementType = (target) => {
+        if (Object.keys(target).length > 1 ) {
+            return <div className={"measurementType"}>{currentEditExercisesRequest[target.number].measurementType}</div>
+        }else{
+            return <div className={"measurementType"}>{"undefined"}</div>
+        };
+    };
+
     const addNewStringWorkout = () => {
-        console.log("addNewStringWorkout is worked");
         onAddNewStringWorkout(currentNewWorkoutRequest);
     };
 
-    const readIndex = (index) => {
-        console.log(index);
+    const onClickTop = (index) => {
+        onNewWorkoutRequestTop(index);
+    };
+
+    const onClickBottom = (index) => {
+        onNewWorkoutRequestBottom(index);
+    };
+
+    const onClickDelete = (index) => {
+        onNewWorkoutRequestDelete(index);
     };
 
     const mapComponent = () => {
@@ -51,29 +67,30 @@ const NewWorkoutComponent = ({currentEditExercisesRequest, currentNewWorkoutRequ
                                                 value = {item.exercisesName}
                                                 placeholder={"Exercise Name"}
                                                 data = {currentEditExercisesRequest}
-                                                readIndex = {readIndex}
                         /> 
-                        <TextFieldsStandart     
-                                                //onReadField={(event) => ReadEditExerciseName(event, index)}
-                                                //value = {item.exercisesName}
+                        <TextFieldsStandartNumber     
+                                                onReadField={(event) => ReadRepeatsField(event, index)}
+                                                value = {item.repeats}
                                                 placeholder={"Repeats"}
                         /> 
-                        <TextFieldsStandart     
-                                                //onReadField={(event) => ReadEditExerciseName(event, index)}
-                                                //value = {item.exercisesName}
+                        <TextFieldsStandartNumber     
+                                                onReadField={(event) => ReadMeasurementField(event, index)}
+                                                value = {item.measurements}
                                                 placeholder={"Measurement"}
                         />
-                        {showMeasurementType(target)}
+                        {
+                            showMeasurementType(item.length > 1 ? currentEditExercisesRequest[item.number].measurementType : item)
+                        }
                         <ButtonTurquoise    index = {index}
-                                            //onHandleClick = {onClickTop}
+                                            onHandleClick = {onClickTop}
                                             imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
                         />
                         <ButtonTurquoise    index = {index}
-                                            //onHandleClick = {onClickBottom}
+                                            onHandleClick = {onClickBottom}
                                             imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
                         />
                         <ButtonYellow   index = {index}
-                                        //onHandleClick={onClickDelete}
+                                        onHandleClick={onClickDelete}
                                         imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
                         />
                     </div>
@@ -87,7 +104,7 @@ const NewWorkoutComponent = ({currentEditExercisesRequest, currentNewWorkoutRequ
     const visibleButtonCreateWorkout = () => {
         if (currentNewWorkoutRequest.length !== 0){
             return (
-                <PinkButton  //HandleSignInButton={currentNewWorkoutRequest}
+                <PinkButton  HandleSignInButton={HandleCreateWorkoutButton}
                             label={"CREATE WORKOUT"}
                 />
             )
@@ -155,6 +172,26 @@ export default connect(
         onFillNewStringWorkout: (data) => {
             const payload = data;
             dispatch ({type: 'FILL_NEW_STRING_WORKOUT', payload})
-        }
+        },
+        onFillQuantityRepeats: (data) => {
+            const payload = data;
+            dispatch ({type: 'FILL_QUANTITY_REPEATS', payload})
+        },
+        onFillQuantityMeasurements: (data) => {
+            const payload = data;
+            dispatch ({type: 'FILL_QUANTITY_MEASUREMENTS', payload})
+        },
+        onNewWorkoutRequestTop:(data) => {
+            const payload = data;
+            dispatch ({type: 'NEW_WORKOUT_REQUEST_TOP', payload})
+        },
+        onNewWorkoutRequestBottom:(data) => {
+            const payload = data;
+            dispatch ({type: 'NEW_WORKOUT_REQUEST_BOTTOM', payload})
+        },
+        onNewWorkoutRequestDelete:(data) => {
+            const payload = data;
+            dispatch ({type: 'NEW_WORKOUT_REQUEST_DELETE', payload})
+        },
     })
 )(NewWorkoutComponent);

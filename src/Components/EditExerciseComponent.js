@@ -39,6 +39,7 @@ const EditExerciseComponent = ({props, onEditExercisesRequestTop, onEditExercise
         onEditExercisesRequestDelete(index);
         //console.log(index);
     };
+    
  console.log({...{currentEditExercisesRequest}});
     return(
         <div className={'inComponent'}>

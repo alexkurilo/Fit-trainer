@@ -65,10 +65,9 @@ hr{
 }
 
 .signWindow{
-  width: 80%;
-  height: 27vh;
-  margin-top: 10%;
-  padding-top: 15%;
+  
+  margin-top: 5%;
+  padding-top: 5%;
   background-color: #ffffff;
   border-radius: 1vh;
   position: relative;
@@ -122,4 +121,8 @@ hr{
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.measurementType{
+  width: 100px;
 }

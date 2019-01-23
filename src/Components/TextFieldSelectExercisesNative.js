@@ -24,21 +24,6 @@ const styles = theme => ({
   },
 });
 
-const currencies = [
-  {
-    value: 'meters',
-    label: 'm',
-  },
-  {
-    value: 'minutes',
-    label: 'min',
-  },
-  {
-    value: 'kilogramms',
-    label: 'kg',
-  }
-];
-
 class TextFieldsSelectExercisesNative extends React.Component {
   state = {
       name: 'Cat in the Hat',
@@ -54,17 +39,13 @@ class TextFieldsSelectExercisesNative extends React.Component {
   };
 
   ReadField = (event) => {
+    console.log([...event.target]);
     this.props.onReadField(event.target.value);
   };
 
-  ReadIndex = (index) => {
-      this.props.readIndex(index);
-  }
-
   render() {
     const { classes } = this.props;
-    //console.log(this.props.data);
-    this.ReadIndex(this.props.value);
+    
     return (
         <TextField
             id="filled-select-currency-native"
