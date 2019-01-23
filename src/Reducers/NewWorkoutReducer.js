@@ -16,7 +16,7 @@ export default function currentNewWorkoutRequest (state = initialState, action){
 
         case "FILL_NEW_STRING_WORKOUT":
             state[action.payload[2]].exercisesName = action.payload[0];
-            state[action.payload[2]].number = action.payload[1];
+            state[action.payload[2]].numberInList = action.payload[1];
             state[action.payload[2]].measurementType = action.payload[3];
             return  [...state];
 

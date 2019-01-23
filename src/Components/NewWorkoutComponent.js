@@ -33,7 +33,7 @@ const NewWorkoutComponent = ({currentEditExercisesRequest, currentNewWorkoutRequ
 
     const showMeasurementType = (target) => {
         if (Object.keys(target).length > 1 ) {
-            return <div className={"measurementType"}>{currentEditExercisesRequest[target.number].measurementType}</div>
+            return <div className={"measurementType"}>{currentEditExercisesRequest[target.numberInList].measurementType}</div>
         }else{
             return <div className={"measurementType"}>{"undefined"}</div>
         };
@@ -79,7 +79,7 @@ const NewWorkoutComponent = ({currentEditExercisesRequest, currentNewWorkoutRequ
                                                 placeholder={"Measurement"}
                         />
                         {
-                            showMeasurementType(item.length > 1 ? currentEditExercisesRequest[item.number].measurementType : item)
+                            showMeasurementType(item.length > 1 ? currentEditExercisesRequest[item.numberInList].measurementType : item)
                         }
                         <ButtonTurquoise    index = {index}
                                             onHandleClick = {onClickTop}

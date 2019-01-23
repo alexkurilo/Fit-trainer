@@ -7,54 +7,16 @@ import PinkButton from './ButtonPink';
 import ButtonTurquoise from "./ButtonTurquoise";
 import ButtonYellow from "./ButtonYellow";
 
-const EditWorkautComponent = ({currentEditExercisesRequest, currentNewWorkoutRequest, onAddNewStringWorkout, onFillNewStringWorkout, onFillQuantityRepeats, onFillQuantityMeasurements, onNewWorkoutRequestTop, onNewWorkoutRequestBottom, onNewWorkoutRequestDelete }) => {
+const EditWorkautComponent = ({currentExercises, currentWorkoutWithDate }) => {
     let namePage = "Edit workout";
+    let selectedDate = [20190101, 20190102, 20190103];
     
     const HandleCreateWorkoutButton = () => {
         console.log(currentNewWorkoutRequest);
         
     };
 
-    const ReadNewExerciseName = (value, index) => {
-        for (let i=0; i < currentEditExercisesRequest.length; i++){
-            if (currentEditExercisesRequest[i].exercisesName === value) onFillNewStringWorkout([value, i, index, currentEditExercisesRequest[i].measurementType]);
-        }
-    };
-
-    const ReadRepeatsField = (value, index) => {
-        //console.log([value, index]);
-        onFillQuantityRepeats([value, index]);
-    };
-
-    const ReadMeasurementField = (value, index) => {
-        //console.log([value, index]);
-        onFillQuantityMeasurements([value, index]);
-    };
-
-    const showMeasurementType = (target) => {
-        if (Object.keys(target).length > 1 ) {
-            return <div className={"measurementType"}>{currentEditExercisesRequest[target.number].measurementType}</div>
-        }else{
-            return <div className={"measurementType"}>{"undefined"}</div>
-        };
-    };
-
-    const addNewStringWorkout = () => {
-        onAddNewStringWorkout(currentNewWorkoutRequest);
-    };
-
-    const onClickTop = (index) => {
-        onNewWorkoutRequestTop(index);
-    };
-
-    const onClickBottom = (index) => {
-        onNewWorkoutRequestBottom(index);
-    };
-
-    const onClickDelete = (index) => {
-        onNewWorkoutRequestDelete(index);
-    };
-
+    
     const mapComponent = () => {
         if (currentNewWorkoutRequest.length !== 0){
             return (
@@ -118,6 +80,9 @@ const EditWorkautComponent = ({currentEditExercisesRequest, currentNewWorkoutReq
                 <div>
                     {namePage}
                 </div>
+                <div>
+                    List of exercises for {selectedDate[0]}
+                </div>
                 <img src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>
             </div>
             <div className={"signWindow"}>
@@ -161,39 +126,14 @@ const EditWorkautComponent = ({currentEditExercisesRequest, currentNewWorkoutReq
 
 export default connect(
     (state) => ({
-        currentEditExercisesRequest: state.currentEditExercisesRequest,
-        currentNewWorkoutRequest: state.currentNewWorkoutRequest,
-        currentWorkoutWithData: state.currentWorkoutWithData
+        currentExercises: state.currentEditExercisesRequest,
+        currentWorkoutWithDate: state.currentWorkoutWithDate
     }),
 
     dispatch => ({
         onAddNewStringWorkout: (data) => {
             const payload = data;
             dispatch ({type: 'ADD_NEW_STRING_WORKOUT', payload})
-        },
-        onFillNewStringWorkout: (data) => {
-            const payload = data;
-            dispatch ({type: 'FILL_NEW_STRING_WORKOUT', payload})
-        },
-        onFillQuantityRepeats: (data) => {
-            const payload = data;
-            dispatch ({type: 'FILL_QUANTITY_REPEATS', payload})
-        },
-        onFillQuantityMeasurements: (data) => {
-            const payload = data;
-            dispatch ({type: 'FILL_QUANTITY_MEASUREMENTS', payload})
-        },
-        onNewWorkoutRequestTop:(data) => {
-            const payload = data;
-            dispatch ({type: 'NEW_WORKOUT_REQUEST_TOP', payload})
-        },
-        onNewWorkoutRequestBottom:(data) => {
-            const payload = data;
-            dispatch ({type: 'NEW_WORKOUT_REQUEST_BOTTOM', payload})
-        },
-        onNewWorkoutRequestDelete:(data) => {
-            const payload = data;
-            dispatch ({type: 'NEW_WORKOUT_REQUEST_DELETE', payload})
-        },
+        }
     })
 )(EditWorkautComponent);
