@@ -39,7 +39,7 @@ class TextFieldsSelectExercisesNative extends React.Component {
   };
 
   ReadField = (event) => {
-    console.log([...event.target]);
+    console.log(event.target.value);
     this.props.onReadField(event.target.value);
   };
 

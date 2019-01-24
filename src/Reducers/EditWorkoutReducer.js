@@ -4,6 +4,7 @@ const initialState = [
         date: 20190101,
         exercises: [
             {
+                id: 0,
                 exercisesName: "Exercise #1",
                 numberInList: 0,
                 measurementType: "kilogramms",
@@ -11,6 +12,7 @@ const initialState = [
                 repeats: 1
             },
             {
+                id: 1,
                 exercisesName: "Exercise #2",
                 numberInList: 1,
                 measurementType: "meters",
@@ -18,6 +20,7 @@ const initialState = [
                 repeats: 2
             },
             {
+                id: 2,
                 exercisesName: "Exercise #3",
                 numberInList: 2,
                 measurementType: "minutes",
@@ -31,6 +34,7 @@ const initialState = [
         date: 20190102,
         exercises:[
             {
+                id: 0,
                 exercisesName: "Exercise #4",
                 numberInList: 3,
                 measurementType: "kilogramms",
@@ -38,6 +42,7 @@ const initialState = [
                 repeats: 4
             },
             {
+                id: 1,
                 exercisesName: "Exercise #5",
                 numberInList: 4,
                 measurementType: "meters",
@@ -51,6 +56,7 @@ const initialState = [
         date: 20190103,
         exercises:[
             {
+                id: 0,
                 exercisesName: "Exercise #6",
                 numberInList: 5,
                 measurementType: "minutes",
@@ -58,6 +64,7 @@ const initialState = [
                 repeats: 6
             },
             {
+                id: 1,
                 exercisesName: "Exercise #7",
                 numberInList: 6,
                 measurementType: "kilogramms",
@@ -65,6 +72,7 @@ const initialState = [
                 repeats: 7
             },
             {
+                id: 2,
                 exercisesName: "Exercise #8",
                 numberInList: 7,
                 measurementType: "meters",
@@ -72,6 +80,7 @@ const initialState = [
                 repeats: 8
             },
             {
+                id: 3,
                 exercisesName: "Exercise #9",
                 numberInList: 8,
                 measurementType: "minutes",
@@ -96,43 +105,54 @@ export default function currentWorkoutWithDate (state = initialState, action){
             state.push({id: state.length});
             return  [...state];
 
-        case "FILL_NEW_STRING_WORKOUT":
-            state[action.payload[2]].exercisesName = action.payload[0];
-            state[action.payload[2]].number = action.payload[1];
-            state[action.payload[2]].measurementType = action.payload[3];
+        case "CHANGE_NAME_AND_TYPE":
+            state[action.payload[2]].exercises[action.payload[1]].exercisesName = action.payload[0];
+            state[action.payload[2]].exercises[action.payload[1]].measurementType = action.payload[3];
+            state[action.payload[2]].exercises[action.payload[1]].numberInList = +action.payload[4];
             return  [...state];
 
-        case "FILL_QUANTITY_REPEATS":
-            state[action.payload[1]].repeats = +action.payload[0];
+        case "CHANGE_REPEATS":
+            action.payload <= 1 ? state[action.payload[2]].exercises[action.payload[1]].repeats = +1 : state[action.payload[2]].exercises[action.payload[1]].repeats = +action.payload[0];
             return  [...state];
-
-        case "FILL_QUANTITY_MEASUREMENTS":
-            state[action.payload[1]].measurements = +action.payload[0];
+        
+        case "CHANGE_MEASUREMENTS":
+            action.payload <= 1 ? state[action.payload[2]].exercises[action.payload[1]].measurements = +1 : state[action.payload[2]].exercises[action.payload[1]].measurements = +action.payload[0];
             return  [...state];
-
-        case "NEW_WORKOUT_REQUEST_TOP":
-            if (action.payload > 0){
-                target = state[action.payload];
-                state[action.payload]=state[action.payload-1];
-                state[action.payload-1]=target;
+        
+        case "CHANGE_TOP":
+            if (action.payload[0] > 0){
+                target = Object.assign(state[action.payload[1]].exercises[action.payload[0]]);
+                state[action.payload[1]].exercises[action.payload[0]] = state[action.payload[1]].exercises[action.payload[0]-1];
+                state[action.payload[1]].exercises[action.payload[0]-1] = target;    
             }
-            rewriteId(state);
+            rewriteId(state[action.payload[1]].exercises);
             return  [...state];
-
-        case "NEW_WORKOUT_REQUEST_BOTTOM":
-            if (action.payload < state.length-1){
-                target = state[action.payload];
-                state[action.payload]=state[action.payload+1];
-                state[action.payload+1]=target;
+        
+        
+        case "CHANGE_BOTTOM":
+            if (action.payload[0] < state[action.payload[1]].exercises.length){
+                target = Object.assign(state[action.payload[1]].exercises[action.payload[0]]);
+                state[action.payload[1]].exercises[action.payload[0]] = state[action.payload[1]].exercises[action.payload[0]+1];
+                state[action.payload[1]].exercises[action.payload[0]+1] = target;
             }
-            rewriteId(state);
+            rewriteId(state[action.payload[1]].exercises);
+            return  [...state];
+        
+        case "DELETE_EXERCISE":
+            state[action.payload[1]].exercises.splice(action.payload[0], 1);
+            rewriteId(state[action.payload[1]].exercises);
             return  [...state];
 
-        case "NEW_WORKOUT_REQUEST_DELETE":
-            state.splice(action.payload, 1);
-            rewriteId(state);
+        case "ADD_NEW_STRING_EXERCISE":
+            state[action.payload].exercises.push({
+                id: state.length-1,
+                exercisesName: "Select from the list, please",
+                measurementType: "",
+                measurements: 1,
+                repeats: 1
+            });
             return  [...state];
-            
+                        
         default:
             return [...state];
     }
