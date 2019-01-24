@@ -130,3 +130,16 @@ hr{
 select{
   size: 3;
 }
+
+.myDashboardPage{
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.myDashboardPage a button{
+  width: 400px;
+  margin: 0;
+}

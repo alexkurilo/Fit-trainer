@@ -73,7 +73,7 @@ class TextFieldsSelectExercisesNative extends React.Component {
                     //selected="selected"
                     //value={this.props.data[3].exercisesName}
             >
-                  {"Entered some exercise, pleace"}
+                  {"Entered some exercise, pleace."}
             </option>
             {this.props.data.map((item, index) => (
               <option key={index} 

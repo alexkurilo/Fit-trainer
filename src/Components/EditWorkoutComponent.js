@@ -10,7 +10,7 @@ import NativeSelects from "./NativeSelects";
 const EditWorkautComponent = ({exercisesList, currentWorkoutWithDate, onChangeNameAndType, onChangeRepeats, onChangeMeasurements, onChangeTop, onChangeBottom, onDeleteExercise, onAddNewStringExercise }) => {
     let namePage = "Edit workout";
     let numberInOrder = 1;
-    let selectedDate = [20190101, 20190102, 20190103];
+    //let selectedDate = [20190101, 20190102, 20190103];
     let target = currentWorkoutWithDate[numberInOrder].exercises;
     
     const HandleApdateWorkoutButton = () => {
@@ -115,7 +115,7 @@ const EditWorkautComponent = ({exercisesList, currentWorkoutWithDate, onChangeNa
                     {namePage}
                 </div>
                 <div>
-                    List of exercises for {selectedDate[0]}
+                    List of exercises for {currentWorkoutWithDate[numberInOrder].date}
                 </div>
                 <img src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>
             </div>

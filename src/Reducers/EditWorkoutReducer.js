@@ -1,7 +1,7 @@
 const initialState = [
     {
         id: 0,
-        date: 20190101,
+        date: "20190201",
         exercises: [
             {
                 id: 0,
@@ -31,7 +31,7 @@ const initialState = [
     },
     {
         id: 1,
-        date: 20190102,
+        date: "20190203",
         exercises:[
             {
                 id: 0,
@@ -53,7 +53,7 @@ const initialState = [
     },
     {
         id: 2,
-        date: 20190103,
+        date: "20190205",
         exercises:[
             {
                 id: 0,
@@ -146,7 +146,7 @@ export default function currentWorkoutWithDate (state = initialState, action){
         case "ADD_NEW_STRING_EXERCISE":
             state[action.payload].exercises.push({
                 id: state.length-1,
-                exercisesName: "Select from the list, please",
+                exercisesName: "Entered some exercise, pleace.",
                 measurementType: "",
                 measurements: 1,
                 repeats: 1
