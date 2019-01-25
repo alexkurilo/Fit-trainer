@@ -40,18 +40,12 @@ const UsersWorcoutComponent = () => {
                                     imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
                     />
                 </Link>
-                <Link   to="/user/new_date/new workout"
-                        className={"link"}>
-                    <ButtonTurquoise label = {"New workout"}
+                <ButtonTurquoise    label = {"New workout"}
                                     imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
-                    />
-                </Link>
-                <Link   to="/user/date/edit workout"
-                        className={"link"}>
-                    <ButtonTurquoise label = {"Edit worcout"}
+                />
+                <ButtonTurquoise    label = {"Edit worcout"}
                                     imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
-                    />
-                </Link>
+                />
             </div>
             <div className={"Component"}>
                 <Switch>

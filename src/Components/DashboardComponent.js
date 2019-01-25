@@ -6,12 +6,16 @@ import "react-infinite-calendar/styles.css";
 import { Link, withRouter } from "react-router-dom";
 import ButtonTurquoise from './ButtonTurquoise';
 
+import HeaderComponent from "./HeaderComponent";
+import FooterComponent from "./FooterComponent";
 
 class DashboardComponent extends Component  {
     constructor(props) {
         super(props);
         this.selectDay = this.selectDay.bind(this);
     }
+
+    namePage = "Rdit Exercise";
 
     componentWillMount ( ) {
         console.log(this.props.selectDate);
@@ -43,23 +47,28 @@ class DashboardComponent extends Component  {
     
     render(){
         return(
-            <div className={'myDashboardPage'}>
-                <Link   to="/user/new exercise"
-                        className={"link"}>
-                    <ButtonTurquoise  //HandleSignInButton={HandleApdateWorkoutButton}
-                                        label={"ADD NEW EXERCISE"}
-                    />
-                </Link>
-                <InfiniteCalendar
-                    width={400}
-                    height={600}
-                    minDate={new Date()}
-                    Component={withMultipleDates(Calendar)}
-                    interpolateSelection={defaultMultipleDateInterpolation}
-                    onSelect={(event) => this.selectDay(event)}
-                    selected={this.props.selectedDays}
-                />,
+            <div className={'inComponent'}>
+                <HeaderComponent namePage = {this.namePage}/>
+                    <div className={'myDashboardPage'}>
+                        <Link   to="/user/new exercise"
+                                className={"link"}>
+                            <ButtonTurquoise  //HandleSignInButton={HandleApdateWorkoutButton}
+                                                label={"ADD NEW EXERCISE"}
+                            />
+                        </Link>
+                        <InfiniteCalendar
+                            width={400}
+                            height={600}
+                            minDate={new Date()}
+                            Component={withMultipleDates(Calendar)}
+                            interpolateSelection={defaultMultipleDateInterpolation}
+                            onSelect={(event) => this.selectDay(event)}
+                            selected={this.props.selectedDays}
+                        />,
+                    </div>
+                <FooterComponent/>
             </div>
+            
         );
     }
 };

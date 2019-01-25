@@ -6,6 +6,8 @@ import TextFieldsSelectExercisesNative from './TextFieldSelectExercisesNative';
 import PinkButton from './ButtonPink';
 import ButtonTurquoise from "./ButtonTurquoise";
 import ButtonYellow from "./ButtonYellow";
+import HeaderComponent from "./HeaderComponent";
+import FooterComponent from "./FooterComponent";
 
 const NewWorkoutComponent = ({slectDate, onAddWorkout, currentEditExercisesRequest, currentNewWorkoutRequest, onAddNewStringWorkout, onFillNewStringWorkout, onFillQuantityRepeats, onFillQuantityMeasurements, onNewWorkoutRequestTop, onNewWorkoutRequestBottom, onNewWorkoutRequestDelete }) => {
     let namePage = "New workout";
@@ -114,12 +116,7 @@ const NewWorkoutComponent = ({slectDate, onAddWorkout, currentEditExercisesReque
     
     return(
         <div className={'inComponent'}>
-            <div className={'firstLine'}>
-                <div>
-                    {namePage}
-                </div>
-                <img src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>
-            </div>
+            <HeaderComponent namePage = {namePage}/>
             <div className={"signWindow"}>
                 <div className={"signHeader"}>
                     <h3>{namePage}</h3>
@@ -132,28 +129,7 @@ const NewWorkoutComponent = ({slectDate, onAddWorkout, currentEditExercisesReque
                     {visibleButtonCreateWorkout()}
                 </div>
             </div>
-            <div className={"footerIn"}>
-                <div className={"footerInlinks"}>
-                    <div>
-                        DASHBOARD
-                    </div>
-                    <div>
-                        NEW EXERCISE
-                    </div>
-                    <div>
-                        EDIT EXERCISE
-                    </div>
-                    <div>
-                        NEW WORKOUT
-                    </div>
-                    <div>
-                        EDIT WORKOUT
-                    </div>
-                </div>
-                <div>
-                    &#169; 2019 Alex Kurilo, made with love for a better web
-                </div>
-            </div>
+            <FooterComponent/>
         </div>
     );
 };

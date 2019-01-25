@@ -7,11 +7,12 @@ import PinkButton from './ButtonPink';
 import ButtonTurquoise from "./ButtonTurquoise";
 import ButtonYellow from "./ButtonYellow";
 import HeaderComponent from "./HeaderComponent";
+import FooterComponent from "./FooterComponent";
 
 const EditExerciseComponent = ({props, onEditExercisesRequestTop, onEditExercisesRequestBottom, onEditExercisesRequestDelete,
     onChangeEditExerciseName, onChangeEditMeasurementType, currentEditExercisesRequest }) => {
         
-    let namePage = "Rdit Exercise";
+    let namePage = "Edit Exercise";
 
     const HandleCreateExerciseButton = () => {
         console.log(currentEditExercisesRequest);
@@ -46,16 +47,10 @@ const EditExerciseComponent = ({props, onEditExercisesRequestTop, onEditExercise
  console.log({...{currentEditExercisesRequest}});
     return(
         <div className={'inComponent'}>
-            {/* <div className={'firstLine'}>
-                <div>
-                    Edit exercises
-                </div>
-                <img src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>
-            </div> */}
             <HeaderComponent namePage = {namePage}/>
             <div className={"signWindow"}>
                 <div className={"signHeader"}>
-                    <h3>Edit exercises</h3>
+                    <h3>{namePage}</h3>
                 </div>
                 <div className={"signBody"}>
                     {
@@ -91,28 +86,7 @@ const EditExerciseComponent = ({props, onEditExercisesRequestTop, onEditExercise
                     />
                 </div>
             </div>
-            <div className={"footerIn"}>
-                <div className={"footerInlinks"}>
-                    <div>
-                        DASHBOARD
-                    </div>
-                    <div>
-                        NEW EXERCISE
-                    </div>
-                    <div>
-                        EDIT EXERCISE
-                    </div>
-                    <div>
-                        NEW WORKOUT
-                    </div>
-                    <div>
-                        EDIT WORKOUT
-                    </div>
-                </div>
-                <div>
-                    &#169; 2019 Alex Kurilo, made with love for a better web
-                </div>
-            </div>
+            <FooterComponent/>
         </div>
     );
 };
