@@ -143,3 +143,13 @@ select{
   width: 400px;
   margin: 0;
 }
+
+.illumination{
+  background: '#FFFFFF'!important;
+}
+
+.myButton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

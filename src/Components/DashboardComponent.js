@@ -15,7 +15,7 @@ class DashboardComponent extends Component  {
         this.selectDay = this.selectDay.bind(this);
     }
 
-    namePage = "Rdit Exercise";
+    namePage = "Dashboard";
 
     componentWillMount ( ) {
         console.log(this.props.selectDate);

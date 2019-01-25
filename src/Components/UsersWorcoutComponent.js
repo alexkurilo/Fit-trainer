@@ -24,28 +24,39 @@ const UsersWorcoutComponent = () => {
                 <hr/>
                 <Link   to="/user/dashboard"
                         className={"link"}>
-                    <ButtonTurquoise label = {"Dashboard"}
-                                    imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
+                    <ButtonTurquoise    label = {"Dashboard"}
+                                        imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
                     />
                 </Link>
                 <Link   to="/user/new exercise"
                         className={"link"}>
-                    <ButtonTurquoise label = {"New exercise"}
-                                    imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
+                    <ButtonTurquoise    label = {"New exercise"}
+                                        imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
                     />
                 </Link>
                 <Link   to="/user/edit exercise"
                         className={"link"}>
-                    <ButtonTurquoise label = {"Edit exercises"}
-                                    imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
+                    <ButtonTurquoise    label = {"Edit exercises"}
+                                        imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
+                                        ClassName = {"illumination"}
                     />
                 </Link>
-                <ButtonTurquoise    label = {"New workout"}
-                                    imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
-                />
-                <ButtonTurquoise    label = {"Edit worcout"}
-                                    imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
-                />
+                <div className={"illumination"}
+                >
+                    {/* <ButtonTurquoise    label = {"New workout"}
+                                        imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
+                                        
+                    /> */}
+                    <div className={"myButton"}>
+                        <img src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>New workout
+                    </div>
+                </div>
+                <div //className={"illumination"}
+                >
+                    <ButtonTurquoise    label = {"Edit worcout"}
+                                        imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
+                    />
+                </div>
             </div>
             <div className={"Component"}>
                 <Switch>
