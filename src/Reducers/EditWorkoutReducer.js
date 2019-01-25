@@ -152,6 +152,18 @@ export default function currentWorkoutWithDate (state = initialState, action){
                 repeats: 1
             });
             return  [...state];
+
+        case "SAVE_WORKOUT":
+            console.log(state);
+            console.log(action.payload);
+            return  [...state];
+
+        case "ADD_WORKOUT":
+            console.log(state);
+            console.log(action.payload);
+            state[state.length-1].date = action.payload[0];
+            state[state.length-1].exercises = action.payload[1];
+            return  [...state];
                         
         default:
             return [...state];

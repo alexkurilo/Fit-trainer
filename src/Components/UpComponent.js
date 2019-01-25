@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from "react-router-dom";
 
 import TextFieldsDense from './TextFieldsDense';
 import TextFieldsPassword from './TextFieldsPassword';
@@ -53,7 +54,10 @@ const UpComponent = ({onEntryRequestUp}) => {
                     <PinkButton  HandleSignInButton={HandleSignInButton}
                                 label={"SIGN UP"}
                     />
-                    <div className={"signUpLink"}>alredy have an account? sign-in</div>
+                    <Link   to="/sign in"
+                        className={"link"}>
+                        alredy have an account? sign-in
+                    </Link>
                 </div>
             </div>
             <div className={"footerIn"}>

@@ -7,14 +7,24 @@ import ButtonTurquoise from "./ButtonTurquoise";
 import ButtonYellow from "./ButtonYellow";
 import NativeSelects from "./NativeSelects";
 
-const EditWorkautComponent = ({exercisesList, currentWorkoutWithDate, onChangeNameAndType, onChangeRepeats, onChangeMeasurements, onChangeTop, onChangeBottom, onDeleteExercise, onAddNewStringExercise }) => {
+const EditWorkautComponent = ({selectDate, onSaveWorkout, exercisesList, currentWorkoutWithDate, onChangeNameAndType, onChangeRepeats, onChangeMeasurements, onChangeTop, onChangeBottom, onDeleteExercise, onAddNewStringExercise }) => {
     let namePage = "Edit workout";
-    let numberInOrder = 1;
-    //let selectedDate = [20190101, 20190102, 20190103];
+    
+    let numberInOrder;
+    const defineNumberInOrder = (arr, str) => {
+        arr.forEach((item, index) => {
+            if (item.date === str) {
+                numberInOrder=index
+            }
+        });
+    }
+    defineNumberInOrder (currentWorkoutWithDate, selectDate);
+    
     let target = currentWorkoutWithDate[numberInOrder].exercises;
     
     const HandleApdateWorkoutButton = () => {
         console.log(currentWorkoutWithDate);
+        onSaveWorkout(currentWorkoutWithDate);
     };
 
     const addNewStringWorkout = () => {
@@ -162,7 +172,8 @@ const EditWorkautComponent = ({exercisesList, currentWorkoutWithDate, onChangeNa
 export default connect(
     (state) => ({
         exercisesList: state.currentEditExercisesRequest,
-        currentWorkoutWithDate: state.currentWorkoutWithDate
+        currentWorkoutWithDate: state.currentWorkoutWithDate,
+        selectDate: state.selectDate
     }),
 
     dispatch => ({
@@ -197,6 +208,10 @@ export default connect(
         onAddNewStringExercise: (data)=> {
             const payload = data;
             dispatch ({type: 'ADD_NEW_STRING_EXERCISE', payload})
+        },
+        onSaveWorkout: (data)=> {
+            const payload = data;
+            dispatch ({type: 'SAVE_WORKOUT', payload})
         },
     })
 )(EditWorkautComponent);

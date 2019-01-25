@@ -6,10 +6,13 @@ import TextFieldsSelectNative from './TextFieldsSelectNative';
 import PinkButton from './ButtonPink';
 import ButtonTurquoise from "./ButtonTurquoise";
 import ButtonYellow from "./ButtonYellow";
+import HeaderComponent from "./HeaderComponent";
 
 const EditExerciseComponent = ({props, onEditExercisesRequestTop, onEditExercisesRequestBottom, onEditExercisesRequestDelete,
     onChangeEditExerciseName, onChangeEditMeasurementType, currentEditExercisesRequest }) => {
         
+    let namePage = "Rdit Exercise";
+
     const HandleCreateExerciseButton = () => {
         console.log(currentEditExercisesRequest);
         
@@ -43,12 +46,13 @@ const EditExerciseComponent = ({props, onEditExercisesRequestTop, onEditExercise
  console.log({...{currentEditExercisesRequest}});
     return(
         <div className={'inComponent'}>
-            <div className={'firstLine'}>
+            {/* <div className={'firstLine'}>
                 <div>
                     Edit exercises
                 </div>
                 <img src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>
-            </div>
+            </div> */}
+            <HeaderComponent namePage = {namePage}/>
             <div className={"signWindow"}>
                 <div className={"signHeader"}>
                     <h3>Edit exercises</h3>

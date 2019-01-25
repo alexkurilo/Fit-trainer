@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import logo from '../logo.svg';
-import { Switch, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import ButtonTurquoise from "./ButtonTurquoise";
 import InComponent from "./InComponent";

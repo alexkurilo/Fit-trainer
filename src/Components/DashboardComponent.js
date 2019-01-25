@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-//import { render } from 'react-dom';
-import InfiniteCalendar, {
-    Calendar,
-    defaultMultipleDateInterpolation,
-    withMultipleDates
-  }  from 'react-infinite-calendar';
+import InfiniteCalendar, {Calendar, defaultMultipleDateInterpolation, withMultipleDates}  from 'react-infinite-calendar';
 import "react-infinite-calendar/styles.css";
-import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import ButtonTurquoise from './ButtonTurquoise';
-import { Link } from 'react-router-dom';
+
 
 class DashboardComponent extends Component  {
     constructor(props) {
@@ -20,21 +14,37 @@ class DashboardComponent extends Component  {
     }
 
     componentWillMount ( ) {
-        console.log("render");
-        this.props.currentWorkoutWithDate.forEach((element) =>  {
-            this.props.onAddSelectedDate(element.date);
-        });
+        console.log(this.props.selectDate);
+        if (this.props.selectDate === ""){
+            this.props.currentWorkoutWithDate.forEach((element) =>  {
+                this.props.onAddSelectedDates(element.date);
+            });
+        }
     }
 
     selectDay = (event) => {
-        console.log(event);
-        this.props.onSelectDate(event.getFullYear().toString()+(event.getMonth()+1 <= 9 ? "0"+(event.getMonth()+1).toString() : event.getMonth()+1).toString()+(event.getDate() <= 9 ? "0"+event.getDate().toString() : event.getDate().toString()));
+        let selectedDate = event.getFullYear().toString()+(event.getMonth()+1 <= 9 ? "0"+(event.getMonth()+1).toString() : event.getMonth()+1).toString()+(event.getDate() <= 9 ? "0"+event.getDate().toString() : event.getDate().toString());
+        let arr = this.props.selectedDays;
+        let marker = true;
+        this.props.onSelectDate(selectedDate);
+        arr.forEach((item) => {
+            if (item === selectedDate){
+                marker = false;
+            }
+        });
+        if (marker){
+            this.props.history.push("/user/new_date/new workout");
+            this.props.onAddSelectedDate(selectedDate);
+            //this.props.history.push(`/user/new_data/new workout/${new Date()}`);
+        }else{
+            this.props.history.push("/user/date/edit workout");
+        }
     };
     
     render(){
         return(
             <div className={'myDashboardPage'}>
-                <Link   to="/new exercise"
+                <Link   to="/user/new exercise"
                         className={"link"}>
                     <ButtonTurquoise  //HandleSignInButton={HandleApdateWorkoutButton}
                                         label={"ADD NEW EXERCISE"}
@@ -55,7 +65,7 @@ class DashboardComponent extends Component  {
 };
 
 
-export default connect(
+export default withRouter(connect(
     (state) => ({
         selectedDays: state.selectedDays,
         selectDate: state.selectDate,
@@ -63,6 +73,10 @@ export default connect(
     }),
 
     dispatch => ({
+        onAddSelectedDates: (data) => {
+            const payload = data;
+            dispatch ({type: 'ADD_SELECTED_DATES', payload})
+        },
         onAddSelectedDate: (data) => {
             const payload = data;
             dispatch ({type: 'ADD_SELECTED_DATE', payload})
@@ -72,4 +86,4 @@ export default connect(
             dispatch ({type: 'SELECT_DATE', payload})
         },
     })
-)(DashboardComponent);
+)(DashboardComponent));

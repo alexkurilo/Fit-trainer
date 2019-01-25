@@ -7,11 +7,12 @@ import PinkButton from './ButtonPink';
 import ButtonTurquoise from "./ButtonTurquoise";
 import ButtonYellow from "./ButtonYellow";
 
-const NewWorkoutComponent = ({currentEditExercisesRequest, currentNewWorkoutRequest, onAddNewStringWorkout, onFillNewStringWorkout, onFillQuantityRepeats, onFillQuantityMeasurements, onNewWorkoutRequestTop, onNewWorkoutRequestBottom, onNewWorkoutRequestDelete }) => {
+const NewWorkoutComponent = ({slectDate, onAddWorkout, currentEditExercisesRequest, currentNewWorkoutRequest, onAddNewStringWorkout, onFillNewStringWorkout, onFillQuantityRepeats, onFillQuantityMeasurements, onNewWorkoutRequestTop, onNewWorkoutRequestBottom, onNewWorkoutRequestDelete }) => {
     let namePage = "New workout";
     
     const HandleCreateWorkoutButton = () => {
         console.log(currentNewWorkoutRequest);
+        onAddWorkout([slectDate, currentNewWorkoutRequest]);
         
     };
 
@@ -161,7 +162,8 @@ const NewWorkoutComponent = ({currentEditExercisesRequest, currentNewWorkoutRequ
 export default connect(
     (state) => ({
         currentEditExercisesRequest: state.currentEditExercisesRequest,
-        currentNewWorkoutRequest: state.currentNewWorkoutRequest
+        currentNewWorkoutRequest: state.currentNewWorkoutRequest,
+        slectDate: state.selectDate
     }),
 
     dispatch => ({
@@ -193,5 +195,10 @@ export default connect(
             const payload = data;
             dispatch ({type: 'NEW_WORKOUT_REQUEST_DELETE', payload})
         },
+        onAddWorkout:(data) => {
+            const payload = data;
+            dispatch ({type: 'ADD_WORKOUT', payload})
+        },
     })
 )(NewWorkoutComponent);
+
