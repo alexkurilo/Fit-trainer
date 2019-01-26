@@ -1,65 +1,56 @@
 const initialState = [];
 
 export default function currentNewWorkoutRequest (state = initialState, action){
-    let target;
 
     const rewriteId = (arr) => {
-        for (let i = 0;  i < arr.length; i++){
-            arr[i].id = i;
-        }
+        arr.forEach((item, index)=> item.id = index);
     };
 
     switch (action.type) {
-        case "ADD_NEW_STRING_WORKOUT":
-            state.push(
-                {
-                    id: state.length,
-                    // numberInList: 0,
-                    // measurementType: "",
-                    // measurements: 0,
-                    // repeats:0
-                });
-                console.log(state);
-            return  [...state];
+        case "ADD_NEW_STRING_NEW_WORKOUT":
+            return  [...state, {id: state.length}];
 
         case "FILL_NEW_STRING_WORKOUT":
-        console.log(action.payload);
             state[action.payload[2]].exercisesName = action.payload[0];
             state[action.payload[2]].numberInList = action.payload[1];
             state[action.payload[2]].measurementType = action.payload[3];
             return  [...state];
 
         case "FILL_QUANTITY_REPEATS":
-            state[action.payload[1]].repeats = +action.payload[0];
+            +action.payload[0] <= 1 ? state[action.payload[1]].repeats = +1 : state[action.payload[1]].repeats = +action.payload[0];
             return  [...state];
 
         case "FILL_QUANTITY_MEASUREMENTS":
-            state[action.payload[1]].measurements = +action.payload[0];
+            +action.payload[0] <= 1 ? state[action.payload[1]].measurements = +1 : state[action.payload[1]].measurements = +action.payload[0];
             return  [...state];
 
-        case "NEW_WORKOUT_REQUEST_TOP":
-            if (action.payload > 0){
-                target = state[action.payload];
-                state[action.payload] = state[action.payload-1];
-                state[action.payload-1] = target;
-            }
-            rewriteId(state);
-            return  [...state];
+        case "CLICK_BUTTON_NEW_WORKOUT":
 
-        case "NEW_WORKOUT_REQUEST_BOTTOM":
-            if (action.payload < state.length-1){
-                target = state[action.payload];
-                state[action.payload] = state[action.payload+1];
-                state[action.payload+1] = target;
-            }
-            rewriteId(state);
-            return  [...state];
+            switch (action.payload[0]) {
 
-        case "NEW_WORKOUT_REQUEST_DELETE":
-            state.splice(action.payload, 1);
+                case "top":
+                    if (action.payload[1] > 0){
+                        [state[action.payload[1]-1], state[action.payload[1]]]=[state[action.payload[1]], state[action.payload[1]-1]];
+                    };
+                    break;
+
+                case "bottom":
+                    if (action.payload[1] < state.length-1){
+                        [state[action.payload[1]], state[action.payload[1]+1]]=[state[action.payload[1]+1], state[action.payload[1]]];
+
+                    };
+                    break;
+
+                case "delete":
+                    state.splice(action.payload[1], 1);
+                    break;
+            };
             rewriteId(state);
-            return  [...state];
-            
+            return [...state];
+
+        case "CLEAR_NEW_WORKOUT":
+            return  [];
+
         default:
             return [...state];
     }

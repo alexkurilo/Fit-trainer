@@ -20,8 +20,7 @@ function ButtonTurquoise(props) {
     const { classes, children, className, ...other } = props;
 
     const HandleClick = () => {
-        //console.log(props);
-        if (props.index !== undefined)props.onHandleClick(props.index);
+        if (props.index !== undefined)props.onHandleClick([props.nameButton, props.index]);
     };
    
     return (

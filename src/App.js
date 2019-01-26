@@ -12,10 +12,6 @@ class App extends Component {
         if (this.props.history.location.pathname === "/user")this.props.history.push("/user/dashboard");
     }
 
-    selectDay = (event) => {
-        console.log(event);
-    };
-
     render() {
         return (
             <div className="App">

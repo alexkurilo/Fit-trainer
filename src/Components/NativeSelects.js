@@ -23,8 +23,6 @@ const styles = theme => ({
 class NativeSelects extends React.Component {
 
   ReadField = (event) => {
-    console.log(event.target.value);
-    console.log(this.props.onReadField);
     this.props.onReadField(event);
   };
 
@@ -37,7 +35,7 @@ class NativeSelects extends React.Component {
               {this.props.placeholder}
           </InputLabel>
           <NativeSelect
-              //value={this.props.value}
+              value={this.props.value}
               onChange={(event) => this.ReadField(event)}
               input={<Input id="name-native-error" />}
           >

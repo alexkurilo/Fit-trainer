@@ -18,6 +18,66 @@ const initialState = [
     {
         exercisesName: "Exersise #5",
         measurementType: "meters"
+    },
+    {
+        exercisesName: "Exersise #6",
+        measurementType: "minutes"
+    },
+    {
+        exercisesName: "Exersise #7",
+        measurementType: "kilogramms"
+    },
+    {
+        exercisesName: "Exersise #8",
+        measurementType: "meters"
+    },
+    {
+        exercisesName: "Exersise #9",
+        measurementType: "minutes"
+    },
+    {
+        exercisesName: "Exersise #10",
+        measurementType: "kilogramms"
+    },
+    {
+        exercisesName: "Exersise #11",
+        measurementType: "meters"
+    },
+    {
+        exercisesName: "Exersise #12",
+        measurementType: "minutes"
+    },
+    {
+        exercisesName: "Exersise #13",
+        measurementType: "kilogramms"
+    },
+    {
+        exercisesName: "Exersise #14",
+        measurementType: "meters"
+    },
+    {
+        exercisesName: "Exersise #15",
+        measurementType: "minutes"
+    },
+    {
+        exercisesName: "Exersise #16",
+        measurementType: "kilogramms"
+    },
+    {
+        exercisesName: "Exersise #17",
+        measurementType: "meters"
+    },
+    {
+        exercisesName: "Exersise #18",
+        measurementType: "minutes"
+    },
+    {
+        exercisesName: "Exersise #19",
+        measurementType: "kilogramms"
+    },
+    {
+        exercisesName: "Exersise #20",
+        measurementType: "meters"
     }
 ];
 
@@ -25,6 +85,8 @@ export default function currentEditExercisesRequest (state = initialState, actio
     let target;
     switch (action.type) {
         case "CHANGE_EDIT_EXERCISE_NAME":
+            console.log(action.payload);
+            console.log(state);
             state[action.payload[1]].exercisesName = action.payload[0];
             return [...state];
 
@@ -32,28 +94,31 @@ export default function currentEditExercisesRequest (state = initialState, actio
             state[action.payload[1]].measurementType = action.payload[0];
             return [...state];
 
-        case "EDIT_EXERCISES_REQUEST_TOP":
-            if (action.payload > 0){
-                target = state[action.payload];
-                state[action.payload]=state[action.payload-1];
-                state[action.payload-1]=target;
-            }
-            return  [...state];
+        case "CLICK_BUTTON_EDIT_EXERCISES":
 
-        case "EDIT_EXERCISES_REQUEST_BOTTOM":
-            //console.log(action.payload);
-            if (action.payload < state.length-1){
-                target = state[action.payload];
-                state[action.payload]=state[action.payload+1];
-                state[action.payload+1]=target;
-            }
-            console.log(state);
-            return  [...state];
+            switch (action.payload[0]) {
 
-        case "EDIT_EXERCISES_REQUEST_DELETE":
-            state.splice(action.payload, 1);
-            console.log(state);
-            return  [...state];
+                case "top":
+                    if (action.payload[1] > 0){
+                        [state[action.payload[1]-1], state[action.payload[1]]]=[state[action.payload[1]], state[action.payload[1]-1]];
+                    };
+                    break;
+
+                case "bottom":
+                    if (action.payload[1] < state.length-1){
+                        [state[action.payload[1]], state[action.payload[1]+1]]=[state[action.payload[1]+1], state[action.payload[1]]];
+
+                    };
+                    break;
+
+                case "delete":
+                    state.splice(action.payload[1], 1);
+                    break;
+            };
+            return [...state];
+
+        case 'ADD_NEW_EXERCISE':
+            return [...state, action.payload];
 
         default:
             return [...state];

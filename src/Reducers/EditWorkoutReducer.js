@@ -92,18 +92,17 @@ const initialState = [
 ];
 
 export default function currentWorkoutWithDate (state = initialState, action){
-    let target;
 
     const rewriteId = (arr) => {
-        for (let i = 0;  i < arr.length; i++){
-            arr[i].id = i;
-        }
+        arr.forEach((item, index)=> item.id = index);
     };
 
     switch (action.type) {
-        case "ADD_NEW_STRING_WORKOUT":
-            state.push({id: state.length});
-            return  [...state];
+        case "CREATE_NEW_WORKOUT":
+            return  [...state, {id: state.length, date: action.payload[0], exercises: action.payload[1]}];
+
+        case "ADD_NEW_STRING_EDIT_WORKOUT":
+            return  [...state, {id: state.length}];
 
         case "CHANGE_NAME_AND_TYPE":
             state[action.payload[2]].exercises[action.payload[1]].exercisesName = action.payload[0];
@@ -112,36 +111,35 @@ export default function currentWorkoutWithDate (state = initialState, action){
             return  [...state];
 
         case "CHANGE_REPEATS":
-            action.payload <= 1 ? state[action.payload[2]].exercises[action.payload[1]].repeats = +1 : state[action.payload[2]].exercises[action.payload[1]].repeats = +action.payload[0];
+            +action.payload[0] <= 1 ? state[action.payload[2]].exercises[action.payload[1]].repeats = +1 : state[action.payload[2]].exercises[action.payload[1]].repeats = +action.payload[0];
             return  [...state];
         
         case "CHANGE_MEASUREMENTS":
-            action.payload <= 1 ? state[action.payload[2]].exercises[action.payload[1]].measurements = +1 : state[action.payload[2]].exercises[action.payload[1]].measurements = +action.payload[0];
+            +action.payload[0] <= 1 ? state[action.payload[2]].exercises[action.payload[1]].measurements = +1 : state[action.payload[2]].exercises[action.payload[1]].measurements = +action.payload[0];
             return  [...state];
-        
-        case "CHANGE_TOP":
-            if (action.payload[0] > 0){
-                target = Object.assign(state[action.payload[1]].exercises[action.payload[0]]);
-                state[action.payload[1]].exercises[action.payload[0]] = state[action.payload[1]].exercises[action.payload[0]-1];
-                state[action.payload[1]].exercises[action.payload[0]-1] = target;    
-            }
-            rewriteId(state[action.payload[1]].exercises);
-            return  [...state];
-        
-        
-        case "CHANGE_BOTTOM":
-            if (action.payload[0] < state[action.payload[1]].exercises.length){
-                target = Object.assign(state[action.payload[1]].exercises[action.payload[0]]);
-                state[action.payload[1]].exercises[action.payload[0]] = state[action.payload[1]].exercises[action.payload[0]+1];
-                state[action.payload[1]].exercises[action.payload[0]+1] = target;
-            }
-            rewriteId(state[action.payload[1]].exercises);
-            return  [...state];
-        
-        case "DELETE_EXERCISE":
-            state[action.payload[1]].exercises.splice(action.payload[0], 1);
-            rewriteId(state[action.payload[1]].exercises);
-            return  [...state];
+
+        case "CLICK_BUTTON_EDIT_WORKOUT":
+
+            switch (action.payload[0]) {
+
+                case "top":
+                    if (action.payload[1] > 0){
+                        [state[action.payload[2]].exercises[action.payload[1]-1], state[action.payload[2]].exercises[action.payload[1]]]=[state[action.payload[2]].exercises[action.payload[1]],state[action.payload[2]].exercises[action.payload[1]-1]];
+                    };
+                    break;
+
+                case "bottom":
+                    if (action.payload[1] < state[action.payload[2]].exercises.length-1){
+                        [state[action.payload[2]].exercises[action.payload[1]], state[action.payload[2]].exercises[action.payload[1]+1]]=[state[action.payload[2]].exercises[action.payload[1]+1],state[action.payload[2]].exercises[action.payload[1]]];
+                    };
+                    break;
+
+                case "delete":
+                    state[action.payload[2]].exercises.splice(action.payload[1], 1);
+                    break;
+            };
+            rewriteId(state[action.payload[2]].exercises);
+            return [...state];
 
         case "ADD_NEW_STRING_EXERCISE":
             state[action.payload].exercises.push({

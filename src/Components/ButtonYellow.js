@@ -20,7 +20,7 @@ function ButtonYellow(props) {
     const { classes, children, className, ...other } = props;
 
     const HandleClick = () => {
-        if (props.index !== undefined)props.onHandleClick(props.index);
+        if (props.index !== undefined)props.onHandleClick([props.nameButton, props.index]);
     };
 
     return (

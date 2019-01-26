@@ -9,9 +9,6 @@ import PinkButton from './ButtonPink';
 class InComponent extends Component {
     constructor(props) {
         super(props);
-        this.ReadEmail = this.ReadEmail.bind(this);
-        this.ReadPass = this.ReadPass.bind(this);
-        this.HandleSignInButton = this.HandleSignInButton.bind(this);
     }
     signInRequestData = {};
 

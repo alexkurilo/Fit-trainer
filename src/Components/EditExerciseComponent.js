@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 
 import TextFieldsStandart from './TextFieldsStandart';
 import TextFieldsSelectNative from './TextFieldsSelectNative';
@@ -9,92 +10,93 @@ import ButtonYellow from "./ButtonYellow";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
-const EditExerciseComponent = ({props, onEditExercisesRequestTop, onEditExercisesRequestBottom, onEditExercisesRequestDelete,
-    onChangeEditExerciseName, onChangeEditMeasurementType, currentEditExercisesRequest }) => {
-        
-    let namePage = "Edit Exercise";
-
-    const HandleCreateExerciseButton = () => {
-        console.log(currentEditExercisesRequest);
-        
+class EditExerciseComponent extends Component{
+    componentWillMount ( ) {
+        console.log(this.namePage);
+        if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
     };
 
-    const ReadEditExerciseName = (value, index) => {
-        let data =[value, index];
-        onChangeEditExerciseName(data);
+    namePage = "Edit Exercises";
+
+    HandleCreateExerciseButton = () => {
+        console.log(this.props.currentEditExercisesRequest);
+        this.props.history.push("/user/dashboard");
+    };
+
+    ReadEditExerciseName = (value, index) => {
+        this.props.onChangeEditExerciseName([value, index]);
     };
     
-    const ReadEditMeasurementType = (value, index) => {
-        let data =[value, index];
-        onChangeEditMeasurementType(data);
+    ReadEditMeasurementType = (value, index) => {
+        this.props.onChangeEditMeasurementType([value, index]);
     };
 
-    const onClickTop = (index) => {
-        onEditExercisesRequestTop(index);
-        console.log(currentEditExercisesRequest);
+    ClickButton = (data) => {
+        this.props.onClickButton([...data]);
     };
 
-    const onClickBottom = (index) => {
-        onEditExercisesRequestBottom(index);
-        console.log(currentEditExercisesRequest);
-    };
 
-    const onClickDelete = (index) => {
-        onEditExercisesRequestDelete(index);
-        //console.log(index);
-    };
-    
- console.log({...{currentEditExercisesRequest}});
-    return(
-        <div className={'inComponent'}>
-            <HeaderComponent namePage = {namePage}/>
-            <div className={"signWindow"}>
-                <div className={"signHeader"}>
-                    <h3>{namePage}</h3>
+    render(){
+        return(
+            <div className={'inComponent'}>
+                <HeaderComponent namePage = {this.namePage}/>
+                <div className={"signWindow"}>
+                    <div className={"signHeader"}>
+                        <h3>{this.namePage}</h3>
+                    </div>
+                    <div className={"signBody"}>
+                        <div className={'blockStrings'}>
+                            {
+                                this.props.currentEditExercisesRequest.map((item, index) => {
+                                    //console.log({...{["item"+index]:item}})
+                                    return (
+                                        <div key={index}
+                                                className={"stringData"}>
+                                            <TextFieldsStandart     onReadField={(event) => this.ReadEditExerciseName(event, index)}
+                                                                    value = {item.exercisesName}
+                                                                    placeholder={"Exercise Name"}
+                                            />
+                                            <TextFieldsSelectNative onReadField={(event) => this.ReadEditMeasurementType(event, index)}
+                                                                    value = {item.measurementType}
+                                                                    placeholder = {"Measurement Type"}
+                                            />
+                                            <ButtonTurquoise    index = {index}
+                                                                nameButton = {"top"}
+                                                                onHandleClick = {this.ClickButton}
+                                                                imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
+                                            />
+                                            <ButtonTurquoise    index = {index}
+                                                                nameButton = {"bottom"}
+                                                                onHandleClick = {this.ClickButton}
+                                                                imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
+                                            />
+                                            <ButtonYellow   index = {index}
+                                                            nameButton = {"delete"}
+                                                            onHandleClick = {this.ClickButton}
+                                                            imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
+                                            />
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                        <PinkButton  HandleSignInButton={this.HandleCreateExerciseButton}
+                                     label={"EDIT EXERCISES"}
+                        />
+                    </div>
+
                 </div>
-                <div className={"signBody"}>
-                    {
-                        currentEditExercisesRequest.map((item, index) => {
-                            //console.log({...{["item"+index]:item}})
-                            return <div key={index}
-                                    className={"stringData"}>
-                                <TextFieldsStandart     onReadField={(event) => ReadEditExerciseName(event, index)}
-                                                        value = {item.exercisesName}
-                                                        placeholder={"Exercise Name"}
-                                /> 
-                                <TextFieldsSelectNative onReadField={(event) => ReadEditMeasurementType(event, index)}
-                                                        value = {item.measurementType}
-                                                        placeholder = {"Measurement Type"}
-                                />
-                                <ButtonTurquoise    index = {index}
-                                                    onHandleClick = {onClickTop}
-                                                    imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
-                                />
-                                <ButtonTurquoise    index = {index}
-                                                    onHandleClick = {onClickBottom}
-                                                    imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
-                                />
-                                <ButtonYellow   index = {index}
-                                                onHandleClick={onClickDelete}
-                                                imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
-                                />
-                            </div>}
-                        )
-                    }
-                    <PinkButton  HandleSignInButton={HandleCreateExerciseButton}
-                                label={"EDIT EXERCISES"}
-                    />
-                </div>
+                <FooterComponent/>
             </div>
-            <FooterComponent/>
-        </div>
-    );
-};
+        );
+    }
+}
 
 
-export default connect(
+export default withRouter(connect(
     (state) => ({
-        currentEditExercisesRequest: state.currentEditExercisesRequest
+        currentEditExercisesRequest: state.currentEditExercisesRequest,
+        currentNamePage: state.currentNamePage
     }),
 
     dispatch => ({
@@ -106,17 +108,13 @@ export default connect(
             const payload = data;
             dispatch ({type: 'CHANGE_EDIT_MEASUREMENT_TYPE', payload})
         },
-        onEditExercisesRequestTop: (data) => {
+        onClickButton: (data) => {
             const payload = data;
-            dispatch ({type: 'EDIT_EXERCISES_REQUEST_TOP', payload})
+            dispatch ({type: 'CLICK_BUTTON_EDIT_EXERCISES', payload})
         },
-        onEditExercisesRequestBottom: (data) => {
+        onChangeNamePage:(data) => {
             const payload = data;
-            dispatch ({type: 'EDIT_EXERCISES_REQUEST_BOTTOM', payload})
-        },
-        onEditExercisesRequestDelete: (data) => {
-            const payload = data;
-            dispatch ({type: 'EDIT_EXERCISES_REQUEST_DELETE', payload})
-        },
+            dispatch({type: 'CHANGE_NAME_PAGE', payload})
+        }
     })
-)(EditExerciseComponent);
+)(EditExerciseComponent));

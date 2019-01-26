@@ -10,15 +10,11 @@ import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
 class DashboardComponent extends Component  {
-    constructor(props) {
-        super(props);
-        this.selectDay = this.selectDay.bind(this);
-    }
-
     namePage = "Dashboard";
 
     componentWillMount ( ) {
         console.log(this.props.selectDate);
+        if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
         if (this.props.selectDate === ""){
             this.props.currentWorkoutWithDate.forEach((element) =>  {
                 this.props.onAddSelectedDates(element.date);
@@ -78,7 +74,8 @@ export default withRouter(connect(
     (state) => ({
         selectedDays: state.selectedDays,
         selectDate: state.selectDate,
-        currentWorkoutWithDate: state.currentWorkoutWithDate
+        currentWorkoutWithDate: state.currentWorkoutWithDate,
+        currentNamePage: state.currentNamePage
     }),
 
     dispatch => ({
@@ -94,5 +91,9 @@ export default withRouter(connect(
             const payload = data;
             dispatch ({type: 'SELECT_DATE', payload})
         },
+        onChangeNamePage:(data) => {
+            const payload = data;
+            dispatch({type: 'CHANGE_NAME_PAGE', payload})
+        }
     })
 )(DashboardComponent));
