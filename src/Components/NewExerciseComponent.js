@@ -10,7 +10,6 @@ import FooterComponent from "./FooterComponent";
 
 class NewExerciseComponent extends Component {
     componentWillMount ( ) {
-        console.log(this.namePage);
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
     };
 
@@ -41,13 +40,13 @@ class NewExerciseComponent extends Component {
                         <section>Please, add a new exercise name and measurement measurement type</section>
                     </div>
                     <div className={"signBody"}>
-                        <TextFieldsStandart onReadField={this.ReadExerciseName}
+                        <TextFieldsStandart onreadfield={this.ReadExerciseName}
                                             placeholder={"Exercise Name"}
                         />
-                        <TextFieldsSelectNative onReadField={this.ReadMeasurementType}
+                        <TextFieldsSelectNative onreadfield={this.ReadMeasurementType}
                                                 placeholder ={"Measurement Type"}
                         />
-                        <PinkButton  HandleSignInButton={this.HandleCreateExerciseButton}
+                        <PinkButton  handlesigninbutton={this.HandleCreateExerciseButton}
                                      label={"CREATE EXERCISE"}
                         />
                     </div>

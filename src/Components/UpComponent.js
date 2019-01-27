@@ -1,86 +1,80 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 import TextFieldsDense from './TextFieldsDense';
 import TextFieldsPassword from './TextFieldsPassword';
 import PinkButton from './ButtonPink';
+import HeaderComponent from "./HeaderComponent";
+import FooterComponent from "./FooterComponent";
 
-const UpComponent = ({onEntryRequestUp}) => {
-    let signInRequestData = {};
+class UpComponent extends Component{
+    componentWillMount ( ) {
+        if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
+    }
+    signInRequestData = {};
+    namePage = "Sign up";
 
-    const ReadEmail = (value) => {
-        signInRequestData.email = value;
+    ReadEmail = (value) => {
+        this.signInRequestData.email = value;
     };
 
-    const ReadPass = (value) => {
-        signInRequestData.pass = value;
+    ReadPass = (value) => {
+        this.signInRequestData.pass = value;
     };
 
-    const ReadRepeatPass = (value) => {
-        signInRequestData.repeatPass = value;
+    ReadRepeatPass = (value) => {
+        this.signInRequestData.repeatPass = value;
     };
 
-    const HandleSignInButton = () => {
-        console.log(signInRequestData.email);
-        console.log(signInRequestData.pass);
-        console.log(signInRequestData.repeatPass);
-        if (signInRequestData.email === undefined || signInRequestData.pass === undefined || signInRequestData.repeatPass === undefined) alert("Please fill all the fields");
-        else if (signInRequestData.repeatPass !== signInRequestData.pass) alert("Passwords do not match");
-        else onEntryRequestUp(signInRequestData);
+    HandleSignInButton = () => {
+        console.log(this.signInRequestData.email);
+        console.log(this.signInRequestData.pass);
+        console.log(this.signInRequestData.repeatPass);
+        console.log(this.props);
+        this.props.history.push("/user/sign in");
+        if (this.signInRequestData.email === undefined || this.signInRequestData.pass === undefined || this.signInRequestData.repeatPass === undefined) alert("Please fill all the fields");
+        else if (this.signInRequestData.repeatPass !== this.signInRequestData.pass) alert("Passwords do not match");
+        else this.props.onEntryRequestUp(this.signInRequestData);
     };
 
-    return(
-        <div className={'inComponent'}>
-            <div className={'firstLine'}>
-                <div>
-                    Sign up
-                </div>
-                <img src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>
-            </div>
-            <div className={"signWindow"}>
-                <div className={"signHeader"}>
-                    <h3>Sign into Fit Trainer App</h3>
-                    <section>Please, enteryour email and password</section>
-                </div>
-                <div className={"signBody"}>
-                    <TextFieldsDense ReadEmail={ReadEmail}/>
-                    <TextFieldsPassword ReadInput={ReadPass}
-                                        plaseholder ={"Password"}
-                    />
-                    <TextFieldsPassword ReadInput={ReadRepeatPass}
-                                        plaseholder ={"Repeat Password"}
-                    />
-                    <PinkButton  HandleSignInButton={HandleSignInButton}
-                                label={"SIGN UP"}
-                    />
-                    <Link   to="/sign in"
-                        className={"link"}>
-                        alredy have an account? sign-in
-                    </Link>
-                </div>
-            </div>
-            <div className={"footerIn"}>
-                <div className={"footerInlinks"}>
-                    <div>
-                        SIGN IN
+    render(){
+        return(
+            <div className={'inComponent'}>
+                <HeaderComponent namePage = {this.namePage}/>
+                <div className={"signWindow"}>
+                    <div className={"signHeader"}>
+                        <h3>Sign into Fit Trainer App</h3>
+                        <section>Please, enteryour email and password</section>
                     </div>
-                    <div>
-                        SIGN UP
+                    <div className={"signBody"}>
+                        <TextFieldsDense reademail={this.ReadEmail}/>
+                        <TextFieldsPassword readinput={this.ReadPass}
+                                            plaseholder ={"Password"}
+                        />
+                        <TextFieldsPassword readinput={this.ReadRepeatPass}
+                                            plaseholder ={"Repeat Password"}
+                        />
+                        <PinkButton  handlesigninbutton={this.HandleSignInButton}
+                                     label={"SIGN UP"}
+                        />
+                        <Link   to="/sign in"
+                                className={"link"}>
+                            alredy have an account? sign-in
+                        </Link>
                     </div>
                 </div>
-                <div>
-                    &#169; 2019 Alex Kurilo, made with love for a better web
-                </div>
+                <FooterComponent/>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 
-export default connect(
+export default withRouter(connect(
     (state) => ({
         currntUserSignUpData: state.currntUserSignUpData,
+        currentNamePage: state.currentNamePage
     }),
 
     dispatch => ({
@@ -88,5 +82,13 @@ export default connect(
             const payload = data;
             dispatch ({type: 'ENTRY_REQUEST_UP', payload})
         },
+        onEntryRequest: (data) => {
+            const payload = data;
+            dispatch ({type: 'ENTRY_REQUEST', payload})
+        },
+        onChangeNamePage:(data) => {
+            const payload = data;
+            dispatch({type: 'CHANGE_NAME_PAGE', payload})
+        }
     })
-)(UpComponent);
+)(UpComponent));

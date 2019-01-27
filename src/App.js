@@ -7,7 +7,6 @@ import './App.css';
 
 class App extends Component {
     componentWillMount() {
-        console.log( this.props.history.location.pathname);
         if (this.props.history.location.pathname === "/")this.props.history.push("/sign in");
         if (this.props.history.location.pathname === "/user")this.props.history.push("/user/dashboard");
     }
@@ -17,7 +16,7 @@ class App extends Component {
             <div className="App">
                 <Switch>
                     <Route path = '/user' component = {UsersWorcoutComponent} />
-                    <Route path = '/' component = {SignComponent} />
+                    <Route path = '/' component = {SignComponent}/>
                 </Switch>
             </div>
         );

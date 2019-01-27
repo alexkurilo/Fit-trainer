@@ -20,13 +20,13 @@ function ButtonYellow(props) {
     const { classes, children, className, ...other } = props;
 
     const HandleClick = () => {
-        if (props.index !== undefined)props.onHandleClick([props.nameButton, props.index]);
+        if (props.index !== undefined)props.clickbutton([props.namebutton, props.index]);
     };
 
     return (
         <Button className={classNames(classes.root, className)} {...other}
                 onClick = {()=>HandleClick()}>
-            <img src={props.imgSrc}/>
+            <img src={props.imgsrc}/>
             {props.label}
         </Button>
     );

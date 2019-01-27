@@ -44,6 +44,9 @@ export default function currentNewWorkoutRequest (state = initialState, action){
                 case "delete":
                     state.splice(action.payload[1], 1);
                     break;
+
+                default:
+                    return state;
             };
             rewriteId(state);
             return [...state];

@@ -137,6 +137,9 @@ export default function currentWorkoutWithDate (state = initialState, action){
                 case "delete":
                     state[action.payload[2]].exercises.splice(action.payload[1], 1);
                     break;
+
+                default:
+                    return state;
             };
             rewriteId(state[action.payload[2]].exercises);
             return [...state];

@@ -10,10 +10,7 @@ import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
 class DashboardComponent extends Component  {
-    namePage = "Dashboard";
-
     componentWillMount ( ) {
-        console.log(this.props.selectDate);
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
         if (this.props.selectDate === ""){
             this.props.currentWorkoutWithDate.forEach((element) =>  {
@@ -21,6 +18,8 @@ class DashboardComponent extends Component  {
             });
         }
     }
+
+    namePage = "Dashboard";
 
     selectDay = (event) => {
         let selectedDate = event.getFullYear().toString()+(event.getMonth()+1 <= 9 ? "0"+(event.getMonth()+1).toString() : event.getMonth()+1).toString()+(event.getDate() <= 9 ? "0"+event.getDate().toString() : event.getDate().toString());

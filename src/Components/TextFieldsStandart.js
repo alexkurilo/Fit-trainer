@@ -29,7 +29,7 @@ class TextFieldsStandart extends React.Component {
     };
 
     ReadField = (event) => {
-        this.props.onReadField(event.target.value);
+        this.props.onreadfield(event.target.value);
     };
 
     render() {

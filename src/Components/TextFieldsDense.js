@@ -29,7 +29,7 @@ class TextFieldsDense extends React.Component {
     };
 
     ReadEmail = (event) => {
-        this.props.ReadEmail(event.target.value);
+        this.props.reademail(event.target.value);
     };
 
     render() {

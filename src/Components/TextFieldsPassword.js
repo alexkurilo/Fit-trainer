@@ -29,7 +29,7 @@ class TextFieldsPassword extends React.Component {
     };
 
     ReadPass = (event) => {
-        this.props.ReadInput(event.target.value);
+        this.props.readinput(event.target.value);
     };
 
     // ReadRepeatPass = (event) => {

@@ -14,7 +14,6 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200,
-    // opacity: 0.1,
   },
   dense: {
     marginTop: 16,
@@ -54,7 +53,7 @@ class TextFieldsSelectNative extends React.Component {
   };
 
   ReadField = (event) => {
-    this.props.onReadField(event.target.value);
+    this.props.onreadfield(event.target.value);
   };
 
 
@@ -67,7 +66,6 @@ class TextFieldsSelectNative extends React.Component {
             select
             label={this.props.placeholder}
             className={classes.textField}
-            //autoComplete = {"on"}
             defaultValue={this.props.value}
             value={this.props.value}
             onChange={(event)=>this.ReadField(event)}

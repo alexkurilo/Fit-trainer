@@ -20,7 +20,7 @@ function ButtonPink(props) {
     const { classes, children, className, ...other } = props;
     
     const HandleClick = () => {
-        props.HandleSignInButton();
+        props.handlesigninbutton();
     };
     
     return (

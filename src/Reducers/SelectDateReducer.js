@@ -1,4 +1,4 @@
-const initialState = '';
+const initialState = "";
 
 export default function selectDate (state = initialState, action){
     switch (action.type) {

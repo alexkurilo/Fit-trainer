@@ -52,27 +52,27 @@ class EditExerciseComponent extends Component{
                                     return (
                                         <div key={index}
                                                 className={"stringData"}>
-                                            <TextFieldsStandart     onReadField={(event) => this.ReadEditExerciseName(event, index)}
+                                            <TextFieldsStandart     onreadfield={(event) => this.ReadEditExerciseName(event, index)}
                                                                     value = {item.exercisesName}
                                                                     placeholder={"Exercise Name"}
                                             />
-                                            <TextFieldsSelectNative onReadField={(event) => this.ReadEditMeasurementType(event, index)}
+                                            <TextFieldsSelectNative onreadfield={(event) => this.ReadEditMeasurementType(event, index)}
                                                                     value = {item.measurementType}
                                                                     placeholder = {"Measurement Type"}
                                             />
                                             <ButtonTurquoise    index = {index}
                                                                 nameButton = {"top"}
-                                                                onHandleClick = {this.ClickButton}
+                                                                clickbutton = {this.ClickButton}
                                                                 imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
                                             />
                                             <ButtonTurquoise    index = {index}
                                                                 nameButton = {"bottom"}
-                                                                onHandleClick = {this.ClickButton}
+                                                                clickbutton = {this.ClickButton}
                                                                 imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
                                             />
                                             <ButtonYellow   index = {index}
                                                             nameButton = {"delete"}
-                                                            onHandleClick = {this.ClickButton}
+                                                            clickbutton = {this.ClickButton}
                                                             imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
                                             />
                                         </div>
@@ -80,7 +80,7 @@ class EditExerciseComponent extends Component{
                                 })
                             }
                         </div>
-                        <PinkButton  HandleSignInButton={this.HandleCreateExerciseButton}
+                        <PinkButton  handlesigninbutton={this.HandleCreateExerciseButton}
                                      label={"EDIT EXERCISES"}
                         />
                     </div>

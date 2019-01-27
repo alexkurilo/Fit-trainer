@@ -12,7 +12,6 @@ import FooterComponent from "./FooterComponent";
 
 class NewWorkoutComponent extends Component{
     componentWillMount ( ) {
-        console.log(this.namePage);
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
     };
 
@@ -25,7 +24,6 @@ class NewWorkoutComponent extends Component{
     };
 
     ReadNewExerciseName = (event, index) => {
-        console.log([event.target.value, index])
         for (let i=0; i < this.props.currentEditExercisesRequest.length; i++){
             if (this.props.currentEditExercisesRequest[i].exercisesName === event.target.value) {
                 this.props.onFillNewStringWorkout([event.target.value, i, index, this.props.currentEditExercisesRequest[i].measurementType]);
@@ -65,18 +63,18 @@ class NewWorkoutComponent extends Component{
                     return <div key={index}
                             className={"stringData"}>
                         <NativeSelects
-                                                onReadField={(event) => this.ReadNewExerciseName(event, index)}
+                                                onreadfield={(event) => this.ReadNewExerciseName(event, index)}
                                                 value = {item.exercisesName}
                                                 placeholder={"Exercise Name"}
                                                 data = {this.props.currentEditExercisesRequest}
                         /> 
-                        <TextFieldsStandartNumber     
-                                                onReadField={(event) => this.ReadRepeatsField(event, index)}
+                        <TextFieldsStandartNumber
+                                                onreadfield={(event) => this.ReadRepeatsField(event, index)}
                                                 value = {item.repeats}
                                                 placeholder={"Repeats"}
                         /> 
-                        <TextFieldsStandartNumber     
-                                                onReadField={(event) => this.ReadMeasurementField(event, index)}
+                        <TextFieldsStandartNumber
+                                                onreadfield={(event) => this.ReadMeasurementField(event, index)}
                                                 value = {item.measurements}
                                                 placeholder={"Measurement"}
                         />
@@ -84,19 +82,19 @@ class NewWorkoutComponent extends Component{
                             this.showMeasurementType(item.length > 1 ? this.props.currentEditExercisesRequest[item.numberInList].measurementType : item)
                         }
                         <ButtonTurquoise    index = {index}
-                                            nameButton = {"top"}
-                                            onHandleClick = {this.ClickButton}
-                                            imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
+                                            namebutton = {"top"}
+                                            clickbutton = {this.ClickButton}
+                                            imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
                         />
                         <ButtonTurquoise    index = {index}
-                                            nameButton = {"bottom"}
-                                            onHandleClick = {this.ClickButton}
-                                            imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
+                                            namebutton = {"bottom"}
+                                            clickbutton = {this.ClickButton}
+                                            imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
                         />
                         <ButtonYellow   index = {index}
-                                        nameButton = {"delete"}
-                                        onHandleClick = {this.ClickButton}
-                                        imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
+                                        namebutton = {"delete"}
+                                        clickbutton = {this.ClickButton}
+                                        imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
                         />
                     </div>
                     }
@@ -109,7 +107,7 @@ class NewWorkoutComponent extends Component{
     visibleButtonCreateWorkout = () => {
         if (this.props.currentNewWorkoutRequest.length !== 0){
             return (
-                <PinkButton  HandleSignInButton={this.HandleCreateWorkoutButton}
+                <PinkButton  handlesigninbutton={this.HandleCreateWorkoutButton}
                             label={"CREATE WORKOUT"}
                 />
             )
@@ -125,7 +123,7 @@ class NewWorkoutComponent extends Component{
                         <h3>{this.namePage}</h3>
                     </div>
                     <div className={"signBody"}>
-                        <PinkButton  HandleSignInButton={this.addNewStringWorkout}
+                        <PinkButton  handlesigninbutton={this.addNewStringWorkout}
                                      label={"ADD EXERCISE"}
                         />
                         <div className={'blockStrings'}>

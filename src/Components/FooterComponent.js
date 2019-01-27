@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 const FooterComponent = ({}) => {
-
     return(
         <div className={"footerIn"}>
             <div className={"footerInlinks"}>
@@ -32,7 +31,7 @@ const FooterComponent = ({}) => {
 
 export default connect(
     (state) => ({
-
+        props: state.props
     }),
 
     dispatch => ({

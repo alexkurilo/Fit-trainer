@@ -1,30 +1,33 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import TextFieldsDense from './TextFieldsDense';
 import TextFieldsPassword from './TextFieldsPassword';
 import PinkButton from './ButtonPink';
+import HeaderComponent from "./HeaderComponent";
+import FooterComponent from "./FooterComponent";
 
 class InComponent extends Component {
-    constructor(props) {
-        super(props);
+    componentWillMount ( ) {
+        if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
     }
+
     signInRequestData = {};
+    namePage = "Sign in";
 
     ReadEmail = (value) => {
-        this.props.signInRequestData.email = value;
+        this.props.currentUserSignInData.email = value;
     };
 
     ReadPass = (value) => {
-        this.props.signInRequestData.pass = value;
+        this.props.currentUserSignInData.pass = value;
     };
 
     HandleSignInButton = () => {
         console.log(this.signInRequestData);
         console.log( this.props.history.location.pathname);
         this.props.history.push("/user/dashboard");
-        //onEntryRequest(signInRequestData);
         if (this.signInRequestData.email === undefined || this.signInRequestData.pass === undefined || this.signInRequestData.repeatPass === undefined) alert("Please fill all the fields");
         else this.props.onEntryRequest(this.signInRequestData);
         
@@ -33,23 +36,18 @@ class InComponent extends Component {
     render(){
         return(
             <div className={'inComponent'}>
-                <div className={'firstLine'}>
-                    <div>
-                        Sign in
-                    </div>
-                    <img src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>
-                </div>
+                <HeaderComponent namePage = {this.namePage}/>
                 <div className={"signWindow"}>
                     <div className={"signHeader"}>
                         <h3>Sign into Fit Trainer App</h3>
                         <section>Please, enteryour email and password</section>
                     </div>
                     <div className={"signBody"}>
-                        <TextFieldsDense ReadEmail={this.ReadEmail}/>
-                        <TextFieldsPassword ReadInput={this.ReadPass}
+                        <TextFieldsDense reademail={this.ReadEmail}/>
+                        <TextFieldsPassword readinput={this.ReadPass}
                                             plaseholder ={"Password"}
                         />
-                        <PinkButton  HandleSignInButton={this.HandleSignInButton}
+                        <PinkButton  handlesigninbutton={this.HandleSignInButton}
                                     label={"SIGN IN"}
                         />
                         <Link   to="/sign up"
@@ -58,19 +56,7 @@ class InComponent extends Component {
                         </Link>
                     </div>
                 </div>
-                <div className={"footerIn"}>
-                    <div className={"footerInlinks"}>
-                        <div>
-                            SIGN IN
-                        </div>
-                        <div>
-                            SIGN UP
-                        </div>
-                    </div>
-                    <div>
-                        &#169; 2019 Alex Kurilo, made with love for a better web
-                    </div>
-                </div>
+                <FooterComponent/>
             </div>
         );
     }
@@ -79,7 +65,8 @@ class InComponent extends Component {
 
 export default withRouter(connect(
     (state) => ({
-        currntUserSignInData: state.currntUserSignInData,
+        currentUserSignInData: state.currntUserSignInData,
+        currentNamePage: state.currentNamePage
     }),
 
     dispatch => ({
@@ -87,5 +74,9 @@ export default withRouter(connect(
             const payload = data;
             dispatch ({type: 'ENTRY_REQUEST', payload})
         },
+        onChangeNamePage:(data) => {
+            const payload = data;
+            dispatch({type: 'CHANGE_NAME_PAGE', payload})
+        }
     })
 )(InComponent));

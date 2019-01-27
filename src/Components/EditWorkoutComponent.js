@@ -11,12 +11,7 @@ import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
 class EditWorkautComponent extends Component {
-    namePage = "Edit workout";
-    numberInOrder="";
-    target = "";
-
     componentWillMount ( ) {
-        console.log(this.namePage);
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
         this.props.currentWorkoutWithDate.forEach((item, index) => {
             if (item.date === this.props.selectDate) {
@@ -25,7 +20,11 @@ class EditWorkautComponent extends Component {
             }
         });
     };
-    
+
+    namePage = "Edit workout";
+    numberInOrder="";
+    target = "";
+
     HandleUpdateWorkoutButton = () => {
         this.props.onSaveWorkout(this.props.currentWorkoutWithDate);
         this.props.history.push("/user/dashboard");
@@ -65,18 +64,18 @@ class EditWorkautComponent extends Component {
                         <div key={index}
                             className={"stringData"}>
                             <NativeSelects
-                                            onReadField={(event) => this.ReadNewExerciseName(event, index)}
+                                            onreadfield={(event) => this.ReadNewExerciseName(event, index)}
                                             value = {item.exercisesName}
                                             placeholder={"Exercise Name"}
                                             data = {this.props.exercisesList}
                             />
-                            <TextFieldsStandartNumber     
-                                                    onReadField={(event) => this.ReadRepeatsField(event, index)}
+                            <TextFieldsStandartNumber
+                                                    onreadfield={(event) => this.ReadRepeatsField(event, index)}
                                                     value = {item.repeats}
                                                     placeholder={"Repeats"}
                             /> 
-                            <TextFieldsStandartNumber     
-                                                    onReadField={(event) => this.ReadMeasurementField(event, index)}
+                            <TextFieldsStandartNumber
+                                                    onreadfield={(event) => this.ReadMeasurementField(event, index)}
                                                     value = {item.measurements}
                                                     placeholder={"Measurement"}
                             />
@@ -84,19 +83,19 @@ class EditWorkautComponent extends Component {
                                 {item.measurementType}
                             </div>
                             <ButtonTurquoise    index = {index}
-                                                nameButton = {"top"}
-                                                onHandleClick = {this.ClickButton}
-                                                imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
+                                                namebutton = {"top"}
+                                                clickbutton = {this.ClickButton}
+                                                imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
                             />
                             <ButtonTurquoise    index = {index}
-                                                nameButton = {"bottom"}
-                                                onHandleClick = {this.ClickButton}
-                                                imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
+                                                namebutton = {"bottom"}
+                                                clickbutton = {this.ClickButton}
+                                                imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
                             />
                             <ButtonYellow   index = {index}
-                                            nameButton = {"delete"}
-                                            onHandleClick = {this.ClickButton}
-                                            imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
+                                            namebutton = {"delete"}
+                                            clickbutton = {this.ClickButton}
+                                            imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
                             />
                         </div>
                     )
@@ -109,7 +108,7 @@ class EditWorkautComponent extends Component {
     visibleButtonCreateWorkout = () => {
         if (this.target.length !== 0){
             return (
-                <PinkButton  HandleSignInButton={this.HandleUpdateWorkoutButton}
+                <PinkButton  handlesigninbutton={this.HandleUpdateWorkoutButton}
                             label={"UPDATE WORKOUT"}
                 />
             )
@@ -124,9 +123,8 @@ class EditWorkautComponent extends Component {
                         <h3>{this.namePage}</h3>
                     </div>
                     <div className={"signBody"}>
-                        <PinkButton
-                            HandleSignInButton={this.addNewStringWorkout}
-                            label={"ADD EXERCISE"}
+                        <PinkButton handlesigninbutton={this.addNewStringWorkout}
+                                    label={"ADD EXERCISE"}
                         />
                         <div className={'blockStrings'}>
                             {this.mapComponent()}

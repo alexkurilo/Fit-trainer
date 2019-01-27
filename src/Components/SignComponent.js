@@ -1,65 +1,81 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import logo from '../logo.svg';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Link, withRouter} from 'react-router-dom';
 
 import ButtonTurquoise from "./ButtonTurquoise";
 import InComponent from "./InComponent";
 import UpComponent from "./UpComponent";
 
-const SignComponent = () => {
-    const handleSignIn = (event) => {
-        console.log("sign in ");
-        console.log(event);
+const NamePageArray = [
+    {
+        name: "Sign in",
+        src: "https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"
+    },
+    {
+        name: "Sign up",
+        src: "https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"
+    }];
+
+
+class SignComponent extends Component{
+    componentWillMount ( ){
+
+    }
+
+    showIllumination = (item) => {
+        if (item.name.toLowerCase() === this.props.currentNamePage.toLowerCase())return "illumination";
     };
 
-    const handleSignUp = (event) => {
-        console.log("sign up ");
-        console.log(event);
+    showhover = (item) => {
+        for (let i = 0; i < NamePageArray.length; i++) {
+            if (NamePageArray[i].name.toLowerCase() === item.name.toLowerCase()) return "hover";
+        }
     };
 
-    return(
-        <div className={'myPage'}>
-            <div className={'SideBar'}>
-                <div className={'Header'}>
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <div >
-                        FIT TRAINER
+    render (){
+        return(
+            <div className={'myPage'}>
+                <div className={'SideBar'}>
+                    <div className={'Header'}>
+                        <img src={logo} className="App-logo" alt="logo" />
+                        <div >
+                            FIT TRAINER
+                        </div>
                     </div>
+                    <hr/>
+
+                    {NamePageArray.map((item, index) => {
+                        return (
+                            <div className={"myButton"+" "+ this.showIllumination(item)+" "+this.showhover(item)}
+                                 key = {index}
+                            >
+                                <Link   to={"/"+item.name.toLowerCase()}
+                                     className={"link"}>
+                                    <div><img src={item.src}/>{item.name}</div>
+                                </Link>
+                            </div>
+                        )
+                    })}
                 </div>
-                <hr/>
-                <Link   to="/sign in"
-                        className={"link"}>
-                    <ButtonTurquoise label = {"Sign in"}
-                                    imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
-                    />
-                </Link>
-                <Link   to="/sign up"
-                        className={"link"}>
-                    <ButtonTurquoise label = {"Sign up"}
-                                    imgSrc = {"https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"}
-                    />
-                </Link>
-                
+                <div className={"Component"}>
+                    <Switch>
+                        <Route exact path="/sign in" component = {InComponent} />
+                        <Route exact path="/sign up" component = {UpComponent} />
+                    </Switch>
+                </div>
             </div>
-            <div className={"Component"}>
-                {/* <InComponent/> */}
-                <Switch>
-                    <Route path="/sign in" component = {InComponent} />
-                    <Route path="/sign up" component = {UpComponent} />
-                </Switch>
-            </div>
-        </div>
-    );
+        );
+    }
 };
 
 
-export default connect(
+export default withRouter(connect(
     (state) => ({
-
+        currentNamePage: state.currentNamePage
     }),
 
     dispatch => ({
 
     })
-)(SignComponent);
+)(SignComponent));

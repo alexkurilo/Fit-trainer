@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import logo from '../logo.svg';
-import { Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
-import ButtonTurquoise from "./ButtonTurquoise";
 import DashboardComponent from "./DashboardComponent";
 import NewExerciseComponent from "./NewExerciseComponent";
 import EditExerciseComponent from "./EditExerciseComponent";
@@ -35,13 +34,17 @@ const NamePageArray = [
 class UsersWorkoutComponent extends Component {
 
     componentWillMount ( ) {
-        console.log( this.props.history.location.pathname);
-        console.log(this.props.selectDate);
 
     };
 
     showIllumination = (item) => {
         if (item.name.toLowerCase() === this.props.currentNamePage.toLowerCase())return "illumination";
+    };
+
+    showhover = (item) => {
+        for (let i=0; i<3; i++){
+            if (NamePageArray[i].name.toLowerCase() === item.name.toLowerCase())return "hover";
+        }
     };
 
     onclick = (item) => {
@@ -63,7 +66,7 @@ class UsersWorkoutComponent extends Component {
                     <hr/>
                     {NamePageArray.map((item, index) => {
                         return (
-                            <div className={"myButton"+" "+ this.showIllumination(item)}
+                            <div className={"myButton"+" "+ this.showIllumination(item)+" "+this.showhover(item)}
                                  key = {index}
                                  onClick = {() => this.onclick(item)}
                             >
@@ -93,9 +96,5 @@ class UsersWorkoutComponent extends Component {
 export default withRouter(connect(
     (state) => ({
         currentNamePage: state.currentNamePage
-    }),
-
-    dispatch => ({
-
     })
 )(UsersWorkoutComponent));
