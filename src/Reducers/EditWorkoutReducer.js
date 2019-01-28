@@ -91,13 +91,16 @@ const initialState = [
     }
 ];
 
-export default function currentWorkoutWithDate (state = initialState, action){
+export default function currentWorkoutWithDate (state = [], action){
 
     const rewriteId = (arr) => {
         arr.forEach((item, index)=> item.id = index);
     };
 
     switch (action.type) {
+        case "SET_WORKOUTS":
+            return [...action.payload];
+
         case "CREATE_NEW_WORKOUT":
             return  [...state, {id: state.length, date: action.payload[0], exercises: action.payload[1]}];
 

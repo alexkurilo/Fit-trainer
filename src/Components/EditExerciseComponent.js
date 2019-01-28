@@ -20,7 +20,8 @@ class EditExerciseComponent extends Component{
 
     HandleCreateExerciseButton = () => {
         console.log(this.props.currentEditExercisesRequest);
-        this.props.history.push("/user/dashboard");
+        console.log(this.props.currentUserSignInData);
+        this.props.history.push("/user/"+(this.props.currentUserSignInData.email)+"/dashboard");
     };
 
     ReadEditExerciseName = (value, index) => {
@@ -32,6 +33,7 @@ class EditExerciseComponent extends Component{
     };
 
     ClickButton = (data) => {
+        console.log(data);
         this.props.onClickButton([...data]);
     };
 
@@ -61,19 +63,19 @@ class EditExerciseComponent extends Component{
                                                                     placeholder = {"Measurement Type"}
                                             />
                                             <ButtonTurquoise    index = {index}
-                                                                nameButton = {"top"}
+                                                                namebutton = {"top"}
                                                                 clickbutton = {this.ClickButton}
-                                                                imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
+                                                                imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
                                             />
                                             <ButtonTurquoise    index = {index}
-                                                                nameButton = {"bottom"}
+                                                                namebutton = {"bottom"}
                                                                 clickbutton = {this.ClickButton}
-                                                                imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
+                                                                imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
                                             />
                                             <ButtonYellow   index = {index}
-                                                            nameButton = {"delete"}
+                                                            namebutton = {"delete"}
                                                             clickbutton = {this.ClickButton}
-                                                            imgSrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
+                                                            imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
                                             />
                                         </div>
                                     )
@@ -96,7 +98,8 @@ class EditExerciseComponent extends Component{
 export default withRouter(connect(
     (state) => ({
         currentEditExercisesRequest: state.currentEditExercisesRequest,
-        currentNamePage: state.currentNamePage
+        currentNamePage: state.currentNamePage,
+        currentUserSignInData: state.currentUserSignInData
     }),
 
     dispatch => ({

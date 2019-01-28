@@ -1,10 +1,11 @@
 const initialState = {
     email:"",
     pass: "",
-    name: ""
+    name: "",
+    id: ""
 };
 
-export default function currntUserSignInData (state = initialState, action){
+export default function currentUserSignInData (state = initialState, action){
     switch (action.type) {
         case "ENTRY_REQUEST":
             return  action.payload;
@@ -12,4 +13,5 @@ export default function currntUserSignInData (state = initialState, action){
         default:
             return state;
     }
+
 }

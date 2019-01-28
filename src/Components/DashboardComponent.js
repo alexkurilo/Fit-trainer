@@ -8,15 +8,16 @@ import ButtonTurquoise from './ButtonTurquoise';
 
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
+import currentWorkoutWithDate from "../Reducers/EditWorkoutReducer";
 
 class DashboardComponent extends Component  {
     componentWillMount ( ) {
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
-        if (this.props.selectDate === ""){
+        /*if (this.props.selectDate === ""){
             this.props.currentWorkoutWithDate.forEach((element) =>  {
                 this.props.onAddSelectedDates(element.date);
             });
-        }
+        }*/
     }
 
     namePage = "Dashboard";
@@ -78,10 +79,10 @@ export default withRouter(connect(
     }),
 
     dispatch => ({
-        onAddSelectedDates: (data) => {
+        /*onAddSelectedDates: (data) => {
             const payload = data;
             dispatch ({type: 'ADD_SELECTED_DATES', payload})
-        },
+        },*/
         onAddSelectedDate: (data) => {
             const payload = data;
             dispatch ({type: 'ADD_SELECTED_DATE', payload})
@@ -93,6 +94,10 @@ export default withRouter(connect(
         onChangeNamePage:(data) => {
             const payload = data;
             dispatch({type: 'CHANGE_NAME_PAGE', payload})
-        }
+        },
+        /*onNewExerciseRequest: (data) => {
+            const payload = data;
+            dispatch ({type: 'NEW_EXERCISE_REQUEST', payload})
+        },*/
     })
 )(DashboardComponent));

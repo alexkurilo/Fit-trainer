@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 
-import currntUserSignInData from "./EntryInRequestReducer";
+import currentUserSignInData from "./EntryInRequestReducer";
 import currentNewExerciseRequest from "./NewExerciseRequestReducer";
 import currentEditExercisesRequest from "./EditExercisesReducer";
 import currentNewWorkoutRequest from "./NewWorkoutReducer";
@@ -13,7 +13,7 @@ import usersArray from "./EntryUsersArrayreducer";
 
 export default combineReducers ({
     routing: routerReducer,
-    currntUserSignInData,
+    currentUserSignInData,
     currentNewExerciseRequest,
     currentEditExercisesRequest,
     currentNewWorkoutRequest,

@@ -6,7 +6,7 @@ const initialState = [{
 export default function usersArray (state = initialState, action){
     switch (action.type) {
         case "ENTRY_USERS_ARRAY":
-            return  action.payload;
+            return  [...action.payload];
 
         default:
             return state;

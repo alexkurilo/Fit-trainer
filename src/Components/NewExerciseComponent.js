@@ -27,7 +27,8 @@ class NewExerciseComponent extends Component {
     HandleCreateExerciseButton = () => {
         this.props.onNewExerciseRequest(this.newExerciseRequestData);
         this.props.onAddNewExerciseRequest(this.newExerciseRequestData);
-        this.props.history.push("/user/dashboard");
+        console.log(this.props.currentUserSignInData);
+        this.props.history.push("/user/"+(this.props.currentUserSignInData.email)+"/dashboard");
     };
 
     render(){
@@ -61,7 +62,8 @@ class NewExerciseComponent extends Component {
 export default withRouter(connect(
     (state) => ({
         currentNewExerciseRequest: state.currentNewExerciseRequest,
-        currentNamePage: state.currentNamePage
+        currentNamePage: state.currentNamePage,
+        currentUserSignInData: state.currentUserSignInData
     }),
 
     dispatch => ({

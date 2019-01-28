@@ -81,12 +81,13 @@ const initialState = [
     }
 ];
 
-export default function currentEditExercisesRequest (state = initialState, action){
+export default function currentEditExercisesRequest (state = [], action){
     let target;
     switch (action.type) {
+        case "SET_EXERCISES":
+            return [...action.payload];
+
         case "CHANGE_EDIT_EXERCISE_NAME":
-            console.log(action.payload);
-            console.log(state);
             state[action.payload[1]].exercisesName = action.payload[0];
             return [...state];
 

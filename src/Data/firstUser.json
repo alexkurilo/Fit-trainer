@@ -5,15 +5,15 @@
         "password": "qwerty",
         "exercises": [
             {
-                "exetcisesName": "Exercise #1",
+                "exercisesName": "Exercise #1",
                 "measurementType": "kilogramms"
             },
             {
-                "exetcisesName": "Exercise #2",
+                "exercisesName": "Exercise #2",
                 "measurementType": "meters"
             },
             {
-                "exetcisesName": "Exercise #3",
+                "exercisesName": "Exercise #3",
                 "measurementType": "minutes"
             }
         ],
@@ -111,20 +111,20 @@
         ]
     },
     {
-        "name": "KuriloAlex",
+        "name": "",
         "email": "kurilo.alex77@gmail.com",
         "password": "123456",
         "exercises": [
             {
-                "exetcisesName": "Exercise #1",
+                "exercisesName": "Exercise #1",
                 "measurementType": "kilogramms"
             },
             {
-                "exetcisesName": "Exercise #2",
+                "exercisesName": "Exercise #2",
                 "measurementType": "meters"
             },
             {
-                "exetcisesName": "Exercise #3",
+                "exercisesName": "Exercise #3",
                 "measurementType": "minutes"
             }
         ],

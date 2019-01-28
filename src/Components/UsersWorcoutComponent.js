@@ -9,6 +9,12 @@ import EditExerciseComponent from "./EditExerciseComponent";
 import NewWorkoutComponent from "./NewWorkoutComponent";
 import EditWorkoutComponent from "./EditWorkoutComponent";
 
+import firebase from 'firebase';
+import {config} from '../Data/data';
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
+
 const NamePageArray = [
     {
         name: "Dashboard",
@@ -34,7 +40,23 @@ const NamePageArray = [
 class UsersWorkoutComponent extends Component {
 
     componentWillMount ( ) {
+        let myThis = this;
+        let ref = firebase.database().ref('/');
+        ref.once('value', function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                let childData = childSnapshot.val();
+                let childKey = childSnapshot.key;
+                let dataRef = snapshot.ref;
+                if (+childKey === myThis.props.currentUserSignInData.id){
+                    myThis.props.onSetExercises(childData.exercises);
+                    myThis.props.onSetWorkouts(childData.workouts);
+                    childData.workouts.forEach((element) =>  {
+                        myThis.props.onAddSelectedDates(element.date);
+                    });
 
+                }
+            });
+        });
     };
 
     showIllumination = (item) => {
@@ -48,9 +70,15 @@ class UsersWorkoutComponent extends Component {
     };
 
     onclick = (item) => {
-        if(item.name.toLowerCase() === NamePageArray[0].name.toLowerCase())this.props.history.push("/user/dashboard");
-        if(item.name.toLowerCase() === NamePageArray[1].name.toLowerCase())this.props.history.push("/user/new exercise");
-        if(item.name.toLowerCase() === NamePageArray[2].name.toLowerCase())this.props.history.push("/user/edit exercises");
+        if(item.name.toLowerCase() === NamePageArray[0].name.toLowerCase()){
+            this.props.history.push("/user/"+(this.props.currentUserSignInData.email)+"/dashboard");
+        }
+        if(item.name.toLowerCase() === NamePageArray[1].name.toLowerCase()){
+            this.props.history.push("/user/"+(this.props.currentUserSignInData.email)+"/new exercise");
+        }
+        if(item.name.toLowerCase() === NamePageArray[2].name.toLowerCase()){
+            this.props.history.push("/user/"+(this.props.currentUserSignInData.email)+"/edit exercises");
+        }
     };
 
     render(){
@@ -80,8 +108,8 @@ class UsersWorkoutComponent extends Component {
                 <div className={"Component"}>
                     <Switch>
                         <Route path="/user/:user/dashboard" component = {DashboardComponent} />
-                        <Route path="/user/new exercise" component = {NewExerciseComponent} />
-                        <Route path="/user/edit exercises" component = {EditExerciseComponent} />
+                        <Route path="/user/:user/new exercise" component = {NewExerciseComponent} />
+                        <Route path="/user/:user/edit exercises" component = {EditExerciseComponent} />
                         <Route path="/user/:new_date/new workout" component = {NewWorkoutComponent} />
                         <Route path="/user/:date/edit workout" component = {EditWorkoutComponent} />
                         <Redirect from = "/user" to="/user/:user/dashboard"/>
@@ -95,6 +123,22 @@ class UsersWorkoutComponent extends Component {
 
 export default withRouter(connect(
     (state) => ({
+        currentUserSignInData: state.currentUserSignInData,
         currentNamePage: state.currentNamePage
+    }),
+
+    dispatch => ({
+        onSetExercises:(data) => {
+            const payload = data;
+            dispatch({type: 'SET_EXERCISES', payload})
+        },
+        onSetWorkouts:(data) => {
+            const payload = data;
+            dispatch({type: 'SET_WORKOUTS', payload})
+        },
+        onAddSelectedDates: (data) => {
+            const payload = data;
+            dispatch ({type: 'ADD_SELECTED_DATES', payload})
+        },
     })
 )(UsersWorkoutComponent));

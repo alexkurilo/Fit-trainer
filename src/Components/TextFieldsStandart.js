@@ -42,7 +42,7 @@ class TextFieldsStandart extends React.Component {
                 className={classNames(classes.textField)}
                 margin="dense"
                 onChange={(event)=>this.ReadField(event)}
-                //autocomplete = {"on"}
+                autocomplete = {"on"}
                 value = {this.props.value}
                 defaultValue={this.props.value}
             />

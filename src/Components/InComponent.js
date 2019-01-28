@@ -8,70 +8,40 @@ import PinkButton from './ButtonPink';
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
-import firebase from 'firebase';
-import {config} from '../Data/data';
-if (!firebase.apps.length) {
-    firebase.initializeApp(config);
-}
-
-
 class InComponent extends Component {
     componentWillMount ( ) {
-        let myThis = this;
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
-        //this.props.onEntryRequest(this.signInRequestData);
-        let ref = firebase.database().ref('/');
-            ref.once('value', function(snapshot) {
-                snapshot.forEach(function(childSnapshot) {
-                    let childData = childSnapshot.val();
-                    myThis.usersArr.push({email:childData.email, pass: childData.password, name: childData.name});
-                    console.log(myThis.usersArr);
-                    console.log(myThis.props.usersArr);
-                    if (JSON.stringify(myThis.usersArr) !== JSON.stringify(myThis.props.usersArr) || myThis.props.usersArr.length=== 0 )myThis.props.onEntryUsersArray(myThis.usersArr);
-                });
-            });
     }
-
-    usersArr = [];
     signInRequestData = {};
     namePage = "Sign in";
+    userData = {};
 
     ReadEmail = (value) => {
         this.signInRequestData.email = value;
-        // console.log(this.signInRequestData);
     };
 
     ReadPass = (value) => {
         this.signInRequestData.pass = value;
-        // console.log(this.signInRequestData);
     };
 
     HandleSignInButton = () => {
-        let myThis = this;
-        // console.log(this.usersArr);
-        // console.log(this.signInRequestData);
-        // console.log( this.props.history.location.pathname);
-        //this.props.history.push("/user/dashboard");
-        if (this.signInRequestData.email === undefined|| this.signInRequestData.pass === undefined) alert("Please fill all the fields");
-        else {
-            // if (this.signInRequestData.email === this.usersArr.email && this.signInRequestData.pass === this.usersArr.pass){
-            //     this.props.onEntryRequest([this.usersArr.email, this.usersArr.pass, this.usersArr.name]);
-            // }
-            //this.props.onEntryRequest(this.signInRequestData);
-            this.usersArr.forEach((item, index)=> {
+        let data = this.signInRequestData;
+        if (data.email === undefined || data.pass === undefined || data.email === "" || data.pass === "") {
+            alert("Please fill all the fields");
+        }else {
+            this.props.usersArray.forEach((item, index)=> {
                 if (this.signInRequestData.email === item.email && this.signInRequestData.pass === item.pass){
-                    this.props.onEntryRequest(item);
+                    this.props.history.push("/user/"+ item.email+"/dashboard");
+                    this.props.onEntryRequest({...item, id:index});
                 }
-            })
+            });
+            //console.log(this.props.currentUserSignInData);
+            /*console.log(this.props.currentUserSignInData);
+            if (this.props.currentUserSignInData.email === ""){
+                console.log(this.props.currentUserSignInData.email);
+                alert ("You entered invalid email or password, repeat again?")
+            }*/
         }
-        console.log(this.props.currentUserSignInData.email);
-        this.props.history.push("/user/"+this.props.currentUserSignInData.email+"/dashboard");
-        // if (this.props.currentUserSignInData.email === this.signInRequestData.email ){
-        //     this.props.history.push("/user/"+this.props.currentUserSignInData.email+"/dashboard");
-        // }else{
-        //     this.props.history.push("/sign in");
-        //     alert ("You entered invalid email or password, repeat again?")
-        // }
     };
 
     render(){
@@ -106,7 +76,7 @@ class InComponent extends Component {
 
 export default withRouter(connect(
     (state) => ({
-        currentUserSignInData: state.currntUserSignInData,
+        currentUserSignInData: state.currentUserSignInData,
         currentNamePage: state.currentNamePage,
         usersArray: state.usersArray
     }),
@@ -115,10 +85,6 @@ export default withRouter(connect(
         onEntryRequest: (data) => {
             const payload = data;
             dispatch ({type: 'ENTRY_REQUEST', payload})
-        },
-        onEntryUsersArray: (data) => {
-            const payload = data;
-            dispatch ({type: 'ENTRY_USERS_ARRAY', payload})
         },
         onChangeNamePage:(data) => {
             const payload = data;
