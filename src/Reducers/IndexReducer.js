@@ -9,6 +9,7 @@ import currentWorkoutWithDate from "./EditWorkoutReducer";
 import selectedDays from "./SelectedDaysReducer";
 import selectDate from "./SelectDateReducer";
 import currentNamePage from "./NamePageReducer";
+import usersArray from "./EntryUsersArrayreducer";
 
 export default combineReducers ({
     routing: routerReducer,
@@ -19,5 +20,6 @@ export default combineReducers ({
     currentWorkoutWithDate,
     selectedDays,
     selectDate,
-    currentNamePage
+    currentNamePage,
+    usersArray
 })

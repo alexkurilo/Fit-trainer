@@ -26,6 +26,7 @@ function ButtonTurquoise(props) {
     return (
         <Button className={classNames(classes.root, className)} {...other}
                 onClick = {()=>HandleClick()}>
+                <img src={props.imgsrc}/>
             {props.label}
         </Button>
     );

@@ -1,6 +1,7 @@
 const initialState = {
     email:"",
-    pass: ""
+    pass: "",
+    name: ""
 };
 
 export default function currntUserSignInData (state = initialState, action){

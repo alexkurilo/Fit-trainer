@@ -32,11 +32,11 @@ class DashboardComponent extends Component  {
             }
         });
         if (marker){
-            this.props.history.push("/user/new_date/new workout");
+            this.props.history.push("/user/"+this.props.selectDate+"/new workout");
             this.props.onAddSelectedDate(selectedDate);
             //this.props.history.push(`/user/new_data/new workout/${new Date()}`);
         }else{
-            this.props.history.push("/user/date/edit workout");
+            this.props.history.push("/user/"+this.props.selectDate+"/edit workout");
         }
     };
     

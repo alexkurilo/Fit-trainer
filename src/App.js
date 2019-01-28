@@ -8,14 +8,14 @@ import './App.css';
 class App extends Component {
     componentWillMount() {
         if (this.props.history.location.pathname === "/")this.props.history.push("/sign in");
-        if (this.props.history.location.pathname === "/user")this.props.history.push("/user/dashboard");
+        if (this.props.history.location.pathname === "/user/:user")this.props.history.push("/user/:user/dashboard");
     }
 
     render() {
         return (
             <div className="App">
                 <Switch>
-                    <Route path = '/user' component = {UsersWorcoutComponent} />
+                    <Route exsact path = '/user/:user' component = {UsersWorcoutComponent} />
                     <Route path = '/' component = {SignComponent}/>
                 </Switch>
             </div>
