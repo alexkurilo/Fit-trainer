@@ -1,7 +1,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
@@ -22,19 +21,9 @@ const styles = theme => ({
 });
 
 class TextFieldsPassword extends React.Component {
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
-    };
-
     ReadPass = (event) => {
         this.props.readinput(event.target.value);
     };
-
-    // ReadRepeatPass = (event) => {
-    //     this.props.ReadRepeatPass(event.target.value);
-    // };
 
     render() {
         const { classes } = this.props;

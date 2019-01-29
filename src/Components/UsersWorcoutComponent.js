@@ -53,7 +53,6 @@ class UsersWorkoutComponent extends Component {
                     childData.workouts.forEach((element) =>  {
                         myThis.props.onAddSelectedDates(element.date);
                     });
-
                 }
             });
         });

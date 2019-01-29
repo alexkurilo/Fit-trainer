@@ -67,7 +67,7 @@ class EditWorkautComponent extends Component {
             //console.log([...this.target]);
             return (
                 this.target.map((item, index) => {
-                    console.log({...{["item"+index]:item.exercisesName}});
+                    //console.log({...{["item"+index]:item.exercisesName}});
                     return (
                         <div key={index}
                             className={"stringData"}>
@@ -121,11 +121,13 @@ class EditWorkautComponent extends Component {
                 />
             )
         }
-    }
+    };
     render(){
         return(
             <div className={'inComponent'}>
-                <HeaderComponent namePage = {this.namePage}/>
+                <HeaderComponent namePage = {this.namePage}
+                                 username = {this.props.currentUserSignInData.email}
+                />
                 <div className={"signWindow"}>
                     <div className={"signHeader"}>
                         <h3>{this.namePage}</h3>

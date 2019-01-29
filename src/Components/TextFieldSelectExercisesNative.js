@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
@@ -32,12 +30,6 @@ class TextFieldsSelectExercisesNative extends React.Component {
       currency: 'EUR',
   };
 
-  handleChange = name => event => {
-      this.setState({
-          [name]: event.target.value,
-      });
-  };
-
   ReadField = (event) => {
     console.log(event.target.value);
     this.props.onReadField(event.target.value);
@@ -50,18 +42,13 @@ class TextFieldsSelectExercisesNative extends React.Component {
         <TextField
             id="filled-select-currency-native"
             select = {true}
-            //rows = "3"
-            //required = {false}
             label={this.props.placeholder}
             className={classes.textField}
-            //defaultValue={this.props.value}
-            //selectedValue = {this.props.data[0].exercisesname}
             value={this.props.value}
             onChange={(event)=>this.ReadField(event)}
             SelectProps={{
                 native: true,
                 size: "3",
-                //multiple:"multiple",
                 MenuProps: {
                     className: classes.menu,
                 },
@@ -69,10 +56,7 @@ class TextFieldsSelectExercisesNative extends React.Component {
             margin="normal"
             variant="filled"
         >
-            <option 
-                    //selected="selected"
-                    //value={this.props.data[3].exercisesName}
-            >
+            <option>
                   {"Entered some exercise, pleace."}
             </option>
             {this.props.data.map((item, index) => (
@@ -82,7 +66,6 @@ class TextFieldsSelectExercisesNative extends React.Component {
                   { item.exercisesName }
               </option>
             ))}
-            
         </TextField>
     );
   }

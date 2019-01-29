@@ -34,11 +34,7 @@ class UpComponent extends Component{
     };
 
     HandleSignInButton = () => {
-            
         let singleRegistrationCode = Math.floor(Math.random()*Math.pow(10, 10));
-
-        console.log("Single Registration Code = "+singleRegistrationCode);
-        
         if (this.signInRequestData.email === undefined || this.signInRequestData.pass === undefined || this.signInRequestData.repeatPass === undefined) alert("Please fill all the fields");
         else if (this.signInRequestData.repeatPass !== this.signInRequestData.pass) alert("Passwords do not match");
         else {
@@ -48,15 +44,8 @@ class UpComponent extends Component{
                 id: this.props.usersArray.length,
                 singleRegistrationCode: singleRegistrationCode
             });
-            firebase.database().ref("/").child(this.props.usersArray.length).set({
-                email: this.signInRequestData.email,
-                pass: this.signInRequestData.pass,
-                id: this.props.usersArray.length,
-                singleRegistrationCode: singleRegistrationCode
-            });
         }
         this.props.history.push("/email verification");
-        
     };
 
     render(){
@@ -91,7 +80,6 @@ class UpComponent extends Component{
     }
 };
 
-
 export default withRouter(connect(
     (state) => ({
         currnetUserSignUpData: state.currentUserSignUpData,
@@ -104,17 +92,9 @@ export default withRouter(connect(
             const payload = data;
             dispatch ({type: 'ENTRY_REQUEST_UP', payload})
         },
-        
         onChangeNamePage:(data) => {
             const payload = data;
             dispatch({type: 'CHANGE_NAME_PAGE', payload})
-        },
-        
+        }
     })
 )(UpComponent));
-
-// this.props.onClearUsersArray();
-
-// onClearUsersArray:() => {
-//     dispatch({type: 'CLEAR_USERS_UP'})
-// }

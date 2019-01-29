@@ -1,7 +1,8 @@
 const initialState = {
     email:"",
     pass: "",
-    id: ""
+    id: "",
+    singleRegistrationCode: ""
 };
 
 export default function currntUserSignUpData (state = initialState, action){

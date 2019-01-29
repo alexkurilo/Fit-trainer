@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
@@ -44,12 +42,6 @@ class TextFieldsSelectNative extends React.Component {
       age: '',
       multiline: 'Controlled',
       currency: 'EUR',
-  };
-
-  handleChange = name => event => {
-      this.setState({
-          [name]: event.target.value,
-      });
   };
 
   ReadField = (event) => {

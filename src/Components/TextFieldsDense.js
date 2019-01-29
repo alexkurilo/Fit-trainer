@@ -22,12 +22,6 @@ const styles = theme => ({
 });
 
 class TextFieldsDense extends React.Component {
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
-    };
-
     ReadEmail = (event) => {
         this.props.reademail(event.target.value);
     };

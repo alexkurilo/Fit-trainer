@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -22,12 +21,6 @@ const styles = theme => ({
 });
 
 class TextFieldsStandart extends React.Component {
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
-    };
-
     ReadField = (event) => {
         this.props.onreadfield(event.target.value);
     };

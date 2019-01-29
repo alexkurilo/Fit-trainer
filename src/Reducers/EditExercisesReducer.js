@@ -35,7 +35,7 @@ export default function currentEditExercisesRequest (state = initialState, actio
                 case "delete":
                     state.splice(action.payload[1], 1);
                     break;
-            };
+            }
             return [...state];
 
         case 'ADD_NEW_EXERCISE':

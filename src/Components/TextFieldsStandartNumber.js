@@ -21,12 +21,6 @@ const styles = theme => ({
 });
 
 class TextFieldsStandartNumber extends React.Component {
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
-    };
-
     ReadField = (event) => {
         this.props.onreadfield(event.target.value);
     };

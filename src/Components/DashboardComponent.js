@@ -8,28 +8,19 @@ import ButtonTurquoise from './ButtonTurquoise';
 
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
-import currentWorkoutWithDate from "../Reducers/EditWorkoutReducer";
 
 class DashboardComponent extends Component  {
     componentWillMount ( ) {
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
-        /*if (this.props.selectDate === ""){
-            this.props.currentWorkoutWithDate.forEach((element) =>  {
-                this.props.onAddSelectedDates(element.date);
-            });
-        }*/
     }
 
     namePage = "Dashboard";
 
     selectDay = (event) => {
-        console.log(event);
         let selectedDate = event.getFullYear().toString()+(event.getMonth()+1 <= 9 ? "0"+(event.getMonth()+1).toString() : event.getMonth()+1).toString()+(event.getDate() <= 9 ? "0"+event.getDate().toString() : event.getDate().toString());
         let arr = this.props.selectedDays;
         let marker = true;
         this.props.onSelectDate(selectedDate);
-        console.log(this.props.selectDate);
-        console.log(selectedDate);
         arr.forEach((item) => {
             if (item === selectedDate){
                 marker = false;
@@ -47,7 +38,7 @@ class DashboardComponent extends Component  {
         return(
             <div className={'inComponent'}>
                 <HeaderComponent namePage = {this.namePage}
-                                    username = {this.props.currentUserSignInData.email}
+                                 username = {this.props.currentUserSignInData.email}
                 />
                     <div className={'myDashboardPage'}>
                         <Link   to={"/user/"+this.props.currentUserSignInData.email+"/new exercise"}
@@ -67,7 +58,6 @@ class DashboardComponent extends Component  {
                     </div>
                 <FooterComponent/>
             </div>
-            
         );
     }
 };
@@ -83,10 +73,6 @@ export default withRouter(connect(
     }),
 
     dispatch => ({
-        /*onAddSelectedDates: (data) => {
-            const payload = data;
-            dispatch ({type: 'ADD_SELECTED_DATES', payload})
-        },*/
         onAddSelectedDate: (data) => {
             const payload = data;
             dispatch ({type: 'ADD_SELECTED_DATE', payload})
@@ -98,10 +84,6 @@ export default withRouter(connect(
         onChangeNamePage:(data) => {
             const payload = data;
             dispatch({type: 'CHANGE_NAME_PAGE', payload})
-        },
-        /*onNewExerciseRequest: (data) => {
-            const payload = data;
-            dispatch ({type: 'NEW_EXERCISE_REQUEST', payload})
-        },*/
+        }
     })
 )(DashboardComponent));

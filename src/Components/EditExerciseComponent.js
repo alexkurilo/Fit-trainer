@@ -21,12 +21,10 @@ class EditExerciseComponent extends Component{
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
     };
 
-    namePage = "Edit EXercises";
+    namePage = "Edit Exercises";
 
     HandleCreateExerciseButton = () => {
-        console.log(this.props.currentEditExercisesRequest);
         this.props.history.push("/user/"+(this.props.currentUserSignInData.email)+"/dashboard");
-
         firebase.database().ref("/").child(this.props.currentUserSignInData.id).child("exercises").set (this.props.currentEditExercisesRequest);
     };
 
@@ -46,7 +44,9 @@ class EditExerciseComponent extends Component{
     render(){
         return(
             <div className={'inComponent'}>
-                <HeaderComponent namePage = {this.namePage}/>
+                <HeaderComponent namePage = {this.namePage}
+                                 username = {this.props.currentUserSignInData.email}
+                />
                 <div className={"signWindow"}>
                     <div className={"signHeader"}>
                         <h3>{this.namePage}</h3>
@@ -91,7 +91,6 @@ class EditExerciseComponent extends Component{
                                      label={"EDIT EXERCISES"}
                         />
                     </div>
-
                 </div>
                 <FooterComponent/>
             </div>

@@ -5,13 +5,14 @@ const FooterSignComponent = ({}) => {
     return(
         <div className={"footerIn"}>
             <div className={"footerInlinks"}>
-                <div>
-                    SIGN IN
+                <div className={"footerLinksSign"}>
+                    <div className={"footerLinksLabel"}>
+                        SIGN IN
+                    </div>
+                    <div className={"footerLinksLabel"}>
+                        SIGN UP
+                    </div>
                 </div>
-                <div>
-                    SIGN UP
-                </div>
-                
             </div>
             <div>
                 &#169; 2019 Alex Kurilo, made with love for a better web

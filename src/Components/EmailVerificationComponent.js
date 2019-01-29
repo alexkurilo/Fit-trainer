@@ -3,13 +3,35 @@ import {connect} from 'react-redux';
 import {Link, withRouter} from "react-router-dom";
 
 import TextFieldDisabled from './TextFieldDisabled';
-import TextFieldsDense from './TextFieldsDense';
+import TextField from './TextFieldsStandart';
 import PinkButton from './ButtonPink';
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
+import firebase from 'firebase';
+import {config} from '../Data/data';
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
+
 class EmailVerificationComponent extends Component{
-    
+    singleRegistrationCode = "";
+    namePage = "Email verification";
+    HandleSignInButton = () => {
+        if (+this.props.currentUserSignUpData.singleRegistrationCode === +this.singleRegistrationCode){
+            firebase.database().ref("/").child(this.props.usersArray.length).set({
+                email: this.props.currentUserSignUpData.email,
+                pass: this.props.currentUserSignUpData.pass,
+                id: this.props.usersArray.length
+            });
+            this.props.history.push("/sign in");
+        }
+    };
+
+    ReadField = (value) => {
+        this.singleRegistrationCode = value;
+    };
+
     render(){
         return(
             <div className={'inComponent'}>
@@ -21,8 +43,7 @@ class EmailVerificationComponent extends Component{
                     </div>
                     <div className={"signBody"}>
                         <TextFieldDisabled defaultvalue ={this.props.currentUserSignUpData.email}/>
-                        <TextFieldsDense reademail={""}/>
-                        
+                        <TextField placeholder={"VerificationCode"} onreadfield={this.ReadField}/>
                         <PinkButton  handlesigninbutton={this.HandleSignInButton}
                                      label={"SIGN UP"}
                         />
@@ -42,9 +63,6 @@ class EmailVerificationComponent extends Component{
 export default withRouter(connect(
     (state) => ({
         currentUserSignUpData: state.currentUserSignUpData,
-    }),
-
-    dispatch => ({
-
+        usersArray: state.usersArray
     })
 )(EmailVerificationComponent));

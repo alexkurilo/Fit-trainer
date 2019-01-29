@@ -25,12 +25,11 @@ class NewWorkoutComponent extends Component{
     namePage = "New workout";
 
     HandleCreateWorkoutButton = () => {
-        this.props.onCreateWorkout([this.props.slectDate, this.props.currentNewWorkoutRequest]);
+        this.props.onCreateWorkout([this.props.selectDate, this.props.currentNewWorkoutRequest]);
         this.props.history.push("/user/"+this.props.currentUserSignInData.email+"/dashboard");
-        
-        firebase.database().ref("/").child(this.props.currentUserSignInData.id).child("workouts").child(this.props.currentEditExercisesRequest.length).set ({
+        firebase.database().ref("/").child(this.props.currentUserSignInData.id.toString()).child("workouts").child(this.props.currentWorkoutWithDate.length).set ({
             exercises: this.props.currentNewWorkoutRequest,
-            date: this.props.slectDate,
+            date: this.props.selectDate,
             id: this.props.currentEditExercisesRequest.length
         });
         this.props.onClearNewWorkout();
@@ -130,7 +129,9 @@ class NewWorkoutComponent extends Component{
     render(){
         return(
             <div className={'inComponent'}>
-                <HeaderComponent namePage = {this.namePage}/>
+                <HeaderComponent namePage = {this.namePage}
+                                 username = {this.props.currentUserSignInData.email}
+                />
                 <div className={"signWindow"}>
                     <div className={"signHeader"}>
                         <h3>{this.namePage}</h3>
@@ -156,9 +157,10 @@ export default withRouter(connect(
     (state) => ({
         currentEditExercisesRequest: state.currentEditExercisesRequest,
         currentNewWorkoutRequest: state.currentNewWorkoutRequest,
-        slectDate: state.selectDate,
+        selectDate: state.selectDate,
         currentNamePage: state.currentNamePage,
         currentUserSignInData: state.currentUserSignInData,
+        currentWorkoutWithDate: state.currentWorkoutWithDate
     }),
 
     dispatch => ({

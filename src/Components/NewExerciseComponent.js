@@ -34,14 +34,15 @@ class NewExerciseComponent extends Component {
         this.props.onNewExerciseRequest(this.newExerciseRequestData);
         this.props.onAddNewExerciseRequest(this.newExerciseRequestData);
         this.props.history.push("/user/"+(this.props.currentUserSignInData.email)+"/dashboard");
-        console.log(this.props.currentEditExercisesRequest);
         firebase.database().ref("/").child(this.props.currentUserSignInData.id).child("exercises").child(this.props.currentEditExercisesRequest.length).set(this.newExerciseRequestData);
     };
 
     render(){
         return(
             <div className={'inComponent'}>
-                <HeaderComponent namePage = {this.namePage}/>
+                <HeaderComponent namePage = {this.namePage}
+                                 username = {this.props.currentUserSignInData.email}
+                />
                 <div className={"signWindow"}>
                     <div className={"signHeader"}>
                         <h3>Create new exercise</h3>

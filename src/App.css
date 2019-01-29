@@ -135,6 +135,14 @@ hr{
   width: 70%;
 }
 
+.footerLinksSign{
+  display: inline-flex;
+}
+
+.footerLinksLabel{
+  margin: 0 15px;
+}
+
 .link{
   text-decoration: none;
 }
