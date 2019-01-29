@@ -6,7 +6,13 @@ import TextFieldsDense from './TextFieldsDense';
 import TextFieldsPassword from './TextFieldsPassword';
 import PinkButton from './ButtonPink';
 import HeaderComponent from "./HeaderComponent";
-import FooterComponent from "./FooterComponent";
+import FooterSignComponent from "./FooterSignComponent";
+
+import firebase from 'firebase';
+import {config} from '../Data/data';
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
 
 class UpComponent extends Component{
     componentWillMount ( ) {
@@ -28,14 +34,29 @@ class UpComponent extends Component{
     };
 
     HandleSignInButton = () => {
-        console.log(this.signInRequestData.email);
-        console.log(this.signInRequestData.pass);
-        console.log(this.signInRequestData.repeatPass);
-        console.log(this.props);
-        this.props.history.push("/user/sign in");
+            
+        let singleRegistrationCode = Math.floor(Math.random()*Math.pow(10, 10));
+
+        console.log("Single Registration Code = "+singleRegistrationCode);
+        
         if (this.signInRequestData.email === undefined || this.signInRequestData.pass === undefined || this.signInRequestData.repeatPass === undefined) alert("Please fill all the fields");
         else if (this.signInRequestData.repeatPass !== this.signInRequestData.pass) alert("Passwords do not match");
-        else this.props.onEntryRequestUp(this.signInRequestData);
+        else {
+            this.props.onEntryRequestUp({
+                email: this.signInRequestData.email,
+                pass: this.signInRequestData.pass,
+                id: this.props.usersArray.length,
+                singleRegistrationCode: singleRegistrationCode
+            });
+            firebase.database().ref("/").child(this.props.usersArray.length).set({
+                email: this.signInRequestData.email,
+                pass: this.signInRequestData.pass,
+                id: this.props.usersArray.length,
+                singleRegistrationCode: singleRegistrationCode
+            });
+        }
+        this.props.history.push("/email verification");
+        
     };
 
     render(){
@@ -64,7 +85,7 @@ class UpComponent extends Component{
                         </Link>
                     </div>
                 </div>
-                <FooterComponent/>
+                <FooterSignComponent/>
             </div>
         );
     }
@@ -73,8 +94,9 @@ class UpComponent extends Component{
 
 export default withRouter(connect(
     (state) => ({
-        currntUserSignUpData: state.currntUserSignUpData,
-        currentNamePage: state.currentNamePage
+        currnetUserSignUpData: state.currentUserSignUpData,
+        currentNamePage: state.currentNamePage,
+        usersArray: state.usersArray
     }),
 
     dispatch => ({
@@ -82,13 +104,17 @@ export default withRouter(connect(
             const payload = data;
             dispatch ({type: 'ENTRY_REQUEST_UP', payload})
         },
-        onEntryRequest: (data) => {
-            const payload = data;
-            dispatch ({type: 'ENTRY_REQUEST', payload})
-        },
+        
         onChangeNamePage:(data) => {
             const payload = data;
             dispatch({type: 'CHANGE_NAME_PAGE', payload})
-        }
+        },
+        
     })
 )(UpComponent));
+
+// this.props.onClearUsersArray();
+
+// onClearUsersArray:() => {
+//     dispatch({type: 'CLEAR_USERS_UP'})
+// }

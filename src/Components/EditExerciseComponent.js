@@ -10,18 +10,24 @@ import ButtonYellow from "./ButtonYellow";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
+import firebase from 'firebase';
+import {config} from '../Data/data';
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
+
 class EditExerciseComponent extends Component{
     componentWillMount ( ) {
-        console.log(this.namePage);
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
     };
 
-    namePage = "Edit Exercises";
+    namePage = "Edit EXercises";
 
     HandleCreateExerciseButton = () => {
         console.log(this.props.currentEditExercisesRequest);
-        console.log(this.props.currentUserSignInData);
         this.props.history.push("/user/"+(this.props.currentUserSignInData.email)+"/dashboard");
+
+        firebase.database().ref("/").child(this.props.currentUserSignInData.id).child("exercises").set (this.props.currentEditExercisesRequest);
     };
 
     ReadEditExerciseName = (value, index) => {
@@ -33,7 +39,6 @@ class EditExerciseComponent extends Component{
     };
 
     ClickButton = (data) => {
-        console.log(data);
         this.props.onClickButton([...data]);
     };
 

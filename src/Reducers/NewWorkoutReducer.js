@@ -7,8 +7,12 @@ export default function currentNewWorkoutRequest (state = initialState, action){
     };
 
     switch (action.type) {
+        case "CLEAR_NEW_WORKOUT":
+            return  [];
+
         case "ADD_NEW_STRING_NEW_WORKOUT":
             return  [...state, {id: state.length}];
+
 
         case "FILL_NEW_STRING_WORKOUT":
             state[action.payload[2]].exercisesName = action.payload[0];

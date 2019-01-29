@@ -10,6 +10,13 @@ import ButtonYellow from "./ButtonYellow";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
+import firebase from 'firebase';
+import {config} from '../Data/data';
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
+
+
 class NewWorkoutComponent extends Component{
     componentWillMount ( ) {
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
@@ -19,8 +26,14 @@ class NewWorkoutComponent extends Component{
 
     HandleCreateWorkoutButton = () => {
         this.props.onCreateWorkout([this.props.slectDate, this.props.currentNewWorkoutRequest]);
+        this.props.history.push("/user/"+this.props.currentUserSignInData.email+"/dashboard");
+        
+        firebase.database().ref("/").child(this.props.currentUserSignInData.id).child("workouts").child(this.props.currentEditExercisesRequest.length).set ({
+            exercises: this.props.currentNewWorkoutRequest,
+            date: this.props.slectDate,
+            id: this.props.currentEditExercisesRequest.length
+        });
         this.props.onClearNewWorkout();
-        this.props.history.push("/user/dashboard");
     };
 
     ReadNewExerciseName = (event, index) => {
@@ -144,7 +157,8 @@ export default withRouter(connect(
         currentEditExercisesRequest: state.currentEditExercisesRequest,
         currentNewWorkoutRequest: state.currentNewWorkoutRequest,
         slectDate: state.selectDate,
-        currentNamePage: state.currentNamePage
+        currentNamePage: state.currentNamePage,
+        currentUserSignInData: state.currentUserSignInData,
     }),
 
     dispatch => ({

@@ -8,6 +8,12 @@ import PinkButton from './ButtonPink';
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
+import firebase from 'firebase';
+import {config} from '../Data/data';
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
+
 class NewExerciseComponent extends Component {
     componentWillMount ( ) {
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
@@ -27,8 +33,9 @@ class NewExerciseComponent extends Component {
     HandleCreateExerciseButton = () => {
         this.props.onNewExerciseRequest(this.newExerciseRequestData);
         this.props.onAddNewExerciseRequest(this.newExerciseRequestData);
-        console.log(this.props.currentUserSignInData);
         this.props.history.push("/user/"+(this.props.currentUserSignInData.email)+"/dashboard");
+        console.log(this.props.currentEditExercisesRequest);
+        firebase.database().ref("/").child(this.props.currentUserSignInData.id).child("exercises").child(this.props.currentEditExercisesRequest.length).set(this.newExerciseRequestData);
     };
 
     render(){
@@ -63,7 +70,8 @@ export default withRouter(connect(
     (state) => ({
         currentNewExerciseRequest: state.currentNewExerciseRequest,
         currentNamePage: state.currentNamePage,
-        currentUserSignInData: state.currentUserSignInData
+        currentUserSignInData: state.currentUserSignInData,
+        currentEditExercisesRequest: state.currentEditExercisesRequest
     }),
 
     dispatch => ({

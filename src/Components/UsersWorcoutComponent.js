@@ -110,8 +110,8 @@ class UsersWorkoutComponent extends Component {
                         <Route path="/user/:user/dashboard" component = {DashboardComponent} />
                         <Route path="/user/:user/new exercise" component = {NewExerciseComponent} />
                         <Route path="/user/:user/edit exercises" component = {EditExerciseComponent} />
-                        <Route path="/user/:new_date/new workout" component = {NewWorkoutComponent} />
-                        <Route path="/user/:date/edit workout" component = {EditWorkoutComponent} />
+                        <Route path="/user/:user/:new_date/new workout" component = {NewWorkoutComponent} />
+                        <Route path="/user/:user/:date/edit workout" component = {EditWorkoutComponent} />
                         <Redirect from = "/user" to="/user/:user/dashboard"/>
                     </Switch>
                 </div>

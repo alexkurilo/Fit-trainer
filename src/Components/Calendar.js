@@ -9,8 +9,8 @@ var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() -
  
 render(
   <InfiniteCalendar
-    width={400}
-    height={600}
+    width={300}
+    height={450}
     selected={today}
     disabledDays={[0,6]}
     minDate={lastWeek}

@@ -1,103 +1,15 @@
-const initialState = [
-    {
-        id: 0,
-        date: "20190201",
-        exercises: [
-            {
-                id: 0,
-                exercisesName: "Exercise #1",
-                numberInList: 0,
-                measurementType: "kilogramms",
-                measurements: 1,
-                repeats: 1
-            },
-            {
-                id: 1,
-                exercisesName: "Exercise #2",
-                numberInList: 1,
-                measurementType: "meters",
-                measurements: 2,
-                repeats: 2
-            },
-            {
-                id: 2,
-                exercisesName: "Exercise #3",
-                numberInList: 2,
-                measurementType: "minutes",
-                measurements: 3,
-                repeats: 3
-            }
-        ]
-    },
-    {
-        id: 1,
-        date: "20190203",
-        exercises:[
-            {
-                id: 0,
-                exercisesName: "Exercise #4",
-                numberInList: 3,
-                measurementType: "kilogramms",
-                measurements: 4,
-                repeats: 4
-            },
-            {
-                id: 1,
-                exercisesName: "Exercise #5",
-                numberInList: 4,
-                measurementType: "meters",
-                measurements: 5,
-                repeats: 5
-            }
-        ]
-    },
-    {
-        id: 2,
-        date: "20190205",
-        exercises:[
-            {
-                id: 0,
-                exercisesName: "Exercise #6",
-                numberInList: 5,
-                measurementType: "minutes",
-                measurements: 6,
-                repeats: 6
-            },
-            {
-                id: 1,
-                exercisesName: "Exercise #7",
-                numberInList: 6,
-                measurementType: "kilogramms",
-                measurements: 7,
-                repeats: 7
-            },
-            {
-                id: 2,
-                exercisesName: "Exercise #8",
-                numberInList: 7,
-                measurementType: "meters",
-                measurements: 8,
-                repeats: 8
-            },
-            {
-                id: 3,
-                exercisesName: "Exercise #9",
-                numberInList: 8,
-                measurementType: "minutes",
-                measurements: 9,
-                repeats: 9
-            }
-        ]
-    }
-];
+const initialState = [];
 
-export default function currentWorkoutWithDate (state = [], action){
+export default function currentWorkoutWithDate (state = initialState, action){
 
     const rewriteId = (arr) => {
         arr.forEach((item, index)=> item.id = index);
     };
 
     switch (action.type) {
+        case "CLEAR_WORKOUT":
+            return  [];
+
         case "SET_WORKOUTS":
             return [...action.payload];
 
@@ -158,13 +70,9 @@ export default function currentWorkoutWithDate (state = [], action){
             return  [...state];
 
         case "SAVE_WORKOUT":
-            console.log(state);
-            console.log(action.payload);
             return  [...state];
 
         case "ADD_WORKOUT":
-            console.log(state);
-            console.log(action.payload);
             state[state.length-1].date = action.payload[0];
             state[state.length-1].exercises = action.payload[1];
             return  [...state];

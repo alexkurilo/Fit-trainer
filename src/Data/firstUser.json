@@ -2,7 +2,7 @@
     {
         "name": "AlexKurilo",
         "email": "alex.kurilo77@gmail.com",
-        "password": "qwerty",
+        "password": "q",
         "exercises": [
             {
                 "exercisesName": "Exercise #1",
@@ -20,7 +20,7 @@
         "workouts": [
             {
                 "id": "0",
-                "date": "20190201",
+                "date": "20190211",
                 "exercises": [
                     {
                         "id": "0",
@@ -50,7 +50,7 @@
             },
             {
                 "id": "1",
-                "date": "20190203",
+                "date": "20190213",
                 "exercises":[
                     {
                         "id": "0",
@@ -72,7 +72,7 @@
             },
             {
                 "id": "2",
-                "date": "20190205",
+                "date": "20190215",
                 "exercises":[
                     {
                         "id": "0",
@@ -113,7 +113,7 @@
     {
         "name": "",
         "email": "kurilo.alex77@gmail.com",
-        "password": "123456",
+        "password": "1",
         "exercises": [
             {
                 "exercisesName": "Exercise #1",
@@ -131,7 +131,7 @@
         "workouts": [
             {
                 "id": "0",
-                "date": "20190201",
+                "date": "20190221",
                 "exercises": [
                     {
                         "id": "0",
@@ -161,7 +161,7 @@
             },
             {
                 "id": "1",
-                "date": "20190203",
+                "date": "20190223",
                 "exercises":[
                     {
                         "id": "0",
@@ -183,7 +183,7 @@
             },
             {
                 "id": "2",
-                "date": "20190205",
+                "date": "20190225",
                 "exercises":[
                     {
                         "id": "0",

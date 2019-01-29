@@ -6,11 +6,18 @@ import TextFieldsDense from './TextFieldsDense';
 import TextFieldsPassword from './TextFieldsPassword';
 import PinkButton from './ButtonPink';
 import HeaderComponent from "./HeaderComponent";
-import FooterComponent from "./FooterComponent";
+import FooterSignComponent from "./FooterSignComponent";
 
 class InComponent extends Component {
     componentWillMount ( ) {
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
+        this.props.onClearExercises();
+        this.props.onClearWorkout();
+        this.props.onClearNewExercise();
+        this.props.onClearNewWorkout();
+        this.props.onClearSelectDate();
+        this.props.onClearSelectedDates();
+        this.props.onClearEntryRequest();
     }
     signInRequestData = {};
     namePage = "Sign in";
@@ -35,12 +42,6 @@ class InComponent extends Component {
                     this.props.onEntryRequest({...item, id:index});
                 }
             });
-            //console.log(this.props.currentUserSignInData);
-            /*console.log(this.props.currentUserSignInData);
-            if (this.props.currentUserSignInData.email === ""){
-                console.log(this.props.currentUserSignInData.email);
-                alert ("You entered invalid email or password, repeat again?")
-            }*/
         }
     };
 
@@ -67,7 +68,7 @@ class InComponent extends Component {
                         </Link>
                     </div>
                 </div>
-                <FooterComponent/>
+                <FooterSignComponent/>
             </div>
         );
     }
@@ -89,6 +90,33 @@ export default withRouter(connect(
         onChangeNamePage:(data) => {
             const payload = data;
             dispatch({type: 'CHANGE_NAME_PAGE', payload})
+        },
+        onClearExercises:() => {
+            dispatch({type: 'CLEAR_EXERCISES'})
+        },
+        onClearWorkout:() => {
+            dispatch({type: 'CLEAR_WORKOUT'})
+        },
+        onClearNewExercise:() => {
+            dispatch({type: 'CLEAR_NEW_EXERCISE'})
+        },
+        onClearNewWorkout:() => {
+            dispatch({type: 'CLEAR_NEW_WORKOUT'})
+        },
+        onClearSelectDate:() => {
+            dispatch({type: 'CLEAR_SELECT_DATE'})
+        },
+        onClearSelectedDates:() => {
+            dispatch({type: 'CLEAR_SELECTED_DATES'})
+        },
+        onClearEntryRequest:() => {
+            dispatch({type: 'CLEAR_ENTRY_REQUEST'})
         }
     })
 )(InComponent));
+
+
+
+
+
+        

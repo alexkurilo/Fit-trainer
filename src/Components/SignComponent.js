@@ -3,9 +3,9 @@ import {connect} from 'react-redux';
 import logo from '../logo.svg';
 import { Switch, Route, Link, withRouter} from 'react-router-dom';
 
-import ButtonTurquoise from "./ButtonTurquoise";
 import InComponent from "./InComponent";
 import UpComponent from "./UpComponent";
+import EmailVerificationComponent from "./EmailVerificationComponent";
 
 const NamePageArray = [
     {
@@ -62,6 +62,7 @@ class SignComponent extends Component{
                     <Switch>
                         <Route exact path="/sign in" component = {InComponent} />
                         <Route exact path="/sign up" component = {UpComponent} />
+                        <Route exact path="/email verification" component = {EmailVerificationComponent} />
                     </Switch>
                 </div>
             </div>

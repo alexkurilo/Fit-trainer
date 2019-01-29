@@ -10,6 +10,12 @@ import NativeSelects from "./NativeSelects";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
+import firebase from 'firebase';
+import {config} from '../Data/data';
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
+
 class EditWorkautComponent extends Component {
     componentWillMount ( ) {
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
@@ -27,7 +33,9 @@ class EditWorkautComponent extends Component {
 
     HandleUpdateWorkoutButton = () => {
         this.props.onSaveWorkout(this.props.currentWorkoutWithDate);
-        this.props.history.push("/user/dashboard");
+        this.props.history.push("/user/"+this.props.currentUserSignInData.email+"/dashboard");
+
+        firebase.database().ref("/").child(this.props.currentUserSignInData.id).child("workouts").set (this.props.currentWorkoutWithDate);
     };
 
     addNewStringWorkout = () => {
@@ -141,6 +149,8 @@ class EditWorkautComponent extends Component {
 
 export default withRouter(connect(
     (state) => ({
+        currentNewWorkoutRequest: state.currentNewWorkoutRequest,
+        currentUserSignInData: state.currentUserSignInData,
         exercisesList: state.currentEditExercisesRequest,
         currentWorkoutWithDate: state.currentWorkoutWithDate,
         selectDate: state.selectDate,

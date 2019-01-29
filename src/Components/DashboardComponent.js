@@ -23,33 +23,36 @@ class DashboardComponent extends Component  {
     namePage = "Dashboard";
 
     selectDay = (event) => {
+        console.log(event);
         let selectedDate = event.getFullYear().toString()+(event.getMonth()+1 <= 9 ? "0"+(event.getMonth()+1).toString() : event.getMonth()+1).toString()+(event.getDate() <= 9 ? "0"+event.getDate().toString() : event.getDate().toString());
         let arr = this.props.selectedDays;
         let marker = true;
         this.props.onSelectDate(selectedDate);
+        console.log(this.props.selectDate);
+        console.log(selectedDate);
         arr.forEach((item) => {
             if (item === selectedDate){
                 marker = false;
             }
         });
         if (marker){
-            this.props.history.push("/user/"+this.props.selectDate+"/new workout");
+            this.props.history.push("/user/"+this.props.currentUserSignInData.email+"/"+selectedDate+"/new workout");
             this.props.onAddSelectedDate(selectedDate);
-            //this.props.history.push(`/user/new_data/new workout/${new Date()}`);
         }else{
-            this.props.history.push("/user/"+this.props.selectDate+"/edit workout");
+            this.props.history.push("/user/"+this.props.currentUserSignInData.email+"/"+selectedDate+"/edit workout/");
         }
     };
     
     render(){
         return(
             <div className={'inComponent'}>
-                <HeaderComponent namePage = {this.namePage}/>
+                <HeaderComponent namePage = {this.namePage}
+                                    username = {this.props.currentUserSignInData.email}
+                />
                     <div className={'myDashboardPage'}>
-                        <Link   to="/user/new exercise"
+                        <Link   to={"/user/"+this.props.currentUserSignInData.email+"/new exercise"}
                                 className={"link"}>
-                            <ButtonTurquoise  //HandleSignInButton={HandleApdateWorkoutButton}
-                                                label={"ADD NEW EXERCISE"}
+                            <ButtonTurquoise  label={"ADD NEW EXERCISE"}
                             />
                         </Link>
                         <InfiniteCalendar
@@ -75,7 +78,8 @@ export default withRouter(connect(
         selectedDays: state.selectedDays,
         selectDate: state.selectDate,
         currentWorkoutWithDate: state.currentWorkoutWithDate,
-        currentNamePage: state.currentNamePage
+        currentNamePage: state.currentNamePage,
+        currentUserSignInData: state.currentUserSignInData
     }),
 
     dispatch => ({

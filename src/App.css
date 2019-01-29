@@ -64,6 +64,12 @@ hr{
   justify-content: space-between;
 }
 
+.firstLine_user{
+  display: flex;
+  align-items: center;
+
+}
+
 .signWindow{
 
   flex-direction: column;
@@ -126,7 +132,7 @@ hr{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 200px;
+  width: 70%;
 }
 
 .link{

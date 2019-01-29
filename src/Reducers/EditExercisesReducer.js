@@ -1,89 +1,10 @@
-const initialState = [
-    {
-        exercisesName: "Exersise #1",
-        measurementType: "kilogramms"
-    },
-    {
-        exercisesName: "Exersise #2",
-        measurementType: "meters"
-    },
-    {
-        exercisesName: "Exersise #3",
-        measurementType: "minutes"
-    },
-    {
-        exercisesName: "Exersise #4",
-        measurementType: "kilogramms"
-    },
-    {
-        exercisesName: "Exersise #5",
-        measurementType: "meters"
-    },
-    {
-        exercisesName: "Exersise #6",
-        measurementType: "minutes"
-    },
-    {
-        exercisesName: "Exersise #7",
-        measurementType: "kilogramms"
-    },
-    {
-        exercisesName: "Exersise #8",
-        measurementType: "meters"
-    },
-    {
-        exercisesName: "Exersise #9",
-        measurementType: "minutes"
-    },
-    {
-        exercisesName: "Exersise #10",
-        measurementType: "kilogramms"
-    },
-    {
-        exercisesName: "Exersise #11",
-        measurementType: "meters"
-    },
-    {
-        exercisesName: "Exersise #12",
-        measurementType: "minutes"
-    },
-    {
-        exercisesName: "Exersise #13",
-        measurementType: "kilogramms"
-    },
-    {
-        exercisesName: "Exersise #14",
-        measurementType: "meters"
-    },
-    {
-        exercisesName: "Exersise #15",
-        measurementType: "minutes"
-    },
-    {
-        exercisesName: "Exersise #16",
-        measurementType: "kilogramms"
-    },
-    {
-        exercisesName: "Exersise #17",
-        measurementType: "meters"
-    },
-    {
-        exercisesName: "Exersise #18",
-        measurementType: "minutes"
-    },
-    {
-        exercisesName: "Exersise #19",
-        measurementType: "kilogramms"
-    },
-    {
-        exercisesName: "Exersise #20",
-        measurementType: "meters"
-    }
-];
+const initialState = [];
 
-export default function currentEditExercisesRequest (state = [], action){
-    let target;
+export default function currentEditExercisesRequest (state = initialState, action){
     switch (action.type) {
+        case "CLEAR_EXERCISES":
+            return [];
+
         case "SET_EXERCISES":
             return [...action.payload];
 
@@ -108,7 +29,6 @@ export default function currentEditExercisesRequest (state = [], action){
                 case "bottom":
                     if (action.payload[1] < state.length-1){
                         [state[action.payload[1]], state[action.payload[1]+1]]=[state[action.payload[1]+1], state[action.payload[1]]];
-
                     };
                     break;
 
