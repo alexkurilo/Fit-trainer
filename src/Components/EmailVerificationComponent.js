@@ -21,7 +21,7 @@ class EmailVerificationComponent extends Component{
         if (+this.props.currentUserSignUpData.singleRegistrationCode === +this.singleRegistrationCode){
             firebase.database().ref("/").child(this.props.usersArray.length).set({
                 email: this.props.currentUserSignUpData.email,
-                pass: this.props.currentUserSignUpData.pass,
+                password: this.props.currentUserSignUpData.pass,
                 id: this.props.usersArray.length
             });
             this.props.history.push("/sign in");

@@ -35,6 +35,9 @@ class UpComponent extends Component{
 
     HandleSignInButton = () => {
         let singleRegistrationCode = Math.floor(Math.random()*Math.pow(10, 10));
+
+        console.log("Single Registration Code = "+singleRegistrationCode);
+        
         if (this.signInRequestData.email === undefined || this.signInRequestData.pass === undefined || this.signInRequestData.repeatPass === undefined) alert("Please fill all the fields");
         else if (this.signInRequestData.repeatPass !== this.signInRequestData.pass) alert("Passwords do not match");
         else {
