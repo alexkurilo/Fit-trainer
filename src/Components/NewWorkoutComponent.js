@@ -169,7 +169,6 @@ export default withRouter(connect(
             dispatch ({type: 'ADD_NEW_STRING_NEW_WORKOUT', payload})
         },
         onFillNewStringWorkout: (data) => {
-            console.log(data);
             const payload = data;
             dispatch ({type: 'FILL_NEW_STRING_WORKOUT', payload})
         },

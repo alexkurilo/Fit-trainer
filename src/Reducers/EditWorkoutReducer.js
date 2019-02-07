@@ -71,8 +71,6 @@ export default function currentWorkoutWithDate (state = initialState, action){
             return  [...state];
 
         case "SAVE_WORKOUT":
-            console.log(action.payload);
-            console.log(state);
             return  [...state];
 
         case "ADD_WORKOUT":
