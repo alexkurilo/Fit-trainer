@@ -8,8 +8,25 @@ import PinkButton from './ButtonPink';
 import HeaderComponent from "./HeaderComponent";
 import FooterSignComponent from "./FooterSignComponent";
 
+import firebase from 'firebase';
+import {config} from '../Data/data';
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
+
 class InComponent extends Component {
     componentWillMount ( ) {
+        let myThis = this;
+        let ref = firebase.database().ref('/');
+        ref.once('value', function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                let childData = childSnapshot.val();
+                myThis.usersArr.push({email:childData.email, password: childData.password, name: childData.name});
+                if (JSON.stringify(myThis.usersArr) !== JSON.stringify(myThis.props.usersArray) || myThis.props.usersArray.length === 0 ){
+                    myThis.props.onEntryUsersArray(myThis.usersArr);
+                }
+            });
+        });
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
         this.props.onClearExercises();
         this.props.onClearWorkout();
@@ -21,7 +38,7 @@ class InComponent extends Component {
     }
     signInRequestData = {};
     namePage = "Sign in";
-    userData = {};
+    usersArr = [];
 
     ReadEmail = (value) => {
         this.signInRequestData.email = value;
@@ -36,12 +53,15 @@ class InComponent extends Component {
         if (data.email === undefined || data.pass === undefined || data.email === "" || data.pass === "") {
             alert("Please fill all the fields");
         }else {
+            let userIsAvailable = false;
             this.props.usersArray.forEach((item, index)=> {
-                if (this.signInRequestData.email === item.email && this.signInRequestData.pass === item.pass){
+                if (this.signInRequestData.email === item.email && this.signInRequestData.pass === item.password){
+                    userIsAvailable = true;
                     this.props.history.push("/user/"+ item.email+"/dashboard");
                     this.props.onEntryRequest({...item, id:index});
                 }
             });
+            if (!userIsAvailable)alert("You entered incorrectly e-mail or password");
         }
     };
 
@@ -111,6 +131,10 @@ export default withRouter(connect(
         },
         onClearEntryRequest:() => {
             dispatch({type: 'CLEAR_ENTRY_REQUEST'})
+        },
+        onEntryUsersArray: (data) => {
+            const payload = data;
+            dispatch ({type: 'ENTRY_USERS_ARRAY', payload})
         }
     })
 )(InComponent));

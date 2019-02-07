@@ -43,16 +43,22 @@ class UsersWorkoutComponent extends Component {
         let myThis = this;
         let ref = firebase.database().ref('/');
         ref.once('value', function(snapshot) {
+
             snapshot.forEach(function(childSnapshot) {
                 let childData = childSnapshot.val();
                 let childKey = childSnapshot.key;
                 let dataRef = snapshot.ref;
+                /*console.log(childData);
+                console.log(childKey);
+                console.log(dataRef);*/
                 if (+childKey === myThis.props.currentUserSignInData.id){
-                    myThis.props.onSetExercises(childData.exercises);
-                    myThis.props.onSetWorkouts(childData.workouts);
-                    childData.workouts.forEach((element) =>  {
-                        myThis.props.onAddSelectedDates(element.date);
-                    });
+                    if (childData.exercises !== undefined) myThis.props.onSetExercises(childData.exercises);
+                    if (childData.workouts !== undefined) {
+                        myThis.props.onSetWorkouts(childData.workouts);
+                        childData.workouts.forEach((element) =>  {
+                            myThis.props.onAddSelectedDates(element.date);
+                        });
+                    }
                 }
             });
         });

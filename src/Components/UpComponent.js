@@ -38,14 +38,15 @@ class UpComponent extends Component{
         if (this.signInRequestData.email === undefined || this.signInRequestData.pass === undefined || this.signInRequestData.repeatPass === undefined) alert("Please fill all the fields");
         else if (this.signInRequestData.repeatPass !== this.signInRequestData.pass) alert("Passwords do not match");
         else {
+            console.log(singleRegistrationCode);
             this.props.onEntryRequestUp({
                 email: this.signInRequestData.email,
                 pass: this.signInRequestData.pass,
                 id: this.props.usersArray.length,
                 singleRegistrationCode: singleRegistrationCode
             });
+            this.props.history.push("/email verification");
         }
-        this.props.history.push("/email verification");
     };
 
     render(){

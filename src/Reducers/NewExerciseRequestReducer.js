@@ -9,6 +9,7 @@ export default function currentNewExerciseRequest (state = initialState, action)
             return  initialState;
 
         case "NEW_EXERCISE_REQUEST":
+            console.log(action.payload);
             return  action.payload;
 
         default:

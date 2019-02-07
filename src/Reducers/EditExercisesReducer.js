@@ -6,7 +6,9 @@ export default function currentEditExercisesRequest (state = initialState, actio
             return [];
 
         case "SET_EXERCISES":
-            return [...action.payload];
+            if (action.payload !== undefined) return [...action.payload];
+            else return [];
+
 
         case "CHANGE_EDIT_EXERCISE_NAME":
             state[action.payload[1]].exercisesName = action.payload[0];

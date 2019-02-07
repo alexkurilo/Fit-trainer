@@ -19,6 +19,7 @@ const NamePageArray = [
 
 
 class SignComponent extends Component{
+
     showIllumination = (item) => {
         if (item.name.toLowerCase() === this.props.currentNamePage.toLowerCase())return "illumination";
     };
@@ -69,6 +70,7 @@ class SignComponent extends Component{
 
 export default withRouter(connect(
     (state) => ({
-        currentNamePage: state.currentNamePage
+        currentNamePage: state.currentNamePage,
+        usersArray: state.usersArray
     })
 )(SignComponent));

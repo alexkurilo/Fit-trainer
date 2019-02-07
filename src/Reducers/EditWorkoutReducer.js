@@ -11,7 +11,8 @@ export default function currentWorkoutWithDate (state = initialState, action){
             return  [];
 
         case "SET_WORKOUTS":
-            return [...action.payload];
+            if (action.payload !== undefined) return [...action.payload];
+            else return [];
 
         case "CREATE_NEW_WORKOUT":
             return  [...state, {id: state.length, date: action.payload[0], exercises: action.payload[1]}];
@@ -70,6 +71,8 @@ export default function currentWorkoutWithDate (state = initialState, action){
             return  [...state];
 
         case "SAVE_WORKOUT":
+            console.log(action.payload);
+            console.log(state);
             return  [...state];
 
         case "ADD_WORKOUT":

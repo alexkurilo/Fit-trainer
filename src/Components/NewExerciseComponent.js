@@ -24,6 +24,7 @@ class NewExerciseComponent extends Component {
 
     ReadExerciseName = (value) => {
         this.newExerciseRequestData.exercisesName = value;
+        this.newExerciseRequestData.measurementType = this.newExerciseRequestData.measurementType || 'meters';
     };
 
     ReadMeasurementType = (value) => {
