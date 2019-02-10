@@ -30,7 +30,6 @@ class TextFieldsPassword extends React.Component {
 
         return (
             <TextField 
-                id="standard-password-input"
                 label= {this.props.placeholder}
                 className={classes.textField}
                 type="password"

@@ -2,17 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router-dom";
 
-import TextFieldsStandart from './TextFieldsStandart';
-import TextFieldsSelectNative from './TextFieldsSelectNative';
-import PinkButton from './ButtonPink';
+import TextFieldsStandart from '../UIComponents/TextFieldsStandart';
+import TextFieldsSelectNative from '../UIComponents/TextFieldsSelectNative';
+import MyButton from '../UIComponents/MyButton';
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
-
-import firebase from 'firebase';
-import {config} from '../Data/data';
-if (!firebase.apps.length) {
-    firebase.initializeApp(config);
-}
 
 class NewExerciseComponent extends Component {
     componentWillMount ( ) {
@@ -29,13 +23,6 @@ class NewExerciseComponent extends Component {
 
     ReadMeasurementType = (value) => {
         this.newExerciseRequestData.measurementType = value;
-    };
-
-    HandleCreateExerciseButton = () => {
-        this.props.onNewExerciseRequest(this.newExerciseRequestData);
-        this.props.onAddNewExerciseRequest(this.newExerciseRequestData);
-        this.props.history.push("/user/"+(this.props.currentUserSignInData.email)+"/dashboard");
-        firebase.database().ref("/").child(this.props.currentUserSignInData.id).child("exercises").child(this.props.currentEditExercisesRequest.length).set(this.newExerciseRequestData);
     };
 
     render(){
@@ -56,8 +43,11 @@ class NewExerciseComponent extends Component {
                         <TextFieldsSelectNative onreadfield={this.ReadMeasurementType}
                                                 placeholder ={"Measurement Type"}
                         />
-                        <PinkButton  handlesigninbutton={this.HandleCreateExerciseButton}
-                                     label={"CREATE EXERCISE"}
+                        <MyButton   prefix = {"/user/"}
+                                    ending = {"/dashboard"}
+                                    background = {'#CD00CD'}
+                                    label={"CREATE EXERCISE"}
+                                    newexerciserequestdata = {this.newExerciseRequestData}
                         />
                     </div>
                 </div>
@@ -70,21 +60,11 @@ class NewExerciseComponent extends Component {
 
 export default withRouter(connect(
     (state) => ({
-        currentNewExerciseRequest: state.currentNewExerciseRequest,
         currentNamePage: state.currentNamePage,
-        currentUserSignInData: state.currentUserSignInData,
-        currentEditExercisesRequest: state.currentEditExercisesRequest
+        currentUserSignInData: state.currentUserSignInData
     }),
 
     dispatch => ({
-        onNewExerciseRequest: (data) => {
-            const payload = data;
-            dispatch ({type: 'NEW_EXERCISE_REQUEST', payload})
-        },
-        onAddNewExerciseRequest: (data) => {
-            const payload = data;
-            dispatch ({type: 'ADD_NEW_EXERCISE', payload})
-        },
         onChangeNamePage:(data) => {
             const payload = data;
             dispatch({type: 'CHANGE_NAME_PAGE', payload})

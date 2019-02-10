@@ -37,12 +37,6 @@ const currencies = [
 ];
 
 class TextFieldsSelectNative extends React.Component {
-  state = {
-      name: 'Cat in the Hat',
-      age: '',
-      multiline: 'Controlled',
-      currency: 'EUR',
-  };
 
   ReadField = (event) => {
     this.props.onreadfield(event.target.value);
@@ -58,7 +52,7 @@ class TextFieldsSelectNative extends React.Component {
             select
             label={this.props.placeholder}
             className={classes.textField}
-            defaultValue={this.props.value}
+            //defaultValue={this.props.value}
             value={this.props.value}
             onChange={(event)=>this.ReadField(event)}
             SelectProps={{

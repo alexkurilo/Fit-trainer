@@ -13,7 +13,7 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 120,
+        width: 80,
     },
     dense: {
         marginTop: 19,
@@ -37,7 +37,6 @@ class TextFieldsStandartNumber extends React.Component {
                 margin="dense"
                 onChange={(event)=>this.ReadField(event)}
                 value = {+this.props.value <= 1 ? "1" : this.props.value}
-                defaultValue={"1"}
             />
         );
     }

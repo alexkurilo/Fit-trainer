@@ -57,9 +57,6 @@ export default function currentNewWorkoutRequest (state = initialState, action){
             rewriteId(state);
             return [...state];
 
-        case "CLEAR_NEW_WORKOUT":
-            return  [];
-
         default:
             return [...state];
     }

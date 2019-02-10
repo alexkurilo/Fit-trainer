@@ -2,38 +2,18 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
-import TextFieldsStandartNumber from './TextFieldsStandartNumber';
-import NativeSelects from "./NativeSelects";
-import PinkButton from './ButtonPink';
-import ButtonTurquoise from "./ButtonTurquoise";
-import ButtonYellow from "./ButtonYellow";
+import TextFieldsStandartNumber from '../UIComponents/TextFieldsStandartNumber';
+import NativeSelects from "../UIComponents/NativeSelects";
+import MyButton from '../UIComponents/MyButton';
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
-
-import firebase from 'firebase';
-import {config} from '../Data/data';
-if (!firebase.apps.length) {
-    firebase.initializeApp(config);
-}
-
 
 class NewWorkoutComponent extends Component{
     componentWillMount ( ) {
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
     };
 
-    namePage = "New workout";
-
-    HandleCreateWorkoutButton = () => {
-        this.props.onCreateWorkout([this.props.selectDate, this.props.currentNewWorkoutRequest]);
-        this.props.history.push("/user/"+this.props.currentUserSignInData.email+"/dashboard");
-        firebase.database().ref("/").child(this.props.currentUserSignInData.id.toString()).child("workouts").child(this.props.currentWorkoutWithDate.length).set ({
-            exercises: this.props.currentNewWorkoutRequest,
-            date: this.props.selectDate,
-            id: this.props.currentEditExercisesRequest.length
-        });
-        this.props.onClearNewWorkout();
-    };
+    namePage = "New Workout";
 
     ReadNewExerciseName = (event, index) => {
         for (let i=0; i < this.props.currentEditExercisesRequest.length; i++){
@@ -52,19 +32,9 @@ class NewWorkoutComponent extends Component{
     };
 
     showMeasurementType = (target) => {
-        if (Object.keys(target).length > 1 ) {
-            return <div className={"measurementType"}>{this.props.currentEditExercisesRequest[target.numberInList].measurementType}</div>
-        }else{
-            return <div className={"measurementType"}>{"undefined"}</div>
-        };
-    };
-
-    addNewStringWorkout = () => {
-        this.props.onAddNewStringWorkout(this.props.currentNewWorkoutRequest);
-    };
-
-    ClickButton = (data) => {
-        this.props.onClickButton([...data]);
+        if (Object.keys(target).length > 1 && target.numberInList !== undefined ) {
+            return <div className={"measurementType"}>{this.props.currentEditExercisesRequest[target.numberInList].measurementType }</div>
+        }else return <div className={"measurementType"}>{""}</div>;
     };
 
     mapComponent = () => {
@@ -76,42 +46,41 @@ class NewWorkoutComponent extends Component{
                             className={"stringData"}>
                         <NativeSelects
                                                 onreadfield={(event) => this.ReadNewExerciseName(event, index)}
-                                                value = {item.exercisesName}
+                                                value = {item.exercisesName || "Entered some exercise, pleace."}
                                                 placeholder={"Exercise Name"}
                                                 data = {this.props.currentEditExercisesRequest}
                         /> 
                         <TextFieldsStandartNumber
                                                 onreadfield={(event) => this.ReadRepeatsField(event, index)}
-                                                value = {item.repeats}
+                                                value = {item.repeats || "1"}
                                                 placeholder={"Repeats"}
                         /> 
                         <TextFieldsStandartNumber
                                                 onreadfield={(event) => this.ReadMeasurementField(event, index)}
-                                                value = {item.measurements}
+                                                value = {item.measurements || "1"}
                                                 placeholder={"Measurement"}
                         />
                         {
                             this.showMeasurementType(item.length > 1 ? this.props.currentEditExercisesRequest[item.numberInList].measurementType : item)
                         }
-                        <ButtonTurquoise    index = {index}
-                                            namebutton = {"top"}
-                                            clickbutton = {this.ClickButton}
-                                            imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
+                        <MyButton   index = {index}
+                                    namebutton = {"top"}
+                                    background = {'#00C5CD'}
+                                    imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
                         />
-                        <ButtonTurquoise    index = {index}
-                                            namebutton = {"bottom"}
-                                            clickbutton = {this.ClickButton}
-                                            imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
+                        <MyButton   index = {index}
+                                    namebutton = {"bottom"}
+                                    background = {'#00C5CD'}
+                                    imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
                         />
-                        <ButtonYellow   index = {index}
-                                        namebutton = {"delete"}
-                                        clickbutton = {this.ClickButton}
-                                        imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
+                        <MyButton   namebutton = {"delete"}
+                                    index = {index}
+                                    background = {'#FFD700'}
+                                    imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
                         />
                     </div>
                     }
                 )
-                 
             ) 
         }
     };
@@ -119,7 +88,9 @@ class NewWorkoutComponent extends Component{
     visibleButtonCreateWorkout = () => {
         if (this.props.currentNewWorkoutRequest.length !== 0){
             return (
-                <PinkButton  handlesigninbutton={this.HandleCreateWorkoutButton}
+                <MyButton   prefix = {"/user/"}
+                            ending = {"/dashboard"}
+                            background = {'#CD00CD'}
                             label={"CREATE WORKOUT"}
                 />
             )
@@ -137,8 +108,8 @@ class NewWorkoutComponent extends Component{
                         <h3>{this.namePage}</h3>
                     </div>
                     <div className={"signBody"}>
-                        <PinkButton  handlesigninbutton={this.addNewStringWorkout}
-                                     label={"ADD EXERCISE"}
+                        <MyButton   background = {'#CD00CD'}
+                                    label={"ADD EXERCISE"}
                         />
                         <div className={'blockStrings'}>
                             {this.mapComponent()}
@@ -155,19 +126,13 @@ class NewWorkoutComponent extends Component{
 
 export default withRouter(connect(
     (state) => ({
-        currentEditExercisesRequest: state.currentEditExercisesRequest,
-        currentNewWorkoutRequest: state.currentNewWorkoutRequest,
-        selectDate: state.selectDate,
-        currentNamePage: state.currentNamePage,
         currentUserSignInData: state.currentUserSignInData,
-        currentWorkoutWithDate: state.currentWorkoutWithDate
+        currentNewWorkoutRequest: state.currentNewWorkoutRequest,
+        currentEditExercisesRequest: state.currentEditExercisesRequest,
+        currentNamePage: state.currentNamePage
     }),
 
     dispatch => ({
-        onAddNewStringWorkout: (data) => {
-            const payload = data;
-            dispatch ({type: 'ADD_NEW_STRING_NEW_WORKOUT', payload})
-        },
         onFillNewStringWorkout: (data) => {
             const payload = data;
             dispatch ({type: 'FILL_NEW_STRING_WORKOUT', payload})
@@ -179,18 +144,6 @@ export default withRouter(connect(
         onFillQuantityMeasurements: (data) => {
             const payload = data;
             dispatch ({type: 'FILL_QUANTITY_MEASUREMENTS', payload})
-        },
-        onClickButton: (data) => {
-            const payload = data;
-            dispatch ({type: 'CLICK_BUTTON_NEW_WORKOUT', payload})
-        },
-        onCreateWorkout:(data) => {
-            const payload = data;
-            dispatch ({type: 'CREATE_NEW_WORKOUT', payload})
-        },
-        onClearNewWorkout:(data) => {
-            const payload = data;
-            dispatch ({type: 'CLEAR_NEW_WORKOUT', payload})
         },
         onChangeNamePage:(data) => {
             const payload = data;

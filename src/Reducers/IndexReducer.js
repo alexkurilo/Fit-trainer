@@ -11,6 +11,7 @@ import selectedDays from "./SelectedDaysReducer";
 import selectDate from "./SelectDateReducer";
 import currentNamePage from "./NamePageReducer";
 import usersArray from "./EntryUsersArrayreducer";
+import registrationCode from "./EntryRegistrationCodeReducer";
 
 export default combineReducers ({
     routing: routerReducer,
@@ -23,5 +24,6 @@ export default combineReducers ({
     selectedDays,
     selectDate,
     currentNamePage,
-    usersArray
+    usersArray,
+    registrationCode
 })

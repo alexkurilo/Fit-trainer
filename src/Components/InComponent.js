@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
-import TextFieldsDense from './TextFieldsDense';
-import TextFieldsPassword from './TextFieldsPassword';
-import PinkButton from './ButtonPink';
+import TextFieldsDense from '../UIComponents/TextFieldsDense';
+import TextFieldsPassword from '../UIComponents/TextFieldsPassword';
+import MyButton from '../UIComponents/MyButton';
 import HeaderComponent from "./HeaderComponent";
 import FooterSignComponent from "./FooterSignComponent";
 
@@ -48,23 +48,6 @@ class InComponent extends Component {
         this.signInRequestData.pass = value;
     };
 
-    HandleSignInButton = () => {
-        let data = this.signInRequestData;
-        if (data.email === undefined || data.pass === undefined || data.email === "" || data.pass === "") {
-            alert("Please fill all the fields");
-        }else {
-            let userIsAvailable = false;
-            this.props.usersArray.forEach((item, index)=> {
-                if (this.signInRequestData.email === item.email && this.signInRequestData.pass === item.password){
-                    userIsAvailable = true;
-                    this.props.history.push("/user/"+ item.email+"/dashboard");
-                    this.props.onEntryRequest({...item, id:index});
-                }
-            });
-            if (!userIsAvailable)alert("You entered incorrectly e-mail or password");
-        }
-    };
-
     render(){
         return(
             <div className={'inComponent'}>
@@ -79,8 +62,11 @@ class InComponent extends Component {
                         <TextFieldsPassword readinput={this.ReadPass}
                                             plaseholder ={"Password"}
                         />
-                        <PinkButton  handlesigninbutton={this.HandleSignInButton}
-                                    label={"SIGN IN"}
+                        <MyButton   prefix = {"/user/"}
+                                    ending = {"/dashboard"}
+                                    background = {'#CD00CD'}
+                                    signinrequestdata = {this.signInRequestData}
+                                    label={this.namePage.toUpperCase()}
                         />
                         <Link   to="/sign up"
                             className={"link"}>
@@ -99,7 +85,6 @@ export default withRouter(connect(
     (state) => ({
         currentUserSignInData: state.currentUserSignInData,
         currentNamePage: state.currentNamePage,
-        usersArray: state.usersArray
     }),
 
     dispatch => ({

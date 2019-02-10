@@ -2,51 +2,29 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link, withRouter} from "react-router-dom";
 
-import TextFieldsDense from './TextFieldsDense';
-import TextFieldsPassword from './TextFieldsPassword';
-import PinkButton from './ButtonPink';
+import TextFieldsDense from '../UIComponents/TextFieldsDense';
+import TextFieldsPassword from '../UIComponents/TextFieldsPassword';
+import MyButton from '../UIComponents/MyButton';
 import HeaderComponent from "./HeaderComponent";
 import FooterSignComponent from "./FooterSignComponent";
-
-import firebase from 'firebase';
-import {config} from '../Data/data';
-if (!firebase.apps.length) {
-    firebase.initializeApp(config);
-}
 
 class UpComponent extends Component{
     componentWillMount ( ) {
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
     }
-    signInRequestData = {};
+    signUpRequestData = {};
     namePage = "Sign up";
 
     ReadEmail = (value) => {
-        this.signInRequestData.email = value;
+        this.signUpRequestData.email = value;
     };
 
     ReadPass = (value) => {
-        this.signInRequestData.pass = value;
+        this.signUpRequestData.pass = value;
     };
 
     ReadRepeatPass = (value) => {
-        this.signInRequestData.repeatPass = value;
-    };
-
-    HandleSignInButton = () => {
-        let singleRegistrationCode = Math.floor(Math.random()*Math.pow(10, 10));
-        if (this.signInRequestData.email === undefined || this.signInRequestData.pass === undefined || this.signInRequestData.repeatPass === undefined) alert("Please fill all the fields");
-        else if (this.signInRequestData.repeatPass !== this.signInRequestData.pass) alert("Passwords do not match");
-        else {
-            console.log(singleRegistrationCode);
-            this.props.onEntryRequestUp({
-                email: this.signInRequestData.email,
-                pass: this.signInRequestData.pass,
-                id: this.props.usersArray.length,
-                singleRegistrationCode: singleRegistrationCode
-            });
-            this.props.history.push("/email verification");
-        }
+        this.signUpRequestData.repeatPass = value;
     };
 
     render(){
@@ -66,8 +44,11 @@ class UpComponent extends Component{
                         <TextFieldsPassword readinput={this.ReadRepeatPass}
                                             plaseholder ={"Repeat Password"}
                         />
-                        <PinkButton  handlesigninbutton={this.HandleSignInButton}
-                                     label={"SIGN UP"}
+                        <MyButton    prefix = {"/email verification"}
+                                     ending = {""}
+                                     background = {'#CD00CD'}
+                                     signuprequestdata = {this.signUpRequestData}
+                                     label={this.namePage.toUpperCase()}
                         />
                         <Link   to="/sign in"
                                 className={"link"}>
@@ -83,9 +64,7 @@ class UpComponent extends Component{
 
 export default withRouter(connect(
     (state) => ({
-        currnetUserSignUpData: state.currentUserSignUpData,
-        currentNamePage: state.currentNamePage,
-        usersArray: state.usersArray
+        currentNamePage: state.currentNamePage
     }),
 
     dispatch => ({

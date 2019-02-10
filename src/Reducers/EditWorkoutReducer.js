@@ -61,9 +61,10 @@ export default function currentWorkoutWithDate (state = initialState, action){
             return [...state];
 
         case "ADD_NEW_STRING_EXERCISE":
+            //console.log(state);
             state[action.payload].exercises.push({
                 id: state.length-1,
-                exercisesName: "Entered some exercise, pleace.",
+                exercisesName: "",
                 measurementType: "",
                 measurements: 1,
                 repeats: 1

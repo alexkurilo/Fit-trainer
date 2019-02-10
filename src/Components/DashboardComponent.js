@@ -4,8 +4,7 @@ import {connect} from 'react-redux';
 import InfiniteCalendar, {Calendar, defaultMultipleDateInterpolation, withMultipleDates}  from 'react-infinite-calendar';
 import "react-infinite-calendar/styles.css";
 import { Link, withRouter } from "react-router-dom";
-import ButtonTurquoise from './ButtonTurquoise';
-
+import MyButton from '../UIComponents/MyButton';
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
@@ -14,6 +13,16 @@ class DashboardComponent extends Component  {
         if (this.props.currentNamePage !== this.namePage) this.props.onChangeNamePage(this.namePage);
     }
 
+    componentDidMount(){
+        let { clientHeight, clientWidth } = this.refs.myDashboardPage;
+        this.maxHeight = clientHeight;
+        this.maxWidth = clientWidth;
+        //console.log(this.maxHeight, this.maxWidth);
+        //console.log(clientHeight, clientWidth);
+    }
+
+    maxHeight;
+    maxWidth;
     namePage = "Dashboard";
 
     selectDay = (event) => {
@@ -36,25 +45,42 @@ class DashboardComponent extends Component  {
     
     render(){
         return(
-            <div className={'inComponent'}>
+            <div className={'inComponent'} ref={"inComponent"}>
                 <HeaderComponent namePage = {this.namePage}
                                  username = {this.props.currentUserSignInData.email}
                 />
-                    <div className={'myDashboardPage'}>
-                        <Link   to={"/user/"+this.props.currentUserSignInData.email+"/new exercise"}
-                                className={"link"}>
-                            <ButtonTurquoise  label={"ADD NEW EXERCISE"}
-                            />
-                        </Link>
+                    <div className={'myDashboardPage'} ref={"myDashboardPage"}>
+                        <div className="linkBlock">
+                            <Link   to={"/user/"+this.props.currentUserSignInData.email+"/new exercise"}
+                                    className={"link"}>
+                                <MyButton  label={"ADD NEW EXERCISE"}
+                                           background = {'#00C5CD'}
+                                />
+                            </Link>
+                            <Link   to={"/user/"+this.props.currentUserSignInData.email+"/edit exercises"}
+                                    className={"link"}>
+                                <MyButton  label={"EDIT EXERCISES"}
+                                           background = {'#00C5CD'}
+                                />
+                            </Link>
+                        </div>
                         <InfiniteCalendar
-                            width={400}
-                            height={600}
+                            displayOptions={{
+                                layout: 'landscape',
+                                showOverlay: true,
+                                shouldHeaderAnimate: true,
+                                showHeader: false,
+                                todayHelperRowOffset: 1,
+                                overscanMonthCount: 1
+                            }}
+                            height={this.maxHeight}
+                            width={this.maxWidth}
                             minDate={new Date()}
                             Component={withMultipleDates(Calendar)}
                             interpolateSelection={defaultMultipleDateInterpolation}
                             onSelect={(event) => this.selectDay(event)}
                             selected={this.props.selectedDays}
-                        />,
+                        />
                     </div>
                 <FooterComponent/>
             </div>

@@ -19,9 +19,7 @@ export default function currentEditExercisesRequest (state = initialState, actio
             return [...state];
 
         case "CLICK_BUTTON_EDIT_EXERCISES":
-
             switch (action.payload[0]) {
-
                 case "top":
                     if (action.payload[1] > 0){
                         [state[action.payload[1]-1], state[action.payload[1]]]=[state[action.payload[1]], state[action.payload[1]-1]];
@@ -37,6 +35,9 @@ export default function currentEditExercisesRequest (state = initialState, actio
                 case "delete":
                     state.splice(action.payload[1], 1);
                     break;
+
+                default:
+                    return state;
             }
             return [...state];
 

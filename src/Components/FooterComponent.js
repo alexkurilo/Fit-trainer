@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-const FooterComponent = ({}) => {
+const FooterComponent = () => {
     return(
         <div className={"footerIn"}>
             <div className={"footerInlinks"}>

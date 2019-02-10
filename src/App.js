@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 
 import SignComponent from "./Components/SignComponent";
-import UsersWorcoutComponent from "./Components/UsersWorcoutComponent";
+import UsersWorkoutComponent from "./Components/UsersWorkoutComponent";
 import './App.css';
 
 class App extends Component {
@@ -15,7 +15,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Switch>
-                    <Route exsact path = '/user/:user' component = {UsersWorcoutComponent} />
+                    <Route exsact path = '/user/:user' component = {UsersWorkoutComponent} />
                     <Route path = '/' component = {SignComponent}/>
                 </Switch>
             </div>

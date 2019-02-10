@@ -36,7 +36,7 @@ class TextFieldsStandart extends React.Component {
                 margin="dense"
                 onChange={(event)=>this.ReadField(event)}
                 value = {this.props.value}
-                defaultValue={this.props.value}
+                //defaultValue={this.props.value}
             />
         );
     }

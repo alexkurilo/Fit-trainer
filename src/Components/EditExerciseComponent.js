@@ -2,19 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
-import TextFieldsStandart from './TextFieldsStandart';
-import TextFieldsSelectNative from './TextFieldsSelectNative';
-import PinkButton from './ButtonPink';
-import ButtonTurquoise from "./ButtonTurquoise";
-import ButtonYellow from "./ButtonYellow";
+import TextFieldsStandart from '../UIComponents/TextFieldsStandart';
+import TextFieldsSelectNative from '../UIComponents/TextFieldsSelectNative';
+import MyButton from '../UIComponents/MyButton';
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
-
-import firebase from 'firebase';
-import {config} from '../Data/data';
-if (!firebase.apps.length) {
-    firebase.initializeApp(config);
-}
 
 class EditExerciseComponent extends Component{
     componentWillMount ( ) {
@@ -23,11 +15,6 @@ class EditExerciseComponent extends Component{
 
     namePage = "Edit Exercises";
 
-    HandleCreateExerciseButton = () => {
-        this.props.history.push("/user/"+(this.props.currentUserSignInData.email)+"/dashboard");
-        firebase.database().ref("/").child(this.props.currentUserSignInData.id).child("exercises").set (this.props.currentEditExercisesRequest);
-    };
-
     ReadEditExerciseName = (value, index) => {
         this.props.onChangeEditExerciseName([value, index]);
     };
@@ -35,11 +22,6 @@ class EditExerciseComponent extends Component{
     ReadEditMeasurementType = (value, index) => {
         this.props.onChangeEditMeasurementType([value, index]);
     };
-
-    ClickButton = (data) => {
-        this.props.onClickButton([...data]);
-    };
-
 
     render(){
         return(
@@ -67,28 +49,30 @@ class EditExerciseComponent extends Component{
                                                                     value = {item.measurementType}
                                                                     placeholder = {"Measurement Type"}
                                             />
-                                            <ButtonTurquoise    index = {index}
-                                                                namebutton = {"top"}
-                                                                clickbutton = {this.ClickButton}
-                                                                imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
+                                            <MyButton   index = {index}
+                                                        namebutton = {"top"}
+                                                        background = {'#00C5CD'}
+                                                        imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/up.png"}
                                             />
-                                            <ButtonTurquoise    index = {index}
-                                                                namebutton = {"bottom"}
-                                                                clickbutton = {this.ClickButton}
-                                                                imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
+                                            <MyButton   index = {index}
+                                                        namebutton = {"bottom"}
+                                                        background = {'#00C5CD'}
+                                                        imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/down.png"}
                                             />
-                                            <ButtonYellow   index = {index}
-                                                            namebutton = {"delete"}
-                                                            clickbutton = {this.ClickButton}
-                                                            imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
+                                            <MyButton   namebutton = {"delete"}
+                                                        index = {index}
+                                                        background = {'#FFD700'}
+                                                        imgsrc = {"https://img.icons8.com/ultraviolet/24/000000/delete-sign.png"}
                                             />
                                         </div>
                                     )
                                 })
                             }
                         </div>
-                        <PinkButton  handlesigninbutton={this.HandleCreateExerciseButton}
-                                     label={"EDIT EXERCISES"}
+                        <MyButton   prefix = {"/user/"}
+                                    ending = {"/dashboard"}
+                                    background = {'#CD00CD'}
+                                    label={this.namePage.toUpperCase()}
                         />
                     </div>
                 </div>
@@ -114,10 +98,6 @@ export default withRouter(connect(
         onChangeEditMeasurementType: (data) => {
             const payload = data;
             dispatch ({type: 'CHANGE_EDIT_MEASUREMENT_TYPE', payload})
-        },
-        onClickButton: (data) => {
-            const payload = data;
-            dispatch ({type: 'CLICK_BUTTON_EDIT_EXERCISES', payload})
         },
         onChangeNamePage:(data) => {
             const payload = data;

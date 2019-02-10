@@ -38,7 +38,6 @@ const NamePageArray = [
     }];
 
 class UsersWorkoutComponent extends Component {
-
     componentWillMount ( ) {
         let myThis = this;
         let ref = firebase.database().ref('/');
@@ -47,10 +46,7 @@ class UsersWorkoutComponent extends Component {
             snapshot.forEach(function(childSnapshot) {
                 let childData = childSnapshot.val();
                 let childKey = childSnapshot.key;
-                let dataRef = snapshot.ref;
-                /*console.log(childData);
-                console.log(childKey);
-                console.log(dataRef);*/
+                //let dataRef = snapshot.ref;
                 if (+childKey === myThis.props.currentUserSignInData.id){
                     if (childData.exercises !== undefined) myThis.props.onSetExercises(childData.exercises);
                     if (childData.workouts !== undefined) {
@@ -68,7 +64,7 @@ class UsersWorkoutComponent extends Component {
         if (item.name.toLowerCase() === this.props.currentNamePage.toLowerCase())return "illumination";
     };
 
-    showhover = (item) => {
+    showHover = (item) => {
         for (let i=0; i<3; i++){
             if (NamePageArray[i].name.toLowerCase() === item.name.toLowerCase())return "hover";
         }
@@ -99,12 +95,12 @@ class UsersWorkoutComponent extends Component {
                     <hr/>
                     {NamePageArray.map((item, index) => {
                         return (
-                            <div className={"myButton"+" "+ this.showIllumination(item)+" "+this.showhover(item)}
+                            <div className={"myButton "+ this.showIllumination(item)+" "+this.showHover(item)}
                                  key = {index}
                                  onClick = {() => this.onclick(item)}
                             >
                                 <div>
-                                    <img src={item.src}/>{item.name}
+                                    <img src={item.src} alt={""}/>{item.name}
                                 </div>
                             </div>
                         )

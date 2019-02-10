@@ -28,7 +28,7 @@ class SimpleMenu extends React.Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          <img  src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png"/>
+          <img  src="https://img.icons8.com/ios-glyphs/30/000000/gender-neutral-user.png" alt="Want to sign out?"/>
         </Button>
         <Menu
           id="simple-menu"

@@ -44,12 +44,15 @@ class SignComponent extends Component{
 
                     {NamePageArray.map((item, index) => {
                         return (
-                            <div className={"myButton"+" "+ this.showIllumination(item)+" "+this.showhover(item)}
+                            <div className={"myButton "+ this.showIllumination(item)+" "+this.showhover(item)}
                                  key = {index}
                             >
                                 <Link   to={"/"+item.name.toLowerCase()}
                                      className={"link"}>
-                                    <div><img src={item.src}/>{item.name}</div>
+                                    <div>
+                                        <img src={item.src} alt={""}/>
+                                        {item.name}
+                                    </div>
                                 </Link>
                             </div>
                         )
